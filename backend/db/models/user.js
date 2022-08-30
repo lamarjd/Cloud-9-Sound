@@ -54,6 +54,26 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.belongsTo(
+        models.Comment, {
+          foreignKey: 'userId'
+        }
+      );
+      User.belongsTo(
+        models.Playlist, {
+          foreignKey: 'userId'
+        }
+      );
+      User.belongsTo(
+        models.Song, {
+          foreignKey: 'userId'
+        }
+      );
+      User.belongsTo(
+        models.Album, {
+          foreignKey: 'userId'
+        }
+      )
     }
   }
   User.init({
@@ -71,6 +91,21 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    hashedPassword: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [60, 60]
+      }
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -80,14 +115,14 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true
       }
     },
-    hashedPassword: {
+    imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
-        len: [60, 60]
+        isUrl: true
       }
     }
-  }, {
+  },
+  {
     sequelize,
     modelName: 'User',
      defaultScope: {
