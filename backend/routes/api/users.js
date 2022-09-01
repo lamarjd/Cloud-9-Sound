@@ -2,7 +2,7 @@
 
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -34,6 +34,31 @@ const validateSignup = [
 
 //   res.send("hello")
 // })
+
+
+// Get all Albums of an Artist from an id
+// auth no
+router.get('/albums/:albumId', async (req,res) => {
+
+  const {artistId} = req.params
+
+  const artistAlbums = await User.findByPk(artistId, {
+    include: [{model:Song,
+      attributes: ['id','username','imageUrl']
+    },
+    {model: Album,
+      attributes: ['id','title','imageUrl']}
+    ],
+  })
+  if(!artistAlbums){
+      res.status(404)
+      return res.json({
+        message: "Song couldn't be found",
+        statusCode: 404
+      })
+    }
+  return res.json({"Albums": artistAlbums})
+})
 
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
