@@ -404,7 +404,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"title\": \"Yesterday\",\n  \"description\": \"A song about the past.\",\n  \"url\": \"audio url\",\n  \"imageUrl\": \"image.url\"\n}",
+					"raw": "{\n  \"title\": \"Yesterday\",\n  \"description\": \"A song about the past.\",\n  \"url\": \"audio url\",\n  \"imageUrl\": \"image.url\",\n  \"albumId\": {{albumId}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,13 +412,64 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/albums/{{albumId}}/songs",
+					"raw": "{{url}}/songs",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"albums",
-						"{{albumId}}",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Song without an Album Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"postman.setEnvironmentVariable('songId', responseJson.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Yesterday\",\n  \"description\": \"A song about the past.\",\n  \"url\": \"audio url\",\n  \"imageUrl\": \"image.url\",\n  \"albumId\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/songs",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
 						"songs"
 					]
 				}
@@ -458,7 +509,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"title\": \"Yesterday\",\n  \"description\": \"A song about the past.\",\n  \"url\": \"audio url\",\n  \"imageUrl\": \"image.url\"\n}",
+					"raw": "{\n  \"title\": \"Yesterday\",\n  \"description\": \"A song about the past.\",\n  \"url\": \"audio url\",\n  \"imageUrl\": \"image.url\",\n  \"albumId\": 5000\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -466,13 +517,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/albums/5000/songs",
+					"raw": "{{url}}/songs",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"albums",
-						"5000",
 						"songs"
 					]
 				}
@@ -1620,12 +1669,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/users/{{userId}}/songs",
+					"raw": "{{url}}/artists/{{userId}}/songs",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"users",
+						"artists",
 						"{{userId}}",
 						"songs"
 					]
@@ -1677,12 +1726,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/users/5000/songs",
+					"raw": "{{url}}/artists/5000/songs",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"users",
+						"artists",
 						"5000",
 						"songs"
 					]
