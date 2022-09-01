@@ -7,22 +7,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
-
-// Sign up
-// router.post(
-//   '/',
-//   async (req, res) => {
-//     const { email, password, username } = req.body;
-//     const user = await User.signup({ email, username, password });
-
-//     await setTokenCookie(res, user);
-
-//     return res.json({
-//       user
-//     });
-//   }
-// );
-
 const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
@@ -43,15 +27,40 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+// Get all Songs of an Artist from an id
+// no auth
+// router.get('/artists/:id/songs', async (req, res, next) => {
+//   const {userId} = req.params
+
+//   res.send("hello")
+// })
+
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
+router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
     const user = await User.signup({ email, username, password, firstName, lastName });
 
     await setTokenCookie(res, user);
 
+    // const existingEmail = await User.findAll({
+    //   where: {email}
+    // });
+    // // console.log(existingEmail)
+
+    // if (existingEmail) {
+    //   res.statusCode = 403;
+    //   res.json({
+    //     message: "User already exists",
+    //     statusCode: res.statusCode,
+    //     errors: {
+    //       email: "User with that email already exists"
+    //     }
+    //   })
+    // }
+
     return res.json({
       user,
+      // existingEmail
     });
   }
 );

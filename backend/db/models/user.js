@@ -41,35 +41,38 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     //Define a static method signup in the user.js model file that accepts an object with a username, email, and password key. Hash the password using the bcryptjs package's hashSync method. Create a User with the username, email, and hashedPassword. Return the created user using the currentUser scope.
-     static async signup({ username, email, password }) {
+     static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
+        firstName,
+        lastName,
         username,
         email,
         hashedPassword
       });
+
       return await User.scope('currentUser').findByPk(user.id);
     }
 
 
     static associate(models) {
       // define association here
-      User.belongsTo(
+      User.hasMany(
         models.Comment, {
           foreignKey: 'userId'
         }
       );
-      User.belongsTo(
+      User.hasMany(
         models.Playlist, {
           foreignKey: 'userId'
         }
       );
-      User.belongsTo(
+      User.hasMany(
         models.Song, {
           foreignKey: 'userId'
         }
       );
-      User.belongsTo(
+      User.hasMany(
         models.Album, {
           foreignKey: 'userId'
         }
@@ -93,11 +96,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     hashedPassword: {
       type: DataTypes.STRING,
@@ -109,8 +112,15 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
+        // duplicate(value) {
+        //   if (value) {
+        //     const err = new Error("User already exists");
+        //     err.message = "User already exists"
+        //     err.status = 403
+        //   }
+        // },
         len: [3, 256],
         isEmail: true
       }
