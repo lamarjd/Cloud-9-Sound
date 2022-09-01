@@ -5,6 +5,22 @@ const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { Album, Song, User } = require('../../db/models');
 
 
+// Edit an album
+// auth yes
+router.put('/:albumId', requireAuth, async (req, res, next) => {
+    const { userId } = req.user.id
+    const { albumId } = req.params;
+    const { title, description, imageUrl } = req.body;
+
+    const editAlbum = await Album.findByPk(
+        userId,
+        albumId,
+        editAlbum.title = title,
+        description,
+        imageUrl,
+    );
+    res.json(editAlbum)
+});
 
 // Get details of an Album from an id
 // auth no

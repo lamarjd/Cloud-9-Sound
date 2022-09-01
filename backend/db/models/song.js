@@ -71,6 +71,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Song',
+    defaultScope: {
+      attributes: {
+        include: ["userId", "createdAt", "updatedAt"]
+        }
+      },
   });
   return Song;
 };

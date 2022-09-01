@@ -2,12 +2,24 @@ const express = require('express');
 const router = express.Router();
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 
 // res.send("Hello")
 
 
-
+// Get all Comments by a Song's id
+// auth no
+router.get('/:songId/comments', async (req, res) => {
+    const {songId} = req.params
+    const comments = await Song.findByPk(songId, {
+        include: [{model: Comment,
+            attributes: ['userId', 'songId', 'body', 'createdAt', 'updatedAt'],
+            model: User,
+            attributes: ['id', 'username']
+        }]
+    })
+    res.json({"Comments": [comments]})
+});
 
 // Get all Songs created by the Current User
 // requires auth

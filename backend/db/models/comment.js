@@ -42,6 +42,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Comment',
+     defaultScope: {
+      attributes: { 
+        include: ["userId", "songId", "body", "createdAt", "updatedAt"]
+        }
+      },
   });
   return Comment;
 };
