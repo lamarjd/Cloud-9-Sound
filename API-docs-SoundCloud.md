@@ -598,6 +598,7 @@ Deletes an existing song.
 
 ## PLAYLISTS
 
+[x]
 ### Get all Playlists of an Artist from an id
 
 Returns all the playlists created by the specified artist.
@@ -605,6 +606,7 @@ Returns all the playlists created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: GET
+              users    :userId
   * URL: /api/artists/:artistId/playlists
   * Body: none
 
@@ -642,6 +644,7 @@ Returns all the playlists created by the specified artist.
     }
     ```
 
+[x]
 ### Create a Playlist
 
 Creates and returns a new playlist.
@@ -660,7 +663,7 @@ Creates and returns a new playlist.
       "imageUrl": "image url"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 201
   * Headers:

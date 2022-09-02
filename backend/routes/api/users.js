@@ -2,10 +2,15 @@
 
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, sequelize, Playlist } = require('../../db/models');
+
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
+const { Op } = require('sequelize');
+const Sequelize = require("sequelize");
+const playlist = require('../../db/models/playlist');
+
 
 const validateSignup = [
   check('email')
@@ -27,14 +32,26 @@ const validateSignup = [
   handleValidationErrors
 ];
 
-// Get all Songs of an Artist from an id
-// no auth
-// router.get('/artists/:id/songs', async (req, res, next) => {
-//   const {userId} = req.params
+// Get all playlists by User Id
+router.get('/:userId/playlists', async (req, res) => {
+  const {userId} = req.params;
 
-//   res.send("hello")
-// })
+  const userPlaylists = await Playlist.scope([{method: ['userPlaylists', userId]}]).findAll();
 
+  // error handling
+  if (!userPlaylists.userId) {
+    res.status(404);
+    res.json({
+      message: "Artist couldn't be found",
+      statusCode: 404
+    })
+  }
+  /////////////////
+
+
+  res.json({"Playlists": userPlaylists})
+
+});
 
 // Get all Albums of an Artist from an id
 // auth no
@@ -59,6 +76,43 @@ router.get('/albums/:albumId', async (req,res) => {
     }
   return res.json({"Albums": artistAlbums})
 })
+
+// Get details of an Artist from an id
+router.get('/:artistId', async (req, res) => {
+  const userId = req.user.id
+  const {artistId} = req.params
+  // const {imageUrl} = req.query
+
+
+
+  const songs = await Song.count({where: userId})
+
+  const albums = await Album.count({where: userId})
+
+
+  const details = await User.findByPk(artistId, {
+      // attributes: ['id', 'username', 'imageUrl'],
+    where: {
+      artistId: artistId,
+    }
+    });
+
+
+    if (!details) {
+      res.status(404);
+      res.json({
+        message: "Artist couldn't be found",
+        statusCode: 404
+      })
+    }
+
+    console.log(details)
+
+    res.json({"id": details.id, "username": details.username, "totalAlbums": albums, "totalSongs": songs, "imageUrl": details.imageUrl});
+});
+
+
+
 
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
