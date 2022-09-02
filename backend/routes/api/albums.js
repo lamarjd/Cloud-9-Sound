@@ -4,23 +4,53 @@ const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Album, Song, User } = require('../../db/models');
 
+// Get all Albums created by the Current User
+// requires auth
+router.get('/current', requireAuth, async (req, res) => {
+    const userId = req.user.id;
+
+    const userAlbums = await Album.findAll({  where: {userId} });
+    res.json({"Albums":userAlbums})
+})
+
 
 // Edit an album
-// auth yes
-router.put('/:albumId', requireAuth, async (req, res, next) => {
-    const { userId } = req.user.id
-    const { albumId } = req.params;
-    const { title, description, imageUrl } = req.body;
+// authenticate: yes
+// authorize: yes -  Album must belong to the current user
+router.put('/:albumId', requireAuth, async (req, res) =>{
+  const {userId} = req.user.id
+  const {albumId} = req.params
+  const {title, description, imageUrl} = req.body
+  const edited = await Album.findByPk(albumId)
 
-    const editAlbum = await Album.findByPk(
-        userId,
-        albumId,
-        editAlbum.title = title,
-        description,
-        imageUrl,
-    );
-    res.json(editAlbum)
-});
+  // error handling
+  if(!edited){
+    res.status(404)
+    res.json({
+        message: "Album couldn't be found",
+        statusCode: 404
+    })
+  }
+
+  if (edited.userId !== req.user.id) {
+    res.status(403);
+    res.json({
+      message: "You do no have authorization to edit this album",
+      statusCode: 403
+    });
+  }
+  ////////////////
+if (edited.userId === req.user.id) {
+  if (title && description && imageUrl)
+  edited.title = title
+  edited.description = description
+  edited.imageUrl = imageUrl
+}
+
+  await edited.save()
+  return res.json(edited)
+})
+
 
 // Get details of an Album from an id
 // auth no
@@ -29,21 +59,20 @@ router.get('/:albumId', async (req,res) => {
   const {albumId} = req.params
 
   const artistAlbums = await Album.findByPk(albumId, {
-    include: [{model:User,
+    include: [{model:User, as: "Artist",
       attributes: ['id','username','imageUrl']
     },
-    {model: Song,
-      attributes: ['id', 'userId', 'albumId', 'title', 'description', 'url', 'imageUrl']}
+    {model: Song}
     ],
   })
   if(!artistAlbums){
       res.status(404)
       return res.json({
-        message: "Song couldn't be found",
+        message: "Album couldn't be found",
         statusCode: 404
       })
     }
-  return res.json({"Albums": artistAlbums})
+  return res.json(artistAlbums)
 })
 
 
@@ -51,7 +80,7 @@ router.get('/:albumId', async (req,res) => {
 // Create an Album
 // auth true
 router.post('/', requireAuth, async (req, res, next) => {
-    const {userId} = req.user.id
+    const userId = req.user.id
     const { title, description, imageUrl} = req.body
     const album = await Album.create({
         userId,
@@ -70,14 +99,7 @@ router.get('/', async (req, res) => {
     res.json({"Albums": albums})
 });
 
-// Get all Albums created by the Current User
-// requires auth
-router.get('/current', requireAuth, async (req, res, next) => {
-    const userId = req.user.id;
 
-    const userAlbums = await Album.findAll({  where: {userId} });
-    res.json({"Albums":userAlbums})
-})
 
 
 

@@ -13,12 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Album.belongsTo(
         models.User, {
-          foreignKey: 'userId'
+        foreignKey: 'userId'
         });
       Album.hasMany(
         models.Song, {
           foreignKey: 'albumId'
         });
+        // Album.associate = function(models) {
+        //   Album.findByPk(models.User, {as: 'Artist', foreignKey: 'userId'})
+        // }
     }
   }
   Album.init({

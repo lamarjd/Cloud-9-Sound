@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         });
       Song.belongsTo(
         models.User, {
-          // needs to ref the actual foreign key
           foreignKey: 'userId'
         });
     }
@@ -43,23 +42,33 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   len: [2, 50]
-      // }
+      // unique: true,
+      validate: {
+        // checker(value) {
+        //   if (!value) {
+        //     throw new Error("Song title is required")
+        //   }
+        // },
+        len: [2, 50]
+      }
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   len: [2, 250]
-      // }
+      validate: {
+        len: [2, 250]
+      }
     },
     url: {
       type: DataTypes.STRING,
       allowNull: false,
       // validate: {
-      //   isUrl: true
-      // }
+    //     check(value) {
+    //       if (!value) {
+    //         throw new Error("Audio is required")
+    //       }
+    //     }
+    //   }
     },
     imageUrl: {
       type: DataTypes.STRING,
@@ -71,10 +80,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Song',
-    defaultScope: {
-      attributes: {
-        include: ["userId", "createdAt", "updatedAt"]
-        }
+    scopes: {
+      comment: {
+        attributes: {exclude: ["albumId", "title", "description", "url" ]}
+      }
       },
   });
   return Song;
