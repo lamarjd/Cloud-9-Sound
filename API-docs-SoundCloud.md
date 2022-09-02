@@ -347,7 +347,7 @@ Returns all the songs created by the specified artist.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Get details of a Song from an id
 
 Returns the details of a song specified by its id.
@@ -434,7 +434,7 @@ Creates and returns a new song with or without an album.
       "albumId": 1
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 201
   * Headers:

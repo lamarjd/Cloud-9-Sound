@@ -65,8 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(
         models.Playlist, {
           foreignKey: 'userId'
-        }
-      );
+        });
       User.hasMany(
         models.Song, {
           foreignKey: 'userId'
@@ -75,8 +74,11 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(
         models.Album, {
           foreignKey: 'userId'
-        }
-      )
+        });
+        //   User.associate = function(models) {
+        //   User.find(models.User, {as: 'Artist', foreignKey: 'userId'})
+        // }
+
     }
   }
   User.init({
