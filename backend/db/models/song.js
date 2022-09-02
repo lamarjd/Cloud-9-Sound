@@ -83,6 +83,14 @@ module.exports = (sequelize, DataTypes) => {
     scopes: {
       comment: {
         attributes: {exclude: ["albumId", "title", "description", "url" ]}
+      },
+      artistSongs(userId) {
+        // const { User } = require('../models');
+        return {
+          where: {
+            userId: userId
+          },
+        }
       }
       },
   });

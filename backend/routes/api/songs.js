@@ -34,7 +34,7 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
 router.get('/:songId/comments', async (req, res) => {
     const {songId} = req.params
 
-    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findOne()
+    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findAll();
 
     // const comments = await Song.scope(['comment']).findByPk(songId, {
     //     include: [{model: Comment,
