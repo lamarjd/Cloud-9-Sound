@@ -2,11 +2,12 @@
 // backend/routes/api/session.js
 const express = require('express');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
 const router = express.Router();
 
 
@@ -21,22 +22,9 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-// Log in
+
+// Login a user
 router.post('/', validateLogin, async (req, res, next) => {
-    const { credential, password } = req.body;
-
-    const user = await User.login({ credential, password });
-
-    await setTokenCookie(res, user);
-
-    return res.json({
-      user
-    });
-  }
-);
-
-
-router.post('/',  async (req, res, next) => {
     const { credential, password } = req.body;
 
     const user = await User.login({ credential, password });
@@ -49,22 +37,47 @@ router.post('/',  async (req, res, next) => {
       return next(err);
     }
 
-    await setTokenCookie(res, user);
+    await setTokenCookie(res, user)
 
-    return res.json({
-      user
-    });
+    // Body Validation errors
+    if (!user.credential || !user.password) {
+      res.status(400);
+      res.json({
+        message: "Validation Error",
+        statusCode: "400",
+        errors: {
+          credential: "Email or username is required",
+          password: "Password is required"
+        }
+      })
+    }
+
+    return res.json(
+      user,
+      // {
+      //   "token": token
+      // }
+
+    );
   }
 );
 
-// Restore session user
-router.get('/', restoreUser, (req, res) => {
+// Get the Current User
+router.get('/', restoreUser, requireAuth, (req, res) => {
     const { user } = req;
     if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
+      return res.json(
+        user.toSafeObject()
+      );
     } else return res.json({});
+  }
+);
+
+
+// Log out
+router.delete('/', (_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
   }
 );
 

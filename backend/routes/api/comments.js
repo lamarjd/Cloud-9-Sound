@@ -34,6 +34,18 @@ router.put('/:commentId', requireAuth, async (req, res) => {
         statusCode: 403
        })
     }
+
+    if (!edit.body) {
+        res.status(400);
+        res.json({
+            message: "Validation Error",
+            statusCode: 400,
+            errors: {
+                body: "Comment body text is needed"
+            }
+        })
+    }
+
     ///////////////////////
     // redundant - is this good practice still?
     if (edit.userId === req.user.id) {
@@ -64,7 +76,7 @@ router.delete('/:commentId', requireAuth, restoreUser, async (req, res) => {
     if (deleteComment.userId !== req.user.id) {
         res.status(403);
         res.json({
-            message: "You do not have authorization to delete this song",
+            message: "You do not have authorization to delete this comment",
             statusCode: 403
         });
     }

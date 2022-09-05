@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     toSafeObject() {
-      const { id, username, email } = this; // context will be the User instance
-      return { id, username, email };
+      const { id, username, email, firstName, lastName } = this; // context will be the User instance
+      return { id, username, email, firstName, lastName };
     };
 
     validatePassword(password) {
@@ -68,6 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         });
       User.hasMany(
         models.Song, {
+          // as: 'Artist',
           foreignKey: 'userId'
         }
       );
@@ -76,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId'
         });
         //   User.associate = function(models) {
-        //   User.find(models.User, {as: 'Artist', foreignKey: 'userId'})
+        //   User.hasMany(models.Song, {as: 'Artist', foreignKey: 'userId'})
         // }
 
     }
@@ -92,7 +93,6 @@ module.exports = (sequelize, DataTypes) => {
           if (Validator.isEmail(value)) {
             throw new Error('Cannot be an email.')
           }
-
         }
       }
     },
@@ -114,7 +114,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      // unique: true,
+      unique: true,
       validate: {
         // duplicate(value) {
         //   if (value) {
@@ -146,9 +146,6 @@ module.exports = (sequelize, DataTypes) => {
         currentUser: {
           attributes: { exclude: ["hashedPassword"] }
         },
-        loginUser: {
-          attributes: {}
-        }
       }
   });
   return User;
