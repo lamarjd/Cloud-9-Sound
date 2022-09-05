@@ -1,15 +1,10 @@
-
 // backend/routes/api/session.js
-const express = require('express');
-
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const express = require('express')
+const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
-
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-
+const { handleValidationErrors } = require('../../utils/validation')
 const router = express.Router();
-
 
 const validateLogin = [
   check('credential')
@@ -23,11 +18,12 @@ const validateLogin = [
 ];
 
 
-// Login a user
-router.post('/', validateLogin, async (req, res, next) => {
-    const { credential, password } = req.body;
 
-    const user = await User.login({ credential, password });
+// Login
+router.post('/',
+validateLogin, async (req, res, next) => {
+  const { credential, password } = req.body;
+  const user = await User.login({ credential, password });
 
     if (!user) {
       const err = new Error('Login failed');
@@ -37,33 +33,27 @@ router.post('/', validateLogin, async (req, res, next) => {
       return next(err);
     }
 
-    await setTokenCookie(res, user)
-
-    // Body Validation errors
-    if (!user.credential || !user.password) {
-      res.status(400);
-      res.json({
-        message: "Validation Error",
-        statusCode: "400",
-        errors: {
-          credential: "Email or username is required",
-          password: "Password is required"
-        }
-      })
-    }
+    await setTokenCookie(res, user);
 
     return res.json(
-      user,
-      // {
-      //   "token": token
-      // }
-
+      user
     );
   }
 );
 
-// Get the Current User
-router.get('/', restoreUser, requireAuth, (req, res) => {
+  router.delete(
+    '/',
+    async (_req, res) => {
+      res.clearCookie('token');
+      return res.json({ message: 'success' });
+    }
+  );
+
+
+  // Restore session user
+router.get('/',
+  restoreUser,
+  (req, res) => {
     const { user } = req;
     if (user) {
       return res.json(
@@ -73,12 +63,5 @@ router.get('/', restoreUser, requireAuth, (req, res) => {
   }
 );
 
-
-// Log out
-router.delete('/', (_req, res) => {
-    res.clearCookie('token');
-    return res.json({ message: 'success' });
-  }
-);
 
 module.exports = router;

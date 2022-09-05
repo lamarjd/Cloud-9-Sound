@@ -13,7 +13,8 @@ module.exports = {
         references: {
           model: 'Albums',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       userId: {
         // field: "Artist",

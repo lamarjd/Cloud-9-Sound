@@ -65,7 +65,7 @@ router.get('/:songId/comments', async (req, res) => {
       })
     }
 
-    res.json({"Comments": commentScope})
+    res.json({"Comments": [commentScope]})
 });
 
 // Get all Songs created by the Current User
@@ -204,36 +204,32 @@ router.delete('/:songId', requireAuth, async (req, res, next) => {
 // authenticate: yes
 router.post('/', requireAuth, async (req, res, next) => {
   const userId = req.user.id
+
   let {title, description, url, imageUrl, albumId } = req.body
 
-
-
-  const song = await Song.create({
-    title,
-    description,
-    url,
-    imageUrl,
-    albumId,
-    userId
-  });
-
-  if (!await Album.findByPk(albumId) && !song) {
-       res.status(404)
+// check albumID in req.body. If it's falsey, throw error
+  if (albumId && albumId !== null) {
+    let search = await Album.findByPk(albumId)
+    if (!search) {
+      res.status(404)
       return res.json({
         message: "Album couldn't be found",
         statusCode: 404
       });
+    }
   }
-//  if(!song){
-//       res.status(404)
-//       return res.json({
-//         message: "Album couldn't be found",
-//         statusCode: 404
-//       })
-//     }
 
-  if (!song.title) {
-    res.status(400);
+    const song = await Song.create({
+      title,
+      description,
+      url,
+      imageUrl,
+      albumId,
+      userId
+    });
+
+if (!song.title) {
+  res.status(400);
     res.json({
       message: "Validation Error",
       statusCode: 400,
@@ -244,8 +240,9 @@ router.post('/', requireAuth, async (req, res, next) => {
     });
   }
 
-    res.status(201)
-    res.json(song)
+  res.status(201)
+  res.json(song)
+
 })
 
 // find All Songs
