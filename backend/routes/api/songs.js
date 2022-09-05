@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Song, User, Album, Comment } = require('../../db/models');
+const { Song, User, Album, Comment, PlaylistSong } = require('../../db/models');
 
 
 // Create a Comment for a Song based on the Song's id
@@ -12,17 +12,30 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
   const {songId} = req.params
   const {body} = req.body
   let find = await Song.findByPk(songId)
+
   if(!find){
     res.status(404)
     res.json({
-      "message": "Song couldn't be found",
-      "statusCode": 404
+      message: "Song couldn't be found",
+      statusCode: 404
     })
   }
+
+  if (!body) {
+    res.status(400);
+    return res.json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors: {
+        body: "Comment body text is required"
+      }
+    })
+  }
+
   let newComment = await Comment.create({
     userId,
-    body,
-    songId
+    songId,
+    body
   })
   res.json(newComment)
 })
@@ -34,15 +47,15 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
 router.get('/:songId/comments', async (req, res) => {
     const {songId} = req.params
 
-    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findAll();
+    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findOne();
 
-    // const comments = await Song.scope(['comment']).findByPk(songId, {
-    //     include: [{model: Comment,
-    //       // attributes: ['id','userId', 'songId', 'body', 'createdAt', 'updatedAt'],
-    //         model: User,
-    //         attributes: ['id', 'username']
-    //     }]
-    // })
+    // if (!songId) {
+    //   res.status(404);
+    //   return res.json({
+    //     message: "Song couldn't be found",
+    //     statusCode: 404
+    //   })
+    // }
 
     if (!commentScope) {
       res.status(404);
@@ -52,7 +65,7 @@ router.get('/:songId/comments', async (req, res) => {
       })
     }
 
-    res.json({"Comments": [commentScope]})
+    res.json({"Comments": commentScope})
 });
 
 // Get all Songs created by the Current User
@@ -86,6 +99,18 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
     });
   }
 
+  if (!title) {
+    res.status(400);
+    res.json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors: {
+        title: "Song title is required",
+        url: "Audio is required"
+      }
+    })
+  }
+
   // authorization - only current user can edit songs that belong to the user
   if (editSong.userId !== req.user.id) {
        res.status(403)
@@ -114,17 +139,19 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
   }
 });
 
-
+// Get details of a Song from an id
 router.get('/:songId', async (req,res) =>{
   const {songId} = req.params
 
   const songs = await Song.findByPk(songId, {
     include: [{model:User,
+      as: 'Artist',
       attributes: ['id','username','imageUrl']
     },
     {model: Album,
       attributes: ['id','title','imageUrl']}
     ],
+    // raw: true
   });
 
   // error handling
@@ -177,7 +204,16 @@ router.delete('/:songId', requireAuth, async (req, res, next) => {
 // authenticate: yes
 router.post('/', requireAuth, async (req, res, next) => {
   const userId = req.user.id
-  const {title, description, url, imageUrl, albumId } = req.body
+  let {title, description, url, imageUrl, albumId } = req.body
+
+  if (!await Album.findByPk(albumId)) {
+       res.status(404)
+      return res.json({
+        message: "Album couldn't be found",
+        statusCode: 404
+      });
+  }
+
 
   const song = await Song.create({
     title,
@@ -187,22 +223,94 @@ router.post('/', requireAuth, async (req, res, next) => {
     albumId,
     userId
     });
- if(!song){
-      res.status(404)
-      return res.json({
-        message: "Album couldn't be found",
-        statusCode: 404
-      })
-    }
+
+//  if(!song){
+//       res.status(404)
+//       return res.json({
+//         message: "Album couldn't be found",
+//         statusCode: 404
+//       })
+//     }
+
+  if (!song.title) {
+    res.status(400);
+    res.json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors: {
+        title: "Song title is required",
+        url: "Audio is required"
+      }
+    });
+  }
+
     res.status(201)
     res.json(song)
 })
 
 // find All Songs
 router.get('/', async (req, res, next) => {
-    const songs = await Song.findAll({
+
+  let errorResult = {errors: [], count: 0, pageCount: 0};
+  let {page, size, createdAt, title} = req.query
+
+  if (!size) {
+    size = 20
+  }
+  if (!page) {
+    page = 1
+  }
+
+  size = parseInt(size)
+  page = parseInt(page)
+
+  const pagination = {};
+
+  if (Number.isInteger(page) && Number.isInteger(size) && page >= 1 && size >= 1) {
+    pagination.limit = size;
+    pagination.offset = size * (page - 1)
+  } else if (size < 0 || page < 0 || page > 10 || !createdAt) {
+  errorResult.errors.push({
+    message: "Validation Error",
+    statusCode: 400,
+    errors: {
+      page: "Page must be greater than or equal to 0",
+      size: "Size must be greater than or equal to 0",
+      createdAt: "CreatedAt is invalid"
+    }
+  })
+}
+
+  if (errorResult.errors.length) {
+    errorResult.count = await Song.count()
+    res.status(400);
+    res.json(errorResult)
+    return;
+  }
+
+let result = {};
+
+result.songs = await Song.findAll({
+  attributes: ['id', 'userId', 'albumId', 'title', 'description', 'url', 'createdAt', 'updatedAt', 'imageUrl'],
+      ...pagination
     });
-    res.json(songs)
+
+    //   if (page === '0' && size === '0') {
+    //     result.page = 1;
+    //     result.size = 1
+    // } else {
+    //     result.page = page
+    //     result.size = size
+    // }
+
+    result.page = page || 1
+    result.size = size
+
+    // result.pageCount = size === 0 ? 1 : Math.ceil(result.count / size);
+
+    // result.pageCount = Math.floor((result.count / size) + 1)
+
+    res.json({"Songs": result.songs, "page": result.page, "size": result.size})
 });
 
 

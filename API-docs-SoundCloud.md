@@ -233,6 +233,7 @@ user's information.
 
 ## SONGS
 
+[x]
 ### Get all Songs
 
 Returns all the songs.
@@ -266,7 +267,7 @@ Returns all the songs.
       ]
     }
     ```
-
+[x]
 ### Get all Songs created by the Current User
 
 Returns all the songs created by the current user.
@@ -276,7 +277,7 @@ Returns all the songs created by the current user.
   * Method: GET
   * URL: /api/songs/current
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -347,7 +348,7 @@ Returns all the songs created by the specified artist.
       "statusCode": 404
     }
     ```
-[x]
+[ ]
 ### Get details of a Song from an id
 
 Returns the details of a song specified by its id.
@@ -387,7 +388,7 @@ Returns the details of a song specified by its id.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find a Song with the specified id
   * Status Code: 404
   * Headers:
@@ -403,6 +404,7 @@ Returns the details of a song specified by its id.
 
 ### Create a Song
 
+[x]
 Creates and returns a new song with or without an album.
 
 * Require Authentication: true
@@ -454,7 +456,7 @@ Creates and returns a new song with or without an album.
       "previewImage": "image url"
     }
     ```
-
+[x]
 * Error Response: Body validation error
   * Status Code: 400
   * Headers:
@@ -471,7 +473,7 @@ Creates and returns a new song with or without an album.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find an Album with the specified albumId if albumId
   is not null
   * Status Code: 404
@@ -508,7 +510,7 @@ Updates and returns an existing song.
       "albumId": null
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -545,7 +547,7 @@ Updates and returns an existing song.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find a Song with the specified id
   * Status Code: 404
   * Headers:
@@ -644,7 +646,7 @@ Returns all the playlists created by the specified artist.
     }
     ```
 
-[x]
+
 ### Create a Playlist
 
 Creates and returns a new playlist.
@@ -795,7 +797,7 @@ Returns the details of a playlist specified by its id.
       ]
     }
     ```
-
+[x]
 * Error response: Couldn't find a Playlist with the specified id
   * Status Code: 404
   * Headers:
@@ -808,7 +810,7 @@ Returns the details of a playlist specified by its id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Edit a Playlist
 
 Updates and returns an existing playlist.
@@ -828,7 +830,7 @@ Updates and returns an existing playlist.
       "imageUrl": "image url"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -845,7 +847,7 @@ Updates and returns an existing playlist.
       "previewImage": "image url"
     }
     ```
-
+[x]
 * Error Response: Body validation error
   * Status Code: 400
   * Headers:
@@ -861,7 +863,7 @@ Updates and returns an existing playlist.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find a Playlist with the specified id
   * Status Code: 404
   * Headers:
@@ -954,7 +956,7 @@ Returns all the comments that belong to a song specified by id.
   * Method: GET
   * URL: /api/songs/:songId/comments
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -992,7 +994,7 @@ Returns all the comments that belong to a song specified by id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Create a Comment for a Song based on the Song's id
 
 Create and return a new comment for a song specified by id.
@@ -1010,7 +1012,7 @@ Create and return a new comment for a song specified by id.
       "body": "I love this song!"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1027,7 +1029,7 @@ Create and return a new comment for a song specified by id.
       "updatedAt": "2021-11-19 20:39:36" ,
     }
     ```
-
+[x]
 * Error Response: Body validation errors
   * Status Code: 400
   * Headers:
@@ -1043,7 +1045,7 @@ Create and return a new comment for a song specified by id.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find a Song with the specified id
   * Status Code: 404
   * Headers:
@@ -1161,6 +1163,7 @@ Delete an existing comment.
 
 ## ALBUMS
 
+[x]
 ### Get all Albums
 
 Returns all the Albums.
@@ -1170,7 +1173,7 @@ Returns all the Albums.
   * Method: GET
   * URL: /api/albums
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1193,6 +1196,7 @@ Returns all the Albums.
     }
     ```
 
+[x]
 ### Get all Albums created by the Current User
 
 Returns all the Albums created by the current user.
@@ -1202,7 +1206,7 @@ Returns all the Albums created by the current user.
   * Method: GET
   * URL: /api/albums/current
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1269,7 +1273,7 @@ Returns all the albums created by the specified artist.
       "statusCode": 404
     }
     ```
-
+["User" needs to be "Artist"]
 ### Get details of an Album from an id
 
 Returns the details of an album specified by its id.
@@ -1315,7 +1319,7 @@ Returns the details of an album specified by its id.
       ]
     }
     ```
-
+[x]
 * Error response: Couldn't find an Album with the specified id
   * Status Code: 404
   * Headers:
@@ -1348,7 +1352,7 @@ Creates and returns a new album.
       "imageUrl": "image url"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 201
   * Headers:
@@ -1366,7 +1370,7 @@ Creates and returns a new album.
       "previewImage": "image url"
     }
     ```
-
+[x]
 * Error Response: Body validation error
   * Status Code: 400
   * Headers:
@@ -1382,7 +1386,7 @@ Creates and returns a new album.
       }
     }
     ```
-
+[x]
 ### Edit an Album
 
 Updates and returns an existing album.
@@ -1403,7 +1407,7 @@ Updates and returns an existing album.
       "imageUrl": "image url"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1421,7 +1425,7 @@ Updates and returns an existing album.
       "previewImage": "image url"
     }
     ```
-
+[x]
 * Error Response: Body validation error
   * Status Code: 400
   * Headers:
@@ -1437,7 +1441,7 @@ Updates and returns an existing album.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find an Album with the specified id
   * Status Code: 404
   * Headers:
@@ -1528,7 +1532,7 @@ Returns the details of an artist specified by their id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Add Query Filters to Get All Songs
 
 Return songs filtered by query parameters.

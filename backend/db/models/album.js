@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Album.belongsTo(
         models.User, {
+          as: 'Artist',
         foreignKey: 'userId'
         });
       Album.hasMany(

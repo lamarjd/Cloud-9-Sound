@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Playlist.belongsTo(
         models.User, {
-          // needs to be an actual foreign key
           foreignKey: 'userId'
         });
       Playlist.belongsToMany(
@@ -26,23 +25,23 @@ module.exports = (sequelize, DataTypes) => {
   Playlist.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
+      // allowNull: false,
+      // unique: true
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       // unique: true,
-      validate: {
-        len: [2, 25]
-      }
+      // validate: {
+      //   len: [2, 25]
+      // }
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isUrl: true
-      }
+      // allowNull: false,
+      // validate: {
+      //   isUrl: true
+      // }
     },
   }, {
     sequelize,

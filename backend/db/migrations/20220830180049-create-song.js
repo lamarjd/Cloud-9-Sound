@@ -16,6 +16,7 @@ module.exports = {
         }
       },
       userId: {
+        // field: "Artist",
         type: Sequelize.INTEGER,
         // allowNull: false,
         references: {

@@ -2,7 +2,7 @@
 
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album, sequelize, Playlist } = require('../../db/models');
+const { User, Song, Album, sequelize, Playlist, PlaylistSong } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -36,10 +36,18 @@ const validateSignup = [
 router.get('/:userId/playlists', async (req, res) => {
   const {userId} = req.params;
 
+ if (!await User.findByPk(userId)) {
+       res.status(404)
+      return res.json({
+        message: "Artist couldn't be found",
+        statusCode: 404
+      });
+  }
+
   const userPlaylists = await Playlist.scope([{method: ['userPlaylists', userId]}]).findAll();
 
   // error handling
-  if (!userPlaylists.userId) {
+  if (!userId) {
     res.status(404);
     res.json({
       message: "Artist couldn't be found",
@@ -77,71 +85,60 @@ router.get('/albums/:albumId', async (req,res) => {
   return res.json({"Albums": artistAlbums})
 })
 
-// Get details of an Artist from an id
-router.get('/:artistId', async (req, res) => {
-  const userId = req.user.id
-  const {artistId} = req.params
-  // const {imageUrl} = req.query
-
-
-
-  const songs = await Song.count({where: userId})
-
-  const albums = await Album.count({where: userId})
-
-
-  const details = await User.findByPk(artistId, {
-      // attributes: ['id', 'username', 'imageUrl'],
-    where: {
-      artistId: artistId,
-    }
-    });
-
-
-    if (!details) {
-      res.status(404);
-      res.json({
-        message: "Artist couldn't be found",
-        statusCode: 404
-      })
-    }
-
-    console.log(details)
-
-    res.json({"id": details.id, "username": details.username, "totalAlbums": albums, "totalSongs": songs, "imageUrl": details.imageUrl});
-});
-
-
 
 
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
+    const {userId} = req.user.id
     const user = await User.signup({ email, username, password, firstName, lastName });
 
     await setTokenCookie(res, user);
 
-    // const existingEmail = await User.findAll({
-    //   where: {email}
-    // });
-    // // console.log(existingEmail)
-
-    // if (existingEmail) {
-    //   res.statusCode = 403;
-    //   res.json({
-    //     message: "User already exists",
-    //     statusCode: res.statusCode,
-    //     errors: {
-    //       email: "User with that email already exists"
-    //     }
-    //   })
-    // }
-
+  if (await User.findAll({where: { email: email}})){
+    res.status(403);
     return res.json({
-      user,
-      // existingEmail
-    });
+      message: "User already exists",
+      statusCode: 403,
+      errors: {
+        email: "User with that email already exists"
+      }
+    })
+  }
+  if (await User.findAll({where: { username: username}})){
+    res.status(403);
+    return  res.json({
+      message: "User already exists",
+      statusCode: 403,
+      errors: {
+        email: "User with that username already exists"
+      }
+    })
+  }
+
+  if (!(user.email || user.username || user.firstName || user.lastName)) {
+    res.status(400);
+    res.json({
+      message: "Validation error",
+      statusCode: 400,
+      errors: {
+        email: "Invalid email",
+        username: "Username is required",
+        firstName: "First Name is required",
+        lastName: "Last Name is required"
+      }
+    })
+  }
+
+  return res.json(
+    user
+    );
   }
 );
+
+router.get('/', async (req, res) => {
+  const users = await User.findAll()
+  res.json(users)
+})
 
 module.exports = router;

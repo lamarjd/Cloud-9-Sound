@@ -32,6 +32,18 @@ router.put('/:albumId', requireAuth, async (req, res) =>{
     })
   }
 
+  if (!title) {
+    res.status(400);
+    res.json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors: {
+        title: "Album title is required"
+      }
+    })
+  }
+
+  // authorization check
   if (edited.userId !== req.user.id) {
     res.status(403);
     res.json({
@@ -49,7 +61,40 @@ if (edited.userId === req.user.id) {
 
   await edited.save()
   return res.json(edited)
-})
+});
+
+// Delete an existing Album.
+// authenticate: yes
+// authorize: yes
+router.delete('/:albumId', requireAuth, restoreUser, async (req, res) => {
+    const { albumId } = req.params
+    const deleteAlbum = await Album.findByPk(albumId);
+
+    // error handling
+    if (!deleteAlbum) {
+        res.status(404);
+        res.json({
+            message: "Album couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    if (deleteAlbum.userId !== req.user.id) {
+        res.status(403);
+        res.json({
+            message: "You do not have authorization to delete this album",
+            statusCode: 403
+        });
+    }
+    //////////////////
+
+    deleteAlbum.destroy()
+    res.status(200);
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+    });
+});
 
 
 // Get details of an Album from an id
@@ -60,6 +105,7 @@ router.get('/:albumId', async (req,res) => {
 
   const artistAlbums = await Album.findByPk(albumId, {
     include: [{model:User,
+      as: 'Artist',
       attributes: ['id','username','imageUrl']
     },
     {model: Song}
@@ -88,6 +134,19 @@ router.post('/', requireAuth, async (req, res, next) => {
         description,
         imageUrl
     });
+
+    if (!album.title) {
+      res.status(400);
+      res.json({
+        message: "Validation Error",
+        statuscode: 400,
+        errors: {
+          title: "Album title is required"
+        }
+      })
+    }
+
+    res.status(201)
     res.json(album)
 });
 
