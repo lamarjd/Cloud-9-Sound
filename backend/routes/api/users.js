@@ -32,35 +32,6 @@ const validateSignup = [
   handleValidationErrors
 ];
 
-// Get all playlists by User Id
-router.get('/:userId/playlists', async (req, res) => {
-  const {userId} = req.params;
-
- if (!await User.findByPk(userId)) {
-       res.status(404)
-      return res.json({
-        message: "Artist couldn't be found",
-        statusCode: 404
-      });
-  }
-
-  const userPlaylists = await Playlist.scope([{method: ['userPlaylists', userId]}]).findAll();
-
-  // error handling
-  if (!userId) {
-    res.status(404);
-    res.json({
-      message: "Artist couldn't be found",
-      statusCode: 404
-    })
-  }
-  /////////////////
-
-
-  res.json({"Playlists": userPlaylists})
-
-});
-
 // Get all Albums of an Artist from an id
 // auth no
 router.get('/albums/:albumId', async (req,res) => {
@@ -90,12 +61,13 @@ router.get('/albums/:albumId', async (req,res) => {
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-    const {userId} = req.user.id
+    // const {userId} = req.user.id
     const user = await User.signup({ email, username, password, firstName, lastName });
 
     await setTokenCookie(res, user);
 
-  if (await User.findAll({where: { email: email}})){
+  if (!await User.findAll({where: { email: email}}))
+  {
     res.status(403);
     return res.json({
       message: "User already exists",
@@ -105,7 +77,7 @@ router.post('/', validateSignup, async (req, res, next) => {
       }
     })
   }
-  if (await User.findAll({where: { username: username}})){
+  if (!await User.findAll({where: { username: username}})){
     res.status(403);
     return  res.json({
       message: "User already exists",
