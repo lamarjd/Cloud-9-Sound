@@ -13,7 +13,7 @@ const playlistsong = require('../../db/models/playlistsong');
 router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     const {playlistId} = req.params;
     const {songId} = req.body;
-    const userId = req.user.id
+    // const {userId} = req.user.id
 
     if (!await Playlist.findByPk(playlistId)) {
       res.status(404)
@@ -40,6 +40,8 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
         },
         attributes: ['id', 'songId', 'playlistId']
     });
+
+
 
 
     /// double check authorization

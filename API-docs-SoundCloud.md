@@ -243,7 +243,7 @@ Returns all the songs.
   * Method: GET
   * URL: /api/songs
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -412,6 +412,7 @@ Creates and returns a new song with or without an album.
   * URL: /api/songs
   * Headers:
     * Content-Type: application/json
+    [x]
   * Body without an album:
 
     ```json
@@ -423,7 +424,7 @@ Creates and returns a new song with or without an album.
       "albumId": null
     }
     ```
-
+[x]
   * Body with an album:
 
     ```json
@@ -435,7 +436,7 @@ Creates and returns a new song with or without an album.
       "albumId": 1
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 201
   * Headers:
@@ -643,7 +644,7 @@ Returns all the playlists created by the specified artist.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Create a Playlist
 
 Creates and returns a new playlist.
@@ -662,7 +663,7 @@ Creates and returns a new playlist.
       "imageUrl": "image url"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 201
   * Headers:
@@ -1453,7 +1454,7 @@ Updates and returns an existing album.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Delete an Album
 
 Deletes an existing album.
@@ -1493,6 +1494,7 @@ Deletes an existing album.
 
 ## ARTISTS
 
+[x]
 ### Get details of an Artist from an id
 
 Returns the details of an artist specified by their id.
@@ -1502,7 +1504,7 @@ Returns the details of an artist specified by their id.
   * Method: GET
   * URL: /api/artists/:artistId
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1531,7 +1533,7 @@ Returns the details of an artist specified by their id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Add Query Filters to Get All Songs
 
 Return songs filtered by query parameters.
