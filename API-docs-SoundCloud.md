@@ -46,7 +46,7 @@ correct role(s) or permission(s).
       "statusCode": 403
     }
     ```
-
+[x]
 ### Get the Current User
 
 Returns the information about the current user that is logged in.
@@ -139,7 +139,7 @@ information.
       }
     }
     ```
-
+[x]
 ### Sign Up a User
 
 Creates a new user, logs them in as the current user, and returns the current
@@ -262,7 +262,7 @@ Returns all the songs.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -296,12 +296,12 @@ Returns all the songs created by the current user.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
     ```
-
+[x]
 ### Get all Songs of an Artist from an id
 
 Returns all the songs created by the specified artist.
@@ -311,7 +311,7 @@ Returns all the songs created by the specified artist.
   * Method: GET
   * URL: /api/artists/:artistId/songs
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -330,12 +330,12 @@ Returns all the songs created by the specified artist.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
     ```
-
+[x]
 * Error response: Couldn't find an Artist with the specified id
   * Status Code: 404
   * Headers:
@@ -348,7 +348,7 @@ Returns all the songs created by the specified artist.
       "statusCode": 404
     }
     ```
-[ ]
+[x]
 ### Get details of a Song from an id
 
 Returns the details of a song specified by its id.
@@ -358,7 +358,7 @@ Returns the details of a song specified by its id.
   * Method: GET
   * URL: /api/songs/:songId
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -375,16 +375,16 @@ Returns the details of a song specified by its id.
       "url": "audio url",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url",
+      "imageUrl": "image url",
       "Artist": {
         "id": 1,
         "username": "JohnSmith",
-        "previewImage": "image url"
+        "imageUrl": "image url"
       },
       "Album": {
         "id": 1,
         "title": "Time",
-        "previewImage": "image url"
+        "imageUrl": "image url"
       }
     }
     ```
@@ -404,7 +404,6 @@ Returns the details of a song specified by its id.
 
 ### Create a Song
 
-[x]
 Creates and returns a new song with or without an album.
 
 * Require Authentication: true
@@ -436,7 +435,7 @@ Creates and returns a new song with or without an album.
       "albumId": 1
     }
     ```
-[x]
+
 * Successful Response
   * Status Code: 201
   * Headers:
@@ -453,7 +452,7 @@ Creates and returns a new song with or without an album.
       "url": "audio url",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 [x]
@@ -487,7 +486,7 @@ Creates and returns a new song with or without an album.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Edit a Song
 
 Updates and returns an existing song.
@@ -527,10 +526,10 @@ Updates and returns an existing song.
       "url": "audio url",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 20:00:00",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
-
+[x]
 * Error Response: Body validation error
   * Status Code: 400
   * Headers:
@@ -608,10 +607,9 @@ Returns all the playlists created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: GET
-              users    :userId
   * URL: /api/artists/:artistId/playlists
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -627,12 +625,12 @@ Returns all the playlists created by the specified artist.
           "name": "Current Favorites",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
     ```
-
+[x]
 * Error response: Couldn't find an Artist with the specified id
   * Status Code: 404
   * Headers:
@@ -645,7 +643,6 @@ Returns all the playlists created by the specified artist.
       "statusCode": 404
     }
     ```
-
 
 ### Create a Playlist
 
@@ -665,7 +662,7 @@ Creates and returns a new playlist.
       "imageUrl": "image url"
     }
     ```
-[x]
+
 * Successful Response
   * Status Code: 201
   * Headers:
@@ -679,7 +676,7 @@ Creates and returns a new playlist.
       "name": "Current Favorites",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 
@@ -699,6 +696,7 @@ Creates and returns a new playlist.
     }
     ```
 
+[x]
 ### Add a Song to a Playlist based on the Playlists's id
 
 Add a song to a playlist specified by the playlist's id.
@@ -717,7 +715,7 @@ Add a song to a playlist specified by the playlist's id.
       "songId": 1
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -731,7 +729,7 @@ Add a song to a playlist specified by the playlist's id.
       "songId": 1
     }
     ```
-
+[x]
 * Error response: Couldn't find a Playlist with the specified id
   * Status Code: 404
   * Headers:
@@ -757,7 +755,7 @@ Add a song to a playlist specified by the playlist's id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Get details of a Playlist from an id
 
 Returns the details of a playlist specified by its id.
@@ -767,7 +765,7 @@ Returns the details of a playlist specified by its id.
   * Method: GET
   * URL: /api/playlists/:playlistId
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -781,7 +779,7 @@ Returns the details of a playlist specified by its id.
       "name": "Current Favorites",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url",
+      "imageUrl": "image url",
       "Songs": [
         {
           "id": 1,
@@ -792,7 +790,7 @@ Returns the details of a playlist specified by its id.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -844,7 +842,7 @@ Updates and returns an existing playlist.
       "name": "Current Favorites",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 20:00:00",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 [x]
@@ -913,7 +911,7 @@ Deletes an existing playlist.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Get all Playlists created by the Current User
 
 Returns all the playlists created by the current user.
@@ -923,7 +921,7 @@ Returns all the playlists created by the current user.
   * Method: GET
   * URL: /api/playlists/current
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -939,7 +937,7 @@ Returns all the playlists created by the current user.
           "name": "Current Favorites",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -947,6 +945,7 @@ Returns all the playlists created by the current user.
 
 ## COMMENTS
 
+[x]
 ### Get all Comments by a Song's id
 
 Returns all the comments that belong to a song specified by id.
@@ -956,6 +955,7 @@ Returns all the comments that belong to a song specified by id.
   * Method: GET
   * URL: /api/songs/:songId/comments
   * Body: none
+
 [x]
 * Successful Response
   * Status Code: 200
@@ -981,7 +981,7 @@ Returns all the comments that belong to a song specified by id.
       ]
     }
     ```
-
+[x]
 * Error response: Couldn't find a Song with the specified id
   * Status Code: 404
   * Headers:
@@ -1058,7 +1058,7 @@ Create and return a new comment for a song specified by id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Edit a Comment
 
 Update and return an existing comment.
@@ -1077,7 +1077,7 @@ Update and return an existing comment.
       "body": "I love this song!"
     }
     ```
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1094,7 +1094,7 @@ Update and return an existing comment.
       "updatedAt": "2021-11-20 20:00:00"
     }
     ```
-
+[x]
 * Error Response: Body validation errors
   * Status Code: 400
   * Headers:
@@ -1110,7 +1110,7 @@ Update and return an existing comment.
       }
     }
     ```
-
+[x]
 * Error response: Couldn't find a Comment with the specified id
   * Status Code: 404
   * Headers:
@@ -1123,7 +1123,7 @@ Update and return an existing comment.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Delete a Comment
 
 Delete an existing comment.
@@ -1134,7 +1134,7 @@ Delete an existing comment.
   * Method: DELETE
   * URL: /api/comments/:commentId
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1147,7 +1147,7 @@ Delete an existing comment.
       "statusCode": 200
     }
     ```
-
+[x]
 * Error response: Couldn't find a Comment with the specified id
   * Status Code: 404
   * Headers:
@@ -1190,12 +1190,11 @@ Returns all the Albums.
           "description": "An album about time.",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
     ```
-
 [x]
 ### Get all Albums created by the Current User
 
@@ -1223,7 +1222,7 @@ Returns all the Albums created by the current user.
           "description": "An album about time.",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -1255,7 +1254,7 @@ Returns all the albums created by the specified artist.
           "description": "An album about time.",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -1273,7 +1272,7 @@ Returns all the albums created by the specified artist.
       "statusCode": 404
     }
     ```
-["User" needs to be "Artist"]
+[x]
 ### Get details of an Album from an id
 
 Returns the details of an album specified by its id.
@@ -1283,7 +1282,7 @@ Returns the details of an album specified by its id.
   * Method: GET
   * URL: /api/albums/:albumId
   * Body: none
-
+[x]
 * Successful Response
   * Status Code: 200
   * Headers:
@@ -1298,11 +1297,11 @@ Returns the details of an album specified by its id.
       "description": "An album about time.",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url",
+      "imageUrl": "image url",
       "Artist": {
         "id": 1,
         "username": "JohnSmith",
-        "previewImage": "image url"
+        "imageUrl": "image url"
       },
       "Songs": [
         {
@@ -1314,7 +1313,7 @@ Returns the details of an album specified by its id.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ]
     }
@@ -1332,7 +1331,7 @@ Returns the details of an album specified by its id.
       "statusCode": 404
     }
     ```
-
+[x]
 ### Create an Album
 
 Creates and returns a new album.
@@ -1367,7 +1366,7 @@ Creates and returns a new album.
       "description": "An album about time.",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 [x]
@@ -1422,7 +1421,7 @@ Updates and returns an existing album.
       "description": "An album about time.",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 20:00:00",
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 [x]
@@ -1516,7 +1515,7 @@ Returns the details of an artist specified by their id.
       "username": "JohnSmith",
       "totalSongs": 10,
       "totalAlbums": 2,
-      "previewImage": "image url"
+      "imageUrl": "image url"
     }
     ```
 
@@ -1532,7 +1531,7 @@ Returns the details of an artist specified by their id.
       "statusCode": 404
     }
     ```
-[x]
+
 ### Add Query Filters to Get All Songs
 
 Return songs filtered by query parameters.
@@ -1566,7 +1565,7 @@ Return songs filtered by query parameters.
           "url": "audio url",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "previewImage": "image url"
+          "imageUrl": "image url"
         }
       ],
       "page": 2,

@@ -206,13 +206,6 @@ router.post('/', requireAuth, async (req, res, next) => {
   const userId = req.user.id
   let {title, description, url, imageUrl, albumId } = req.body
 
-  if (!await Album.findByPk(albumId)) {
-       res.status(404)
-      return res.json({
-        message: "Album couldn't be found",
-        statusCode: 404
-      });
-  }
 
 
   const song = await Song.create({
@@ -222,8 +215,15 @@ router.post('/', requireAuth, async (req, res, next) => {
     imageUrl,
     albumId,
     userId
-    });
+  });
 
+  if (!await Album.findByPk(albumId) && !song) {
+       res.status(404)
+      return res.json({
+        message: "Album couldn't be found",
+        statusCode: 404
+      });
+  }
 //  if(!song){
 //       res.status(404)
 //       return res.json({

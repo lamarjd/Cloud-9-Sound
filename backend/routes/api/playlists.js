@@ -13,7 +13,7 @@ const playlistsong = require('../../db/models/playlistsong');
 router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     const {playlistId} = req.params;
     const {songId} = req.body;
-    const {userId} = req.user.id
+    const userId = req.user.id
 
     if (!await Playlist.findByPk(playlistId)) {
       res.status(404)
@@ -43,13 +43,13 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
 
 
     /// double check authorization
-    if (findPlaylist.userId !== req.user.id) {
-        res.status(403);
-        res.json({
-            message: "You do no have authorization to edit this album",
-            statusCode: 403
-        });
-    }
+    // if (findPlaylist.userId !== req.user.id) {
+    //     res.status(403);
+    //     res.json({
+    //         message: "You do no have authorization to edit this playlist",
+    //         statusCode: 403
+    //     });
+    // }
 
 
     res.json(
@@ -131,12 +131,19 @@ router.delete('/:playlistId', requireAuth, restoreUser, async (req, res) => {
     const deletePlaylist = await Playlist.findByPk(playlistId);
 
     // error handling
-    if (!deletePlaylist) {
+    // if (!deletePlaylist) {
+    //     res.status(404);
+    //     return res.json({
+    //         message: "Playlist couldn't be found",
+    //         statusCode: 404
+    //     })
+    // }
+    if (!await Playlist.findByPk(playlistId)) {
         res.status(404);
-        res.json({
-            message: "Playlist couldn't be found",
-            statusCode: 404
-        })
+        return res.json({
+        message: "Playlist couldn't be found",
+        statusCode: 404
+      });
     }
 
     if (deletePlaylist.userId !== req.user.id) {
@@ -161,7 +168,7 @@ router.get('/:playlistId', async (req, res) => {
     const {playlistId} = req.params
 
   const playlistDetails = await Playlist.findByPk(playlistId, {
-    include: [{model:Song,
+    include: [{model:Song, through:{attributes:[]}
     //   attributes: ['id','userId','albumId', 'title', ' description', 'url', 'createdAt', 'updatedAt', 'imageUrl']
     }],
   });
@@ -203,7 +210,7 @@ router.post('/', requireAuth, async (req, res, next) => {
             }
         })
     }
-
+    res.status(201)
     res.json(playlist)
 });
 
