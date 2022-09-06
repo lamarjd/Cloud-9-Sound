@@ -14,7 +14,7 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
   let find = await Song.findByPk(songId)
 
   // error - if the song with the songId is not found
-  if(!find){
+  if(!find.id){
     res.status(404)
     res.json({
       message: "Song couldn't be found",
@@ -49,20 +49,20 @@ router.get('/:songId/comments', async (req, res) => {
     const {songId} = req.params
 
 
-
-    const commentScope = await Comment.scope([{method: 'songComment', songId}]).findAll({
-      where: {
-        songId: songId
-      }
-    });
-
-    if (!commentScope.id) {
+    if (!await Song.findByPk(songId)) {
       res.status(404);
       return res.json({
         message: "Song couldn't be found",
         statusCode: 404
       });
     }
+
+    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findAll({
+      where: {
+        songId: songId
+      }
+    });
+
 
     res.json({"Comments": commentScope})
 });
