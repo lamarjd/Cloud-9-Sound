@@ -41,8 +41,8 @@ const { restoreUser } = require("../../utils/auth.js");
 //   }
 // );
 
+// API imports
 router.use('/session', sessionRouter);
-
 router.use('/users', usersRouter);
 router.use('/songs', songsRouter);
 router.use('/albums', albumsRouter);

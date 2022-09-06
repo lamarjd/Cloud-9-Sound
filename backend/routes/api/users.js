@@ -10,8 +10,6 @@ const router = express.Router();
 const { Op } = require('sequelize');
 const Sequelize = require("sequelize");
 
-
-
 const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
@@ -36,7 +34,7 @@ const validateSignup = [
 // auth no
 router.get('/albums/:albumId', async (req,res) => {
 
-  const {artistId} = req.params
+  const {artistId} = req.params;
 
   const artistAlbums = await User.findByPk(artistId, {
     include: [{model:Song,
@@ -45,16 +43,16 @@ router.get('/albums/:albumId', async (req,res) => {
     {model: Album,
       attributes: ['id','title','imageUrl']}
     ],
-  })
+  });
   if(!artistAlbums){
       res.status(404)
       return res.json({
         message: "Song couldn't be found",
         statusCode: 404
-      })
+      });
     }
   return res.json({"Albums": artistAlbums})
-})
+});
 
 
 
@@ -75,8 +73,9 @@ router.post('/', validateSignup, async (req, res, next) => {
       errors: {
         email: "User with that email already exists"
       }
-    })
+    });
   }
+
   if (!await User.findAll({where: { username: username}})){
     res.status(403);
     return  res.json({
@@ -102,12 +101,15 @@ router.post('/', validateSignup, async (req, res, next) => {
     })
   }
 
-  return res.json(
-    user
-    );
+  return res.json(user);
   }
 );
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MY USE ONLY
+
+// Get all Users
 router.get('/', async (req, res) => {
   const users = await User.findAll()
   res.json(users)

@@ -9,6 +9,30 @@ const { Op } = require('sequelize');
 const Sequelize = require("sequelize");
 
 
+// Get all Albums of an Artist from an id. Return all the albums created by the specified artist.
+router.get('/:userId/albums', async (req, res) => {
+  const { userId } = req.params;
+
+  const albums = await Album.findAll({
+    where: {
+      userId: userId
+    }
+  });
+
+// error handler
+    if (!albums.userId) {
+      res.status(404);
+      res.json({
+        message: "Artist couldn't be found",
+        statusCode: 404
+      });
+    }
+  ////////////////
+
+  res.json({"Albums": albums});
+});
+
+
 // Get all playlists by User Id
 router.get('/:userId/playlists', async (req, res) => {
   const {userId} = req.params;
@@ -23,19 +47,7 @@ router.get('/:userId/playlists', async (req, res) => {
 
   const userPlaylists = await Playlist.scope([{method: ['userPlaylists', userId]}]).findAll();
 
-  // error handling
-  if (!userId) {
-    res.status(404);
-    res.json({
-      message: "Artist couldn't be found",
-      statusCode: 404
-    })
-  }
-  /////////////////
-
-
   res.json({"Playlists": userPlaylists})
-
 });
 
 
@@ -45,6 +57,7 @@ router.get('/:userId/playlists', async (req, res) => {
 router.get('/:userId/songs', async (req, res, next) => {
     const {userId} = req.params
 
+    // error - if artist can't be found by ID
  if (!await User.findByPk(userId)) {
        res.status(404)
       return res.json({
@@ -77,7 +90,6 @@ router.get('/:userId/songs', async (req, res, next) => {
 router.get('/:userId', async (req, res) => {
   const {userId} = req.params
 
-
   const songs = await Song.count({where: {
     userId: userId
   }})
@@ -86,19 +98,15 @@ router.get('/:userId', async (req, res) => {
     userId: userId
 }})
 
-  // if (!await User.findByPk(userId)) {
-  //       res.status(404)
-  //      return res.json({
-  //        message: "Artist couldn't be found",
-  //        statusCode: 404
-  //      });
-  //  }
+// if (!await User.findByPk(userId)) {
+//       res.status(404)
+//      return res.json({
+//        message: "Artist couldn't be found",
+//        statusCode: 404
+//      });
+//  }
 
-  const details = await User.findByPk(userId
-    // where: {
-    //   userId: userId,
-    // }
-  );
+const details = await User.findByPk(userId);
 
 
     if (!details) {
@@ -113,12 +121,13 @@ router.get('/:userId', async (req, res) => {
 });
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MY USE ONLY
+
+// get all songs
 router.get('/', async (req, res) => {
   const playlists = await Playlist.findAll()
   res.json(playlists)
-})
-
-
-
+});
 
 module.exports = router

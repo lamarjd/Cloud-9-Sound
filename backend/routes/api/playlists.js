@@ -8,12 +8,11 @@ const playlistsong = require('../../db/models/playlistsong');
 
 
 // Add a song to a playlist specified by the playlist's id.
-// authenticate: yes [x]
+// authenticate: yes
 // authorize: yes
 router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     const {playlistId} = req.params;
     const {songId} = req.body;
-    // const {userId} = req.user.id
 
     if (!await Playlist.findByPk(playlistId)) {
       res.status(404)
@@ -41,9 +40,6 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
         attributes: ['id', 'songId', 'playlistId']
     });
 
-
-
-
     /// double check authorization
     // if (findPlaylist.userId !== req.user.id) {
     //     res.status(403);
@@ -53,10 +49,7 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     //     });
     // }
 
-
-    res.json(
-        findPlaylist
-    );
+    res.json(findPlaylist);
 });
 
 
@@ -93,7 +86,6 @@ router.put('/:playlistId', requireAuth, async (req, res) => {
         });
     }
 
-
        // authorization - only current user can edit playlist that belong to the user
     if (edit.userId !== req.user.id) {
        res.status(403);
@@ -115,6 +107,7 @@ router.put('/:playlistId', requireAuth, async (req, res) => {
     }
 
       ///////////////////////
+
     // redundant - is this good practice still?
     if (edit.userId === req.user.id) {
         edit.name = name;
@@ -122,7 +115,6 @@ router.put('/:playlistId', requireAuth, async (req, res) => {
 
     await edit.save()
     res.json(edit)
-
 });
 
 // Delete an existing playlist.
@@ -171,7 +163,6 @@ router.get('/:playlistId', async (req, res) => {
 
   const playlistDetails = await Playlist.findByPk(playlistId, {
     include: [{model:Song, through:{attributes:[]}
-    //   attributes: ['id','userId','albumId', 'title', ' description', 'url', 'createdAt', 'updatedAt', 'imageUrl']
     }],
   });
 
@@ -200,8 +191,6 @@ router.post('/', requireAuth, async (req, res, next) => {
         imageUrl
     });
 
-
-
     if (!playlist.name) {
         res.status(400);
         res.json({
@@ -210,19 +199,23 @@ router.post('/', requireAuth, async (req, res, next) => {
             errors: {
                 name: "Playlist name is required"
             }
-        })
+        });
     }
-    res.status(201)
-    res.json(playlist)
+
+    res.status(201);
+    res.json(playlist);
 });
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MY USE ONLY
+
+// Get all playlists
 router.get('/', async (req, res) => {
     const allPlaylists = await Playlist.findAll({
         include: {model: Song}
-    })
-    res.json(allPlaylists)
-})
-
+    });
+    res.json(allPlaylists);
+});
 
 module.exports = router

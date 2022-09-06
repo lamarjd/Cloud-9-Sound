@@ -32,9 +32,10 @@ router.put('/:commentId', requireAuth, async (req, res) => {
        res.json({
         message: "You do not have authorization to edit this comment",
         statusCode: 403
-       })
+       });
     }
 
+    // error handling
     if (!edit.body) {
         res.status(400);
         res.json({
@@ -43,18 +44,17 @@ router.put('/:commentId', requireAuth, async (req, res) => {
             errors: {
                 body: "Comment body text is needed"
             }
-        })
+        });
     }
-
     ///////////////////////
-    // redundant - is this good practice still?
+
+    // redundant - but good practice
     if (edit.userId === req.user.id) {
         edit.body = body;
     }
 
     await edit.save();
-    res.json(edit)
-
+    res.json(edit);
 });
 
 // Delete an existing comment.
@@ -70,9 +70,10 @@ router.delete('/:commentId', requireAuth, restoreUser, async (req, res) => {
         res.json({
             message: "Comment couldn't be found",
             statusCode: 404
-        })
+        });
     }
 
+    // authorization check - current user only
     if (deleteComment.userId !== req.user.id) {
         res.status(403);
         res.json({
@@ -90,11 +91,14 @@ router.delete('/:commentId', requireAuth, restoreUser, async (req, res) => {
     });
 });
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MY USE ONLY
 // get all comments
 router.get('/', async (req, res) => {
     const comments = await Comment.findAll()
     res.json(comments)
-})
+});
 
 
 
