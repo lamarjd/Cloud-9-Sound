@@ -135,6 +135,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         imageUrl
     });
 
+    // error - if no title is provided
     if (!album.title) {
       res.status(400);
       res.json({

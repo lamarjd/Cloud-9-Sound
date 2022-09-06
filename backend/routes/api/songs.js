@@ -13,6 +13,7 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
   const {body} = req.body
   let find = await Song.findByPk(songId)
 
+  // error - if the song with the songId is not found
   if(!find){
     res.status(404)
     res.json({
@@ -21,6 +22,7 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
     })
   }
 
+  // error - if the comment body is empty
   if (!body) {
     res.status(400);
     return res.json({
@@ -32,40 +34,37 @@ router.post('/:songId/comments', requireAuth, async (req,res) =>{
     })
   }
 
+  // create the new comment
   let newComment = await Comment.create({
     userId,
     songId,
     body
-  })
+  });
   res.json(newComment)
-})
-
-
+});
 
 // Get all Comments by a Song's id
 // auth no
 router.get('/:songId/comments', async (req, res) => {
     const {songId} = req.params
 
-    const commentScope = await Comment.scope([{method: ['songComment', songId]}]).findOne();
 
-    // if (!songId) {
-    //   res.status(404);
-    //   return res.json({
-    //     message: "Song couldn't be found",
-    //     statusCode: 404
-    //   })
-    // }
 
-    if (!commentScope) {
+    const commentScope = await Comment.scope([{method: 'songComment', songId}]).findAll({
+      where: {
+        songId: songId
+      }
+    });
+
+    if (!commentScope.id) {
       res.status(404);
       return res.json({
         message: "Song couldn't be found",
         statusCode: 404
-      })
+      });
     }
 
-    res.json({"Comments": [commentScope]})
+    res.json({"Comments": commentScope})
 });
 
 // Get all Songs created by the Current User
@@ -74,7 +73,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
 
     const userSongs = await Song.findAll({  where: {userId} });
-    res.json({"Songs":userSongs})
+    res.json({"Songs":userSongs});
 })
 
 // Edit a song
@@ -90,7 +89,7 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
   });
 
   // error handling
-  // if song Id does not match a record in the db
+  // if songId does not match a record in the db
   if (!editSong) {
     res.status(404);
     return res.json({
@@ -151,7 +150,6 @@ router.get('/:songId', async (req,res) =>{
     {model: Album,
       attributes: ['id','title','imageUrl']}
     ],
-    // raw: true
   });
 
   // error handling
@@ -292,6 +290,7 @@ result.songs = await Song.findAll({
       ...pagination
     });
 
+    // To set a default if both page and size are = 0
     //   if (page === '0' && size === '0') {
     //     result.page = 1;
     //     result.size = 1
@@ -303,8 +302,8 @@ result.songs = await Song.findAll({
     result.page = page || 1
     result.size = size
 
+    // Show the count on the next page depending on number of items
     // result.pageCount = size === 0 ? 1 : Math.ceil(result.count / size);
-
     // result.pageCount = Math.floor((result.count / size) + 1)
 
     res.json({"Songs": result.songs, "page": result.page, "size": result.size})
