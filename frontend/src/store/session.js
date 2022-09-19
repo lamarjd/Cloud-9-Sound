@@ -19,6 +19,7 @@ const removeUser = () => {
     }
 }
 
+// THUNK -Logout
 export const logout = () => async (dispatch) => {
     const response = await csrfFetch('/api/session', {
       method: 'DELETE',
@@ -27,7 +28,7 @@ export const logout = () => async (dispatch) => {
     return response;
   };
 
-// THUNK -signup
+// THUNK - Signup
 export const signup = (user) => async (dispatch) => {
     // deconstruct the user object into desired fields needed for signup
     const {username, email, password, firstName, lastName} = user;
