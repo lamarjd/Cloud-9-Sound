@@ -45,7 +45,9 @@ validateLogin, async (req, res, next) => {
   );
 
   // Restore / Get current user
-router.get('/',  restoreUser, requireAuth, (req, res) => {
+router.get('/',  restoreUser, 
+// requireAuth, 
+(req, res) => {
     const { user } = req;
     if (user) {
       return res.json(
