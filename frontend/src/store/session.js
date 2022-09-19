@@ -27,21 +27,22 @@ export const logout = () => async (dispatch) => {
     return response;
   };
 
+// THUNK -signup
 export const signup = (user) => async (dispatch) => {
     // deconstruct the user object into desired fields needed for signup
     const {username, email, password, firstName, lastName} = user;
     const response = await csrfFetch("api/users", {
         method: "POST",
         body: JSON.stringify({
-            email,
             username,
+            email,
             password,
             firstName,
             lastName
         })
     });
     const data = await response.json();
-    dispatch(setUser(data))
+    dispatch(setUser(data.user))
     return response
 };
 
