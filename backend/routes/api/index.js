@@ -50,8 +50,10 @@ router.use('/comments', commentsRouter);
 router.use('/artists', artistsRouter);
 router.use('/playlists', playlistsRouter);
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+
+// INITIAL  SETUP ONLY - no longer needed
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
+// });
 
 module.exports = router;
