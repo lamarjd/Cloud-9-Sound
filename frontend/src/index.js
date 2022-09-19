@@ -9,6 +9,9 @@ import App from './App';
 
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
+// import all actions from the session.js file into the frontend app entry file
+import * as sessionActions from './store/session';
+
 
 
 const store = configureStore();
@@ -18,6 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.csrfFetch = csrfFetch;
   window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 if (process.env.NODE_ENV !== 'production') {
