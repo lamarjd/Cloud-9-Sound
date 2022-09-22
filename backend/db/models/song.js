@@ -31,24 +31,13 @@ module.exports = (sequelize, DataTypes) => {
   Song.init({
     albumId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
     },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // unique: true,
-      // validate: {
-        // checker(value) {
-        //   if (!value) {
-        //     throw new Error("Song title is required")
-        //   }
-        // },
-      //   len: [2, 50]
-      // }
     },
     description: {
       type: DataTypes.STRING,
@@ -60,13 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-    //     check(value) {
-    //       if (!value) {
-    //         throw new Error("Audio is required")
-    //       }
-    //     }
-    //   }
     },
     imageUrl: {
       type: DataTypes.STRING,
