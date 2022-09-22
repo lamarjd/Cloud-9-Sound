@@ -1,0 +1,37 @@
+
+.container {
+    display: grid;
+    justify-content: center;
+    height: 100vh;
+}
+
+.song_box {
+    display: grid;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    /* height: 100vh; */
+    width: 1180px;
+    border: 2px dotted grey;
+
+}
+
+.song {
+    display: grid;
+    border-bottom: 2px dotted red;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center
+}
+
+.upload_song {
+    /* border: 2px dotted red; */
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    width: 1180px;
+    
+    
+
+}

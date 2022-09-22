@@ -2,15 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
-import logo from "./images/CLOUD9Logo.png"
-// const fontSearch = "https://kit.fontawesome.com/81680de5ef.js"
+import logo from "../assets/images/CLOUD9Logo.png"
+// audio player
+
 
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
-  let sessionLinks;
+ let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <ProfileButton user={sessionUser} />
@@ -18,44 +20,46 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log In</NavLink>
+        <LoginFormModal />
         <NavLink to="/signup">Sign Up</NavLink>
       </>
     );
   }
 
   return (
-    <section id="top_bar">
+ 
       <div className="top_container">
+
         <div className="banner_container">
           <div className="banner_logo">
             <div className="logo_button" id="logo">
-              <img className="logo" src={logo} alt="logo" />
+              <img className="logo" src={logo} alt="logo"/>       
             </div>
           </div>
-          <span className="banner_container_left">
+          
             <div className="banner_left">
-              <div className="home" id="home">
+              <span className="home">
                 <NavLink exact to="/">Home</NavLink>
-                {isLoaded && sessionLinks}
-              </div>
+              </span>
+            <div className="left_center">                         
+        
+              <span>Feed</span>
+              <span><NavLink exact to="/songs">Library</NavLink></span>              
             </div>
-            <div className="left_center">
-              <span id="stream">Stream</span>
             </div>
-            <div className="left_center">
-             <span id="library">Library</span>
-            </div>
-          </span> 
 
-          <div className="banner_search" id="search" >
-            <input type="search" placeholder="Search"/>Search
-          </div>
+            <div className="banner_right">
+              {/* <button className="upload" >Upload</button> */}
+                  {/* user button */}
+                {isLoaded && sessionLinks}  
+            </div>
+          
 
+            
+          
         </div>
       </div>
-    </section>
- 
+     
     
   );
 }
