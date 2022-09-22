@@ -76,10 +76,6 @@ module.exports = (sequelize, DataTypes) => {
         models.Album, {
           foreignKey: 'userId'
         });
-        //   User.associate = function(models) {
-        //   User.hasMany(models.Song, {as: 'Artist', foreignKey: 'userId'})
-        // }
-
     }
   }
   User.init({

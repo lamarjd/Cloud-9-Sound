@@ -17,9 +17,7 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       userId: {
-        // field: "Artist",
         type: Sequelize.INTEGER,
-        // allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
@@ -28,7 +26,6 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
         allowNull: false,
-        // unique: true
       },
       description: {
         type: Sequelize.STRING,
