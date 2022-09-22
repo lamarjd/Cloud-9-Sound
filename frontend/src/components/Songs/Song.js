@@ -16,7 +16,7 @@ const Song = () => {
     // console.log("SONG", song)
     
     const songArr = Object.values(song);
-    // console.log("SONGARR", songArr)
+    console.log("SONGARR", songArr)
 
     const [showForm, setShowForm] = useState(false)
 
@@ -35,13 +35,13 @@ const Song = () => {
         <div className="song_box">
             {songArr.map(({id, title}) => {
                 return <div key={id} className="song">
-                <NavLink key={song.id} to={`/songs${id}`}>{title}</NavLink></div>             
+                <NavLink key={song.id} to={`/songs/${id}`}>{title}</NavLink></div>             
                 })}            
         </div>
         {showForm ? (
             <UploadSongForm hideForm={() => setShowForm(false)} />
         ) : (
-            <Route path="./songs/:songId">
+            <Route path="/songs/:songId">
                 <SongDetails />
             </Route>
         )}

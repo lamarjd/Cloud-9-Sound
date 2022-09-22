@@ -24,3 +24,14 @@
     justify-content: center;
     align-items: center
 }
+
+.upload_song {
+    /* border: 2px dotted red; */
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    width: 1180px;
+    
+    
+
+}

@@ -42,6 +42,7 @@
   white-space: nowrap;
   padding: 8px;
   height: 30px;
+  padding-right: 20px;
 }
 
 .banner_search > input{
@@ -157,8 +158,7 @@
     display: inline-flex;
     align-items: center;
     text-decoration: solid;
-
-
+    padding-right: 10px;
     /* border: 2px dotted yellow; */
     color: white;
     /* height: 40px; */

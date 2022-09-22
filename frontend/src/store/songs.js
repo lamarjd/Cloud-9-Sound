@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 
 const LOAD_SONGS = 'songs/LOAD_SONGS'
 const EDIT_SONG = 'songs/EDIT_SONG'
@@ -5,10 +7,12 @@ const ADD_SONG = ' songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
 
 
-const load = (songs) => ({
-    type: LOAD_SONGS,
-    songs
-});
+const load = (songs) => {
+    return {
+        type: LOAD_SONGS,
+        songs
+    }
+};
 
 const addSong = (song) => {
     return {
@@ -20,7 +24,7 @@ const addSong = (song) => {
 
 // THUNK - get Songs
 export const getSongs = () => async dispatch => {
-    const response = await fetch(`api/songs`);
+    const response = await fetch(`/api/songs`);
     
     if (response.ok) {
         const list = await response.json();
@@ -29,7 +33,7 @@ export const getSongs = () => async dispatch => {
 };
 
 export const getOneSong = (id) => async dispatch => {
-    const response = await fetch(`api/songs/${id}`)
+    const response = await fetch(`/api/songs/${id}`)
     if (response.ok) {
         const song = await response.json();
         dispatch(addSong(song));
@@ -40,7 +44,7 @@ export const getOneSong = (id) => async dispatch => {
 
 // THUNK - post a Song
 export const uploadSong = (data) => async dispatch => {
-    const response = await fetch('api/songs', {
+    const response = await csrfFetch('/api/songs', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -50,17 +54,16 @@ export const uploadSong = (data) => async dispatch => {
 
     if (response.ok) {
         const upload = await response.json();
-        dispatch(addSong(upload))
+        dispatch(getSongs(data))
         return upload;
     }
     //error handling
-    return null
+    throw new Error ("cannot load")
 }
 
 
 const initialState = {}
 
-// todo - add to root
 const songReducer = (state = initialState, action) => {
     let newState;
     switch(action.type) {
@@ -74,7 +77,7 @@ const songReducer = (state = initialState, action) => {
             return allSongs
         case ADD_SONG:
             if (!state[action.song.id]) {
-                const newState = {
+                newState = {
                     ...state,
                     [action.song.id]: action.song
                 }

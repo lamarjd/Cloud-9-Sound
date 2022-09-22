@@ -1,7 +1,11 @@
+// Add css
+
+
 import {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { uploadSong } from "../../store/songs.js"
+import './Song.css'
 
 const UploadSongForm = ({ hideForm }) => {
     const dispatch = useDispatch();
@@ -19,6 +23,9 @@ const UploadSongForm = ({ hideForm }) => {
     const updateImageUrl = (e) => setImageUrl(e.target.value);
     const updateAlbumId = (e) => setAlbumId(e.target.value);
 
+    const song = useSelector(state => state.songs)
+    // console.log("song", song)
+
     useEffect(() => {
         dispatch(uploadSong())
     }, [dispatch])
@@ -34,11 +41,12 @@ const UploadSongForm = ({ hideForm }) => {
             albumId
         }
         
-        let uploadedSong = await dispatch(uploadSong(payload));
+        let uploadedSong = dispatch(uploadSong(payload));
         
         if (uploadedSong) {
-            history.push(`/songs/${uploadedSong.id}`)
-            hideForm()
+            history.push(`/songs`)
+            // history.push(`/songs/${uploadedSong.id}`)
+            // hideForm()
         }
     };
 
@@ -83,9 +91,9 @@ const UploadSongForm = ({ hideForm }) => {
                 type="text"
                 placeholder="Album ID"
                 value={albumId}
-                onChane={updateAlbumId}
+                onChange={updateAlbumId}
                 />
-                <button type="submit">Upload Song</button>
+                <button type="submit" onClick={handleSubmit}>Upload Song</button>
                 <button type="button" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>

@@ -6,8 +6,6 @@ import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import logo from "../assets/images/CLOUD9Logo.png"
 // audio player
-import ReactAudioPlayer from 'react-audio-player';
-
 
 
 
@@ -46,21 +44,17 @@ function Navigation({ isLoaded }){
             <div className="left_center">                         
         
               <span>Feed</span>
-              <span>Library</span>              
+              <span><NavLink exact to="/songs">Library</NavLink></span>              
             </div>
             </div>
 
             <div className="banner_right">
-              <button className="upload" >Upload</button>
+              {/* <button className="upload" >Upload</button> */}
                   {/* user button */}
                 {isLoaded && sessionLinks}  
             </div>
           
-            <ReactAudioPlayer
-  src="https://soundcloud.com/nexusevent/afterglow"
-  autoPlay
-  controls
-/>
+
             
           
         </div>

@@ -15,7 +15,15 @@ const SongDetails = () => {
     const [editSongId, setEditSongId] = useState(null);
 
     // todo: useffect, JSX
+    useEffect(() => {
+        dispatch(getOneSong())
+    }, [dispatch])
 
+    return (
+        <div>
+            
+        </div>
+    )
 
 }
 
