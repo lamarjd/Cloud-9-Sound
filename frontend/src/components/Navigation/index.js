@@ -5,6 +5,11 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import logo from "../assets/images/CLOUD9Logo.png"
+// audio player
+import ReactAudioPlayer from 'react-audio-player';
+
+
+
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -51,6 +56,11 @@ function Navigation({ isLoaded }){
                 {isLoaded && sessionLinks}  
             </div>
           
+            <ReactAudioPlayer
+  src="https://soundcloud.com/nexusevent/afterglow"
+  autoPlay
+  controls
+/>
             
           
         </div>
