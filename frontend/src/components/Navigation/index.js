@@ -9,7 +9,7 @@ import logo from "../assets/images/CLOUD9Logo.png"
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
-  let sessionLinks;
+ let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <ProfileButton user={sessionUser} />
@@ -37,16 +37,21 @@ function Navigation({ isLoaded }){
             <div className="banner_left">
               <span className="home">
                 <NavLink exact to="/">Home</NavLink>
-                {isLoaded && sessionLinks}   
               </span>
+            <div className="left_center">                         
+        
+              <span>Feed</span>
+              <span>Library</span>              
+            </div>
             </div>
 
-            <div className="left_center">
-              <span>Feed</span>
+            <div className="banner_right">
+              <button className="upload" >Upload</button>
+                  {/* user button */}
+                {isLoaded && sessionLinks}  
             </div>
-            <div className="left_center">
-              <span>Library</span>
-            </div>
+          
+            
           
         </div>
       </div>
