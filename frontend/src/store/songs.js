@@ -28,6 +28,12 @@ const edit = (song) => {
     }
 };
 
+const remove = (songId) => {
+    return {
+        type: DELETE_SONG,
+        songId
+    }
+}
 
 // THUNK - get Songs
 export const getSongs = () => async dispatch => {
@@ -71,7 +77,7 @@ export const uploadSong = (data) => async dispatch => {
 // THUNK - Edit song
 export const editSong = (song) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${song.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
@@ -84,6 +90,18 @@ export const editSong = (song) => async dispatch => {
     }
     // error handling
     return null;
+}
+
+// THUNK - Delete a Song
+export const deleteSong = (songId) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/:songId`, {
+        method: "DELETE",
+        });
+    if (response.ok) {
+        const { id: deletedSongId} = await response.json();
+        dispatch(remove(deletedSongId));
+        return deletedSongId;
+    }
 }
 
 
@@ -120,6 +138,11 @@ const songReducer = (state = initialState, action) => {
                 ...state,
                 [action.song.id]: action.song
             }
+        // case REMOVE_SONG:
+        //     return {
+        //         ...state,
+        //         [action.item.id]: action.item
+        //     };
         default:
             return state;
     }

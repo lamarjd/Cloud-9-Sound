@@ -11,13 +11,16 @@ import EditSongForm from './EditSongForm';
 const Song = () => {
     const dispatch = useDispatch();
     const { songId } = useParams();
+    const sessionUser = useSelector(state => state.session.user)
+
+
     const song = useSelector(state => {
         return state.songs
     });
     // console.log("SONG", song)
     
     const songArr = Object.values(song);
-    console.log("SONGARR", songArr)
+    // console.log("SONGARR", songArr)
 
     const [showForm, setShowForm] = useState(false)
 
@@ -45,7 +48,7 @@ const Song = () => {
             </>
         ) : (
             <Route path="/songs/:songId">
-                <EditSongForm />
+                {/* <EditSongForm user={sessionUser}/> */}
                 <SongDetails />
             </Route>
         )}

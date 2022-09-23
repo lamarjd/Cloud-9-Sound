@@ -6,64 +6,71 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOneSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
 
-const SongDetails = ({hideForm}) => {
+const SongDetails = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {songId} = useParams();
-    const song = useSelector(state => state.songs[songId]);
+    const song = useSelector((state) => {
+        // if (!song) return null;
+        return state.songs[songId]});
     console.log("song Selector", song)
 
-    const [editSongForm, setEditSongForm] = useState(false);
+    const [showEditSongForm, setShowEditSongForm] = useState(false);
     const [editSongId, setEditSongId] = useState(null);
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('image url')
-    const [imageUrl, setImageUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null || '')
+    // const [title, setTitle] = useState('');
+    // const [description, setDescription] = useState('');
+    // const [url, setUrl] = useState('image url')
+    // const [imageUrl, setImageUrl] = useState('');
+    // const [albumId, setAlbumId] = useState(null || '')
 
     
     useEffect(() => {
-        setEditSongForm(false)
+        setShowEditSongForm(false)
         setEditSongId(null)
         dispatch(getOneSong(songId))
     }, [dispatch, songId])
 
+    if (!song) {
+        alert("No song hombre");
+    }
+
     let content = null;
 
-    if (editSongId) {
+    if (showEditSongForm) {
         content = (
             <EditSongForm 
             songId={editSongId}
-            visibility={true}
-            hideForm={() => setEditSongForm(null)}
+            song={song}
+            // visibility={true}
+            onClick={() => setShowEditSongForm(false)}
             />
         );
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        // <EditSongForm 
-        // visibility={true}
-        // />
+    //     // <EditSongForm 
+    //     // visibility={true}
+    //     // />
 
-        const payload = {
-            title,
-            description,
-            url,
-            imageUrl,
-            albumId
-        }
+    //     const payload = {
+    //         title,
+    //         description,
+    //         url,
+    //         imageUrl,
+    //         albumId
+    //     }
         
-        let editedSong = dispatch(editedSong(payload));
+    //     let editedSong = dispatch(editedSong(payload));
         
-        if (editedSong) {
-            history.push(`/songs`)
-            history.push(`/songs/${editedSong.id}`)
-            hideForm()
-        }
-    };
+    //     if (editedSong) {
+    //         history.push(`/songs`)
+    //         // history.push(`/songs/${editedSong.id}`)
+    //         hideForm()
+    //     }
+    // };
 
     return (
         <div className="song_details">
@@ -83,8 +90,13 @@ const SongDetails = ({hideForm}) => {
                         <b>Artist</b> {song.artist}
                     </li>
                 </ul>
-                <button type="submit">Edit Song</button>
-                {/* <EditSongForm /> */}
+                {( !showEditSongForm ) && (
+
+                    <button onClick={() => setShowEditSongForm(true)}>Edit Song
+                    </button>
+                )}
+                {/* render the EditSongForm */}
+                {content}
             </div>
         </div>
     )

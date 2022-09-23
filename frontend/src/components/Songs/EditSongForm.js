@@ -12,9 +12,11 @@ import { getSongs } from "../../store/songs.js"
 - positioning (Modal?)
 */
 
-const EditSongForm = ({ hideForm }) => {
+const EditSongForm = ({ user }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    // const sessionUser = useSelector(state => state.session.user);
+    // console.log("SESSION USER", sessionUser)
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -55,7 +57,7 @@ const EditSongForm = ({ hideForm }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        hideForm();
+        // hideForm();
     }
 
     return (
@@ -96,7 +98,7 @@ const EditSongForm = ({ hideForm }) => {
                 value={albumId}
                 onChange={updateAlbumId}
                 />
-                <button type="submit" onClick={handleSubmit}>Edit Song</button>
+                <button type="submit" onClick={handleSubmit}>Save Changes</button>
                 <button type="button" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
