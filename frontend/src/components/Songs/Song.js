@@ -11,7 +11,7 @@ import EditSongForm from './EditSongForm';
 const Song = () => {
     const dispatch = useDispatch();
     const { songId } = useParams();
-    const sessionUser = useSelector(state => state.session.user)
+   
 
 
     const song = useSelector(state => {

@@ -1,6 +1,6 @@
 import {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams  } from 'react-router-dom'
 import { editSong } from "../../store/songs.js"
 import './Song.css'
 import { getSongs } from "../../store/songs.js"
@@ -15,12 +15,17 @@ import { getSongs } from "../../store/songs.js"
 const EditSongForm = ({ user }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    // const sessionUser = useSelector(state => state.session.user);
-    // console.log("SESSION USER", sessionUser)
+    const { songId }  = useParams();
 
+    let id = songId
+    // console.log("ID", id)
+    const sessionUser = useSelector(state => state.session.user);
+    console.log("SESSION USER", sessionUser)
+
+    
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('image url')
+    const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
 
@@ -29,6 +34,10 @@ const EditSongForm = ({ user }) => {
     const updateUrl = (e) => setUrl(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
     const updateAlbumId = (e) => setAlbumId(e.target.value);
+
+    if (!sessionUser) {
+        alert("You're not authorized")
+    }
 
 
     useEffect(() => {
@@ -39,6 +48,7 @@ const EditSongForm = ({ user }) => {
         e.preventDefault();
 
         const payload = {
+            id,
             title,
             description,
             url,
@@ -58,6 +68,7 @@ const EditSongForm = ({ user }) => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         // hideForm();
+        history.push('/songs')
     }
 
     return (

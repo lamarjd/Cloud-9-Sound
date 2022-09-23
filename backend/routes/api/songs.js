@@ -84,7 +84,7 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
   const { songId } = req.params;
   const { title, description, url, imageUrl, albumId } = req.body;
 
-  if (!albumId) albumId = null;
+  // if (!albumId) albumId = null;
   const editSong = await Song.findByPk(songId, {
     attributes: ['id', 'userId', 'albumId', 'title', 'description', 'url', 'createdAt', 'updatedAt', 'imageUrl']
   });

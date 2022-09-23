@@ -3,10 +3,10 @@ import { useParams, useHistory } from 'react-router-dom';
 // import useDispatch for use
 import { useSelector, useDispatch } from 'react-redux';
 // import the thunk
-import { getOneSong } from "../../store/songs.js"
+import { getOneSong, deleteSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
 
-const SongDetails = () => {
+const SongDetails = ({songs}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {songId} = useParams();
@@ -15,14 +15,10 @@ const SongDetails = () => {
         return state.songs[songId]});
     console.log("song Selector", song)
 
+    const sessionUser = useSelector(state => state.session.user)
+
     const [showEditSongForm, setShowEditSongForm] = useState(false);
     const [editSongId, setEditSongId] = useState(null);
-
-    // const [title, setTitle] = useState('');
-    // const [description, setDescription] = useState('');
-    // const [url, setUrl] = useState('image url')
-    // const [imageUrl, setImageUrl] = useState('');
-    // const [albumId, setAlbumId] = useState(null || '')
 
     
     useEffect(() => {
@@ -32,7 +28,8 @@ const SongDetails = () => {
     }, [dispatch, songId])
 
     if (!song) {
-        alert("No song hombre");
+        return null;
+        // history.push("/songs")
     }
 
     let content = null;
@@ -42,35 +39,15 @@ const SongDetails = () => {
             <EditSongForm 
             songId={editSongId}
             song={song}
-            // visibility={true}
             onClick={() => setShowEditSongForm(false)}
             />
         );
     }
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+    const hideBtn = () => {
 
-    //     // <EditSongForm 
-    //     // visibility={true}
-    //     // />
+    }
 
-    //     const payload = {
-    //         title,
-    //         description,
-    //         url,
-    //         imageUrl,
-    //         albumId
-    //     }
-        
-    //     let editedSong = dispatch(editedSong(payload));
-        
-    //     if (editedSong) {
-    //         history.push(`/songs`)
-    //         // history.push(`/songs/${editedSong.id}`)
-    //         hideForm()
-    //     }
-    // };
 
     return (
         <div className="song_details">
@@ -90,10 +67,14 @@ const SongDetails = () => {
                         <b>Artist</b> {song.artist}
                     </li>
                 </ul>
-                {( !showEditSongForm ) && (
+                {( !showEditSongForm && sessionUser) && (
 
-                    <button onClick={() => setShowEditSongForm(true)}>Edit Song
-                    </button>
+                    <>
+                    <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
+
+                    <button onClick={() => dispatch(deleteSong(song.id))} >Delete Song</button>
+                    </>
+
                 )}
                 {/* render the EditSongForm */}
                 {content}

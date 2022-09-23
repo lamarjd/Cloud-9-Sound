@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { uploadSong } from "../../store/songs.js"
 import './Song.css'
+import {usePlayer} from "../../context/PlayerContext"
 
 const UploadSongForm = ({ hideForm }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    // const  { url, setUrl }  = usePlayer();
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('image url')
+    const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
 
@@ -38,17 +40,19 @@ const UploadSongForm = ({ hideForm }) => {
         }
         
         let uploadedSong = dispatch(uploadSong(payload));
+        // setUrl(url);
         
         if (uploadedSong) {
-            history.push(`/songs`)
-            // history.push(`/songs/${uploadedSong.id}`)
-            hideForm()
+            // history.push(`/songs`)
+            history.push(`/songs/${uploadedSong.id}`)
+            // hideForm()
         }
     };
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        hideForm();
+        // hideForm();
+        history.push(`/songs`)
     }
 
     return (

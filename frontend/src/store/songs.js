@@ -94,13 +94,13 @@ export const editSong = (song) => async dispatch => {
 
 // THUNK - Delete a Song
 export const deleteSong = (songId) => async dispatch => {
-    const response = await csrfFetch(`/api/songs/:songId`, {
+    const response = await csrfFetch(`/api/songs/${songId}`, {
         method: "DELETE",
+        headers: {"Content-Type": "application/json"}
         });
     if (response.ok) {
-        const { id: deletedSongId} = await response.json();
-        dispatch(remove(deletedSongId));
-        return deletedSongId;
+        const song = `${songId}`
+        dispatch(remove(song));       
     }
 }
 
@@ -138,11 +138,10 @@ const songReducer = (state = initialState, action) => {
                 ...state,
                 [action.song.id]: action.song
             }
-        // case REMOVE_SONG:
-        //     return {
-        //         ...state,
-        //         [action.item.id]: action.item
-        //     };
+        case DELETE_SONG:
+            newState = {...state}
+            delete newState[action.songId]
+            return newState;
         default:
             return state;
     }

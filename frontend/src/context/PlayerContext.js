@@ -6,15 +6,22 @@ export const usePlayer = () => useContext(PlayerContext)
 
 export default function PlayerProvider({children}) {
     const [playSong, setPlaySong] = useState('off')
+    const [url, setUrl] = useState('')
+
+    useEffect(() => {
+        
+    })
 
     return (
         <PlayerContext.Provider
             value={{
                 playSong,
-                setPlaySong
+                setPlaySong,
+                url,
+                setUrl
             }}
         >
-            {/* {children} */}
+            {children}
         </PlayerContext.Provider>
     )
 
