@@ -1,13 +1,18 @@
-// Add css
-
-
 import {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { uploadSong } from "../../store/songs.js"
+import { editSong } from "../../store/songs.js"
 import './Song.css'
+import { getSongs } from "../../store/songs.js"
 
-const UploadSongForm = ({ hideForm }) => {
+
+/* TODO: 
+-  validate user owns song
+- css
+- positioning (Modal?)
+*/
+
+const EditSongForm = ({ hideForm }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -23,8 +28,10 @@ const UploadSongForm = ({ hideForm }) => {
     const updateImageUrl = (e) => setImageUrl(e.target.value);
     const updateAlbumId = (e) => setAlbumId(e.target.value);
 
-    // const song = useSelector(state => state.songs)
-    // console.log("song", song)
+
+    useEffect(() => {
+        dispatch(getSongs())
+    }, [dispatch])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,12 +44,12 @@ const UploadSongForm = ({ hideForm }) => {
             albumId
         }
         
-        let uploadedSong = dispatch(uploadSong(payload));
+        let editedSong = dispatch(editSong(payload));
         
-        if (uploadedSong) {
+        if (editedSong) {
             history.push(`/songs`)
-            // history.push(`/songs/${uploadedSong.id}`)
-            hideForm()
+            // history.push(`/songs/${editedSong.id}`)
+            // hideForm()
         }
     };
 
@@ -52,7 +59,7 @@ const UploadSongForm = ({ hideForm }) => {
     }
 
     return (
-        <section className="form_page">
+        <section>
             <form className="upload_song" onSubmit={handleSubmit}>
                 <input 
                 type="text"
@@ -89,11 +96,12 @@ const UploadSongForm = ({ hideForm }) => {
                 value={albumId}
                 onChange={updateAlbumId}
                 />
-                <button type="submit" onClick={handleSubmit}>Upload Song</button>
+                <button type="submit" onClick={handleSubmit}>Edit Song</button>
                 <button type="button" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
     )
 }
 
-export default UploadSongForm;
+export default EditSongForm;
+

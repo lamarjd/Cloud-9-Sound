@@ -9,6 +9,7 @@ import { ModalProvider } from "./context/Modal";
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
+// import Player from './components/AudioPlayer/AudioPlayer.js';
 
 const store = configureStore();
 
@@ -28,7 +29,8 @@ function Root() {
           <App />
         </BrowserRouter>
       </ModalProvider>
-    </Provider>
+      {/* <Player /> */}
+    </Provider> 
   );
 }
 

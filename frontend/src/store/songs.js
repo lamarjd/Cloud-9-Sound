@@ -21,6 +21,13 @@ const addSong = (song) => {
     }
 }
 
+const edit = (song) => {
+    return {
+        type: EDIT_SONG,
+        song
+    }
+};
+
 
 // THUNK - get Songs
 export const getSongs = () => async dispatch => {
@@ -61,6 +68,24 @@ export const uploadSong = (data) => async dispatch => {
     throw new Error ("cannot load")
 }
 
+// THUNK - Edit song
+export const editSong = (song) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${song.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(song)
+    });
+    if (response.ok) {
+        const song = await response.json();
+        dispatch(edit(song))
+        return song
+    }
+    // error handling
+    return null;
+}
+
 
 const initialState = {}
 
@@ -90,6 +115,11 @@ const songReducer = (state = initialState, action) => {
                 ...action.song
             }        
         };
+        case EDIT_SONG:
+            return {
+                ...state,
+                [action.song.id]: action.song
+            }
         default:
             return state;
     }

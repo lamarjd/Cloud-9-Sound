@@ -5,7 +5,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import logo from "../assets/images/CLOUD9Logo.png"
-// audio player
+import UploadSongForm  from "../Songs/UploadSongForm"
+import EditSongForm from "../Songs/EditSongForm"
 
 
 
@@ -15,13 +16,17 @@ function Navigation({ isLoaded }){
  let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
-  } else {
-    sessionLinks = (
       <>
+      <ProfileButton user={sessionUser} />
+      </>
+      );
+    } else {
+      sessionLinks = (
+        <>
         <LoginFormModal />
         <NavLink to="/signup">Sign Up</NavLink>
+        <UploadSongForm />
+        {/* <EditSongForm /> */}
       </>
     );
   }
@@ -49,7 +54,8 @@ function Navigation({ isLoaded }){
             </div>
 
             <div className="banner_right">
-              {/* <button className="upload" >Upload</button> */}
+              <button className="upload" >
+                <NavLink to="/songs">Upload</NavLink></button>
                   {/* user button */}
                 {isLoaded && sessionLinks}  
             </div>

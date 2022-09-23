@@ -1,25 +1,38 @@
 
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { songs }from "../assets/sample_songs.js"
+import { usePlayer } from "../../context/Player.js"
+import "./AudioPlayer.css"
 
 // console.log("songs", increase)
 
 const Player = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // const { playSong, setPlaySong } = usePlayer();
 
   
 
-  // console.log(AudioPlayer)
-    return (   
-      <AudioPlayer    
+  // console.log(usePlayer)
+    return (
+      
+      <div>
+
+      <AudioPlayer
+        // className={`${playSong}`} 
+        className="audio_player"   
         footer
-        src={songs[0]}
+        src={songs}
         onPlay={e => console.log("onPlay")}
-        onClickNext={songs[1]}
+        showJumpControls={false}
+        volume="0.2"
+        // onClickNext={songs[1]}
+        // onClick={() => setPlaySong('on')}
         />
+
+        </div>
         
       
     )

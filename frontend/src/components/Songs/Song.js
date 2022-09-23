@@ -6,6 +6,7 @@ import UploadSongForm from "./UploadSongForm"
 import SongDetails from "./SongDetails"
 
 import { getSongs } from "../../store/songs.js"
+import EditSongForm from './EditSongForm';
 
 const Song = () => {
     const dispatch = useDispatch();
@@ -39,9 +40,12 @@ const Song = () => {
                 })}            
         </div>
         {showForm ? (
+            <>
             <UploadSongForm hideForm={() => setShowForm(false)} />
+            </>
         ) : (
             <Route path="/songs/:songId">
+                <EditSongForm />
                 <SongDetails />
             </Route>
         )}
