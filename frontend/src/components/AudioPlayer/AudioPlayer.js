@@ -12,18 +12,18 @@ import { useParams } from "react-router-dom"
 
 const Player = () => {
   // const dispatch = useDispatch();
-  // const  { url, setUrl }  = usePlayer();
+  const  { url, setUrl }  = usePlayer();
   // console.log("URL Context", url)
-  const {songId} = useParams();
-  let id = songId
+  // const {songId} = useParams();
+  // let id = songId
 
-  console.log("SONGID", id);
+  // console.log("SONGID", id);
 
-  const song = useSelector(state => state.songs)
+  // const song = useSelector(state => state.songs)
 
-  const playerArr = Object.values(song).map(song => song.url)
+  // const playerArr = Object.values(song).map(song => song.url)
 
-  console.log("playerArray", playerArr[3])
+  // console.log("playerArray", playerArr[3])
 
   // const nextSong = (playerArr) => {
   //   return playerArr.map(song => {
@@ -46,7 +46,7 @@ const Player = () => {
         className="audio_player"   
         footer
         
-        src={playerArr[3]}
+        src={url}
         onPlay={e => console.log("onPlay")}
         showJumpControls={false}
         volume="0.2"

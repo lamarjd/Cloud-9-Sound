@@ -6,23 +6,22 @@ import UploadSongForm from "./UploadSongForm"
 import SongDetails from "./SongDetails"
 
 import { getSongs } from "../../store/songs.js"
-import EditSongForm from './EditSongForm';
 
-const Song = () => {
+
+const Song = ({songs}) => {
     const dispatch = useDispatch();
     const { songId } = useParams();
-   
-
-
     const song = useSelector(state => {
         return state.songs
     });
     // console.log("SONG", song)
+
+    const [showUploadForm, setShowUploadForm] = useState(false)
     
     const songArr = Object.values(song);
     // console.log("SONGARR", songArr)
 
-    const [showForm, setShowForm] = useState(false)
+    // const [showForm, setShowForm] = useState(false)
 
 
 
@@ -34,6 +33,17 @@ const Song = () => {
         return null
     }
 
+    let content = null;
+
+    if (showUploadForm) {
+        content = (
+            <UploadSongForm 
+            songId={songId}
+            onClick={() => setShowUploadForm(false)}
+            />
+        )
+    }
+
     return (
     <div className="container">
         <div className="song_box">
@@ -42,16 +52,16 @@ const Song = () => {
                 <NavLink key={song.id} to={`/songs/${id}`}>{title}</NavLink></div>             
                 })}            
         </div>
-        {showForm ? (
-            <>
-            <UploadSongForm hideForm={() => setShowForm(false)} />
+        {showUploadForm ? (
+         <>
+            <UploadSongForm />
             </>
-        ) : (
+         ) : (
             <Route path="/songs/:songId">
                 {/* <EditSongForm user={sessionUser}/> */}
                 <SongDetails />
             </Route>
-        )}
+         )}
     </div>                    
     )
 }

@@ -5,11 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 // import the thunk
 import { getOneSong, deleteSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
+import { usePlayer } from "../../context/PlayerContext"
 
 const SongDetails = ({songs}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {songId} = useParams();
+    const {setUrl} = usePlayer();
+
     const song = useSelector((state) => {
         // if (!song) return null;
         return state.songs[songId]});
@@ -44,9 +47,6 @@ const SongDetails = ({songs}) => {
         );
     }
 
-    const hideBtn = () => {
-
-    }
 
 
     return (
@@ -73,6 +73,8 @@ const SongDetails = ({songs}) => {
                     <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
 
                     <button onClick={() => dispatch(deleteSong(song.id))} >Delete Song</button>
+
+                    <button onClick={() => setUrl(song.url)} >Play</button>
                     </>
 
                 )}

@@ -19,6 +19,10 @@ const UploadSongForm = ({ hideForm }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
 
+    const [cancel, setCancel] = useState('visible')
+
+    const [showUploadForm, setShowUploadForm] = useState(false)
+
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updateUrl = (e) => setUrl(e.target.value);
@@ -51,13 +55,15 @@ const UploadSongForm = ({ hideForm }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
+        setShowUploadForm(false)
+        setCancel('hidden')
         // hideForm();
-        history.push(`/songs`)
+        // history.push(`/`)
     }
 
     return (
         <section className="form_page">
-            <form className="upload_song" onSubmit={handleSubmit}>
+            <form className="upload_song" onSubmit={handleCancelClick}>
                 <input 
                 type="text"
                 placeholder="title"
@@ -94,7 +100,7 @@ const UploadSongForm = ({ hideForm }) => {
                 onChange={updateAlbumId}
                 />
                 <button type="submit" onClick={handleSubmit}>Upload Song</button>
-                <button type="button" onClick={handleCancelClick}>Cancel</button>
+                <button type="button" className={cancel} onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
     )

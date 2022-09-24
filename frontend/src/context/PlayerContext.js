@@ -1,27 +1,29 @@
 import { useState, useContext, createContext, useEffect } from 'react';
-import Player from '../components/AudioPlayer/AudioPlayer';
+
 
 export const PlayerContext = createContext();
 export const usePlayer = () => useContext(PlayerContext)
 
-export default function PlayerProvider({children}) {
+export function PlayerProvider(props) {
     const [playSong, setPlaySong] = useState('off')
     const [url, setUrl] = useState('')
 
-    useEffect(() => {
+    // useEffect(() => {
         
-    })
+    // })
 
     return (
         <PlayerContext.Provider
             value={{
+                // possibly delete
                 playSong,
+                // possibly delete
                 setPlaySong,
                 url,
                 setUrl
             }}
         >
-            {children}
+            {props.children}
         </PlayerContext.Provider>
     )
 
