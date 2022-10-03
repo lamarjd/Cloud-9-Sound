@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import logo from "../assets/images/CLOUD9Logo.png"
 import './LoginForm.css';
 
 function LoginForm() {
@@ -11,9 +12,14 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-//   if (sessionUser) return (
-//     <Redirect to="/" />
-//   );
+  // if (sessionUser) return (
+  //   <Redirect to="/" />
+  // );
+
+  const demoUser = () => {
+    setCredential('Demo-lition');
+    setPassword('password')
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +33,12 @@ function LoginForm() {
   }
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+  <form className="login-form" onSubmit={handleSubmit}>
+    <div className="form-inputs">
+      <div className="logo-container">
+        <img className="logo" src={logo} alt="logo"/>
+      </div>
+
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -35,24 +46,35 @@ function LoginForm() {
         Username or Email
         <input
           type="text"
+          id="username"
+          name="username"
           value={credential}
+          placeholder="Enter Username or Email"
         //   controlled input for the user login credential (username or email) 
           onChange={(e) => setCredential(e.target.value)}
           required
-        />
+          />
       </label>
+      <hr></hr>
       <label>
         Password
         <input
           type="password"
           value={password}
-        //   controlled input for the user password.
+          placeholder="Enter password"
+          //   controlled input for the user password.
           onChange={(e) => setPassword(e.target.value)}
           required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+          />
+      </label><br />
+      
+    </div>
+      <input type="submit" value="Log In" /> <br />
+      
+
+
+      <button className="demo" onClick={demoUser}>Demo User</button>
+  </form>
   );
 }
 

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOneSong, deleteSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
 import { usePlayer } from "../../context/PlayerContext"
+import "./Song.css"
 
 const SongDetails = ({songs}) => {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const SongDetails = ({songs}) => {
     const song = useSelector((state) => {
         // if (!song) return null;
         return state.songs[songId]});
-    console.log("song Selector", song)
+    // console.log("song Selector", song)
 
     const sessionUser = useSelector(state => state.session.user)
 
@@ -51,12 +52,23 @@ const SongDetails = ({songs}) => {
 
     return (
         <div className="song_details">
-            <div>
+            <div className="single-song-container">
+
+
                 <h2>Song Details</h2>
+                <div className="single-song-detail">
+                    
+
+                        <img className="pic" src={song.imageUrl} />
+                    <div>
+
+                        <i onClick={() => setUrl(song.url)}
+                            className="fa-solid fa-circle-play"></i>
+                    </div>
+
+                    
+                </div>
                 <ul>
-                    <li>
-                        <b>Album</b> {song.album}
-                    </li>
                     <li>
                         <b>Title</b> {song.title}
                     </li>
@@ -70,11 +82,13 @@ const SongDetails = ({songs}) => {
                 {( !showEditSongForm && sessionUser) && (
 
                     <>
+                    {sessionUser &&
                     <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
+                    }
 
                     <button onClick={() => dispatch(deleteSong(song.id))} >Delete Song</button>
 
-                    <button onClick={() => setUrl(song.url)} >Play</button>
+
                     </>
 
                 )}

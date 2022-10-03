@@ -35,7 +35,7 @@ function Navigation({ isLoaded }){
       sessionLinks = (
         <>
         <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink id="navlink-left" to="/signup">Sign Up</NavLink>
         {/* <EditSongForm /> */}
       </>
     );
@@ -65,12 +65,12 @@ function Navigation({ isLoaded }){
           
             <div className="banner_left">
               <span className="home">
-                <NavLink exact to="/">Home</NavLink>
+                <NavLink id="navlink-left" exact to="/">Home</NavLink>
               </span>
             <div className="left_center">                         
         
               <span>Feed</span>
-              <span><NavLink exact to="/songs">Library</NavLink></span>              
+              <span><NavLink id="navlink-left" exact to="/songs">Library</NavLink></span>              
             </div>
             </div>
 
@@ -78,7 +78,7 @@ function Navigation({ isLoaded }){
 
               <button className={style} onClick={handleClick}>
 
-                <NavLink to="/songs">Upload</NavLink></button>
+                <NavLink id="navlink-right" to="/songs">Upload</NavLink></button>
 
               {/* move this to render somehwere else in the body   */}
               {showUploadForm && (                

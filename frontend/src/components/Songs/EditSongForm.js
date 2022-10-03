@@ -6,6 +6,8 @@ import './Song.css'
 import { getSongs } from "../../store/songs.js"
 
 
+
+
 /* TODO: 
 -  validate user owns song
 - css
@@ -21,6 +23,9 @@ const EditSongForm = ({ user }) => {
     // console.log("ID", id)
     const sessionUser = useSelector(state => state.session.user);
     console.log("SESSION USER", sessionUser)
+
+    // const showEdit = useSelector(state => state.songs)
+    // console.log("Show Edit Form", showEdit)
 
     
     const [title, setTitle] = useState('');
@@ -59,16 +64,17 @@ const EditSongForm = ({ user }) => {
         let editedSong = dispatch(editSong(payload));
         
         if (editedSong) {
-            history.push(`/songs`)
-            // history.push(`/songs/${editedSong.id}`)
+            // history.push(`/songs`)
+            history.push(`/songs/${editedSong.id}`)
             // hideForm()
-        }
+        } 
+
     };
 
     const handleCancelClick = (e) => {
         e.preventDefault();
         // hideForm();
-        history.push('/songs')
+        history.push(`/songs/${songId}`)
     }
 
     return (

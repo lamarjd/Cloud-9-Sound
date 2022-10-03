@@ -46,19 +46,18 @@ const Song = ({songs}) => {
 
     return (
     <div className="container">
-        <div className="song_box">
-            {songArr.map(({id, title}) => {
+        <div className="song_list">
+            {songArr.map(({id, title, imageUrl}) => {
                 return <div key={id} className="song">
-                <NavLink key={song.id} to={`/songs/${id}`}>{title}</NavLink></div>             
+                <NavLink className="song-link" key={song.id} to={`/songs/${id}`}><img src={imageUrl} />{title}</NavLink></div>             
                 })}            
         </div>
         {showUploadForm ? (
-         <>
-            <UploadSongForm />
+            <>
+                <UploadSongForm />
             </>
          ) : (
             <Route path="/songs/:songId">
-                {/* <EditSongForm user={sessionUser}/> */}
                 <SongDetails />
             </Route>
          )}
