@@ -27,8 +27,10 @@ function App() {
           </Route>
           <Route path="/songs">
             <Song />
-            {/* <UploadSongForm /> */}
           </Route>
+          {/* <Route path="/upload">
+            <UploadSongForm />
+          </Route> */}
           {/* <Route path="/songs/:songId">
             <SongDetails />
           </Route> */}

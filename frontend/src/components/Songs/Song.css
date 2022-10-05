@@ -26,7 +26,8 @@ div > #root {
 .song_list {
     /* display: flex;
     flex-direction: row;
-    align-items: center; */
+    */
+    align-items: center;
     justify-content: center; 
 
     display: grid;
@@ -43,9 +44,9 @@ div > #root {
 }
 
 .song {
-    overflow: auto;
-    /* display: flex; */
-    /* justify-content: space-between; */
+    /* overflow: auto; */
+    /* display: flex;
+    justify-content: center; */
     /* align-items: center; */
     border-bottom: 2px dotted red;
     height: 100%;
@@ -58,18 +59,18 @@ div > #root {
     display: inline-block;
     color: black;
     text-decoration: underline overline rgb(241, 74, 8);
-    width: 50%;
+    width: 60%;
     height: 50%;
-    justify-items: center;
+    text-align: left;
 
 }
 
 .song-link > img{
     color: black;
     text-decoration: underline overline rgb(241, 74, 8);
-    object-fit: contain;
-    width: 180px;
-    height: 180px;
+    object-fit: fill;
+    width: 200px;
+    height: 200px;
     /* margin: 10%; */
 
 }
@@ -112,7 +113,7 @@ div > #root {
 }
 
 .single-song-detail > div {
- border: 2px solid red;
+ /* border: 2px solid red; */
  object-fit: fill;
  height: 3em;
  width: 3em;
@@ -132,11 +133,16 @@ div > #root {
 
 
 .pic {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 20%;
     height: 200px;
     object-fit: fill;
 
+}
+
+.play-button-div {
+    border: 2px dotted green;
+    
 }
 
 

@@ -21,7 +21,7 @@ const UploadSongForm = ({ hideForm }) => {
 
     const [cancel, setCancel] = useState('visible')
 
-    const [showUploadForm, setShowUploadForm] = useState(false)
+    
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
@@ -55,11 +55,13 @@ const UploadSongForm = ({ hideForm }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        setShowUploadForm(false)
+        // setShowUploadForm(false)
         setCancel('hidden')
         // hideForm();
         // history.push(`/`)
     }
+
+    
 
     return (
         <section className="form_page">
@@ -71,6 +73,7 @@ const UploadSongForm = ({ hideForm }) => {
                 value={title}
                 onChange={updateTitle}             
                 />
+
                 <input 
                 type="text"
                 placeholder="description"
@@ -80,6 +83,7 @@ const UploadSongForm = ({ hideForm }) => {
                 value={description}
                 onChange={updateDescription}                
                 />
+
                 <input 
                 type="text"
                 placeholder="url"
@@ -87,18 +91,21 @@ const UploadSongForm = ({ hideForm }) => {
                 value={url}
                 onChange={updateUrl}
                 />
+
                 <input 
                 type="text"
                 placeholder="Image URL"
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
+
                 <input 
                 type="text"
                 placeholder="Album ID"
                 value={albumId}
                 onChange={updateAlbumId}
                 />
+
                 <button type="submit" onClick={handleSubmit}>Upload Song</button>
                 <button type="button" className={cancel} onClick={handleCancelClick}>Cancel</button>
             </form>

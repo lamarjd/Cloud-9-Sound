@@ -8,7 +8,7 @@ import EditSongForm from "./EditSongForm"
 import { usePlayer } from "../../context/PlayerContext"
 import "./Song.css"
 
-const SongDetails = ({songs}) => {
+const SongDetails = ({songs, user}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {songId} = useParams();
@@ -60,7 +60,7 @@ const SongDetails = ({songs}) => {
                     
 
                         <img className="pic" src={song.imageUrl} />
-                    <div>
+                    <div className="play-button-div">
 
                         <i onClick={() => setUrl(song.url)}
                             className="fa-solid fa-circle-play"></i>
@@ -70,13 +70,13 @@ const SongDetails = ({songs}) => {
                 </div>
                 <ul>
                     <li>
-                        <b>Title</b> {song.title}
+                        <b>Title: </b> {song.title}
                     </li>
                     <li>
-                        <b>Description</b> {song.description}
+                        <b>Description: </b> {song.description}
                     </li>
                     <li>
-                        <b>Artist</b> {song.artist}
+                        <b>Artist: </b> {sessionUser.username}
                     </li>
                 </ul>
                 {( !showEditSongForm && sessionUser) && (

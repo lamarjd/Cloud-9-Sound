@@ -64,8 +64,8 @@ const EditSongForm = ({ user }) => {
         let editedSong = dispatch(editSong(payload));
         
         if (editedSong) {
-            // history.push(`/songs`)
-            history.push(`/songs/${editedSong.id}`)
+            history.push(`/songs`)
+            // history.push(`/songs/${editedSong.id}`)
             // hideForm()
         } 
 
