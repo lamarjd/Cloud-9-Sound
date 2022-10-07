@@ -82,6 +82,7 @@ const SongDetails = ({songs, user}) => {
                 {( !showEditSongForm && sessionUser) && (
 
                     <>
+                    {/* *  if the current user is valid, show the below options */ }
                     {sessionUser &&
                     <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
                     }

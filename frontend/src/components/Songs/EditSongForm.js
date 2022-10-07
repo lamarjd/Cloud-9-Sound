@@ -79,7 +79,7 @@ const EditSongForm = ({ user }) => {
 
     return (
         <section>
-            <form className="upload_song" onSubmit={handleSubmit}>
+            <form className="edit_song" onSubmit={handleSubmit}>
                 <input 
                 type="text"
                 placeholder="title"

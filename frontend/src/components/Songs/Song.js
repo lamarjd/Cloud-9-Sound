@@ -1,6 +1,6 @@
 import { useState, useEffect  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, Route, useParams } from 'react-router-dom';
+import { NavLink, Route, useParams, Switch } from 'react-router-dom';
 import "./Song.css"
 import UploadSongForm from "./UploadSongForm"
 import SongDetails from "./SongDetails"
@@ -26,6 +26,7 @@ const Song = ({songs}) => {
 
 
     useEffect(() => {
+        setShowUploadForm(false)
         dispatch(getSongs())
     }, [dispatch])
 
@@ -33,34 +34,49 @@ const Song = ({songs}) => {
         return null
     }
 
-    let content = null;
+    let content =  <UploadSongForm 
+    songId={songId}
+    onClick={() => setShowUploadForm(false)}
+    />
 
-    if (showUploadForm) {
-        content = (
-            <UploadSongForm 
-            songId={songId}
-            onClick={() => setShowUploadForm(false)}
-            />
-        )
-    }
+    // if (showUploadForm) {
+    //     content = (
+    //         <UploadSongForm 
+    //         songId={songId}
+    //         onClick={() => setShowUploadForm(false)}
+    //         />
+    //     )
+    // }
 
     return (
     <div className="container">
-        <div className="song_list">
-            {songArr.map(({id, title, imageUrl}) => {
-                return <div key={id} className="song">
-                <NavLink className="song-link" key={song.id} to={`/songs/${id}`}><img src={imageUrl} />{title}</NavLink></div>             
+        {( !showUploadForm && 
+
+            <div className="song_list">
+                {/* Library Song list page */}
+                {songArr.map(({id, title, imageUrl}) => {
+                    return <div key={id} className="song">
+                    <NavLink className="song-link" key={song.id} to={`/songs/${id}`}><img src={imageUrl} />{title}</NavLink></div>             
                 })}            
-        </div>
-        {showUploadForm ? (
+            </div>
+
+        )}
+            <div>{content}</div>
+
+
+            
+           
+                <UploadSongForm onClick={() => setShowUploadForm(false)} />
+            
+            
+ 
             <>
-                <UploadSongForm />
-            </>
-         ) : (
-            <Route path="/songs/:songId">
+            <Route exact path="/songs/:songId">
                 <SongDetails />
+            {console.log("I'm the content: ", content)}
             </Route>
-         )}
+            </>
+         
     </div>                    
     )
 }

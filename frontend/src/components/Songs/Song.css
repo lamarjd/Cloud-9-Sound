@@ -48,7 +48,7 @@ div > #root {
     /* display: flex;
     justify-content: center; */
     /* align-items: center; */
-    border-bottom: 2px dotted red;
+    /* border-bottom: 2px dotted red; */
     height: 100%;
     width: 100%;
     font-size: 15px;
@@ -58,7 +58,8 @@ div > #root {
 .song-link {
     display: inline-block;
     color: black;
-    text-decoration: underline overline rgb(241, 74, 8);
+    /* text-decoration: underline overline rgb(241, 74, 8); */
+    text-decoration: none;
     width: 60%;
     height: 50%;
     text-align: left;
@@ -67,7 +68,7 @@ div > #root {
 
 .song-link > img{
     color: black;
-    text-decoration: underline overline rgb(241, 74, 8);
+    /* text-decoration: underline overline rgb(241, 74, 8); */
     object-fit: fill;
     width: 200px;
     height: 200px;
@@ -78,7 +79,7 @@ div > #root {
 .upload_song {
     /* border: 2px dotted red; */
     display: grid;
-    margin: auto;
+    /* margin: auto; */
     justify-content: center;
     width: 1180px;
     align-items: top;
@@ -88,9 +89,15 @@ div > #root {
     /* overflow-y: scroll; */
 }
 
-.form_page {
-    /* overflow-y: scroll; */
-    
+
+
+.form {
+    position: sticky;
+    overflow-y: scroll;
+    width: 100em;
+    height: 100px;
+    margin-top: 50%;
+    margin-bottom: 50%;    
 }
 
 .single-song-container {

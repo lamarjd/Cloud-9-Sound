@@ -19,7 +19,8 @@ const UploadSongForm = ({ hideForm }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
 
-    const [cancel, setCancel] = useState('visible')
+    const [cancel, setCancel] = useState(false)
+    console.log("Cancel: ", cancel)
 
     
 
@@ -34,6 +35,7 @@ const UploadSongForm = ({ hideForm }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // setCancel(true)
 
         const payload = {
             title,
@@ -44,7 +46,6 @@ const UploadSongForm = ({ hideForm }) => {
         }
         
         let uploadedSong = dispatch(uploadSong(payload));
-        // setUrl(url);
         
         if (uploadedSong) {
             // history.push(`/songs`)
@@ -53,19 +54,21 @@ const UploadSongForm = ({ hideForm }) => {
         }
     };
 
-    const handleCancelClick = (e) => {
-        e.preventDefault();
+    // const handleCancelClick = (e) => {
+    //     e.preventDefault();
         // setShowUploadForm(false)
-        setCancel('hidden')
+        // setCancel(true)
         // hideForm();
         // history.push(`/`)
-    }
+    // }
 
     
 
     return (
-        <section className="form_page">
-            <form className="upload_song" onSubmit={handleCancelClick}>
+        <section>
+            <form className="upload_song" 
+            onSubmit={handleSubmit}
+            >
                 <input 
                 type="text"
                 placeholder="title"
@@ -106,8 +109,11 @@ const UploadSongForm = ({ hideForm }) => {
                 onChange={updateAlbumId}
                 />
 
-                <button type="submit" onClick={handleSubmit}>Upload Song</button>
-                <button type="button" className={cancel} onClick={handleCancelClick}>Cancel</button>
+                <button type="button" onClick={handleSubmit}>Upload</button>
+
+                
+                <button type="button" className={cancel} >Cancel</button>
+                
             </form>
         </section>
     )
