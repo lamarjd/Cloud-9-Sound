@@ -6,6 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOneSong, deleteSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
 import { usePlayer } from "../../context/PlayerContext"
+// comments
+import { createComment } from "../../store/comment.js"
+import AddCommentForm from "../Comments/AddCommentForm"
+import Comment from "../Comments/Comment.js"
 import "./Song.css"
 
 const SongDetails = ({songs, user}) => {
@@ -23,6 +27,9 @@ const SongDetails = ({songs, user}) => {
 
     const [showEditSongForm, setShowEditSongForm] = useState(false);
     const [editSongId, setEditSongId] = useState(null);
+
+    // comments
+    const [showCommentForm, setShowCommentForm] = useState(false)
 
     
     useEffect(() => {
@@ -88,6 +95,13 @@ const SongDetails = ({songs, user}) => {
                     }
 
                     <button onClick={() => dispatch(deleteSong(song.id))} >Delete Song</button>
+
+                    <button onClick={() => setShowCommentForm(true)}>Add Comment</button>
+
+                    {showCommentForm &&
+                        <AddCommentForm songs={songs}/>
+                    }
+                    <Comment songId={songId}/>
 
 
                     </>

@@ -7,7 +7,7 @@ import commentReducer from "./comment"
 const rootReducer = combineReducers({
   session: sessionReducer,
   songs: songReducer,
-  // comments: commentReducer 
+  comment: commentReducer 
 });
 
 

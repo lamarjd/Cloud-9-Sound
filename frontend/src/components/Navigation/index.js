@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
+import SignupModal from "../SignupFormPage"
 import './Navigation.css';
 import logo from "../assets/images/CLOUD9Logo.png"
 import UploadSongForm  from "../Songs/UploadSongForm"
@@ -35,6 +36,7 @@ function Navigation({ isLoaded }){
       sessionLinks = (
         <>
         <LoginFormModal />
+        {/* <SignupModal /> */}
         <NavLink id="navlink-left" to="/signup">Sign Up</NavLink>
         {/* <EditSongForm /> */}
       </>

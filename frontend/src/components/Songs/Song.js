@@ -73,7 +73,7 @@ const Song = ({songs}) => {
             <>
             <Route exact path="/songs/:songId">
                 <SongDetails />
-            {console.log("I'm the content: ", content)}
+            {/* {console.log("I'm the content: ", content)} */}
             </Route>
             </>
          

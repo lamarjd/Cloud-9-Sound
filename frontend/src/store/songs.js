@@ -37,7 +37,7 @@ const remove = (songId) => {
 
 // THUNK - get Songs
 export const getSongs = () => async dispatch => {
-    const response = await fetch(`/api/songs`);
+    const response = await csrfFetch(`/api/songs`);
     
     if (response.ok) {
         const list = await response.json();
@@ -46,13 +46,13 @@ export const getSongs = () => async dispatch => {
 };
 
 export const getOneSong = (id) => async dispatch => {
-    const response = await fetch(`/api/songs/${id}`)
+    const response = await csrfFetch(`/api/songs/${id}`)
     if (response.ok) {
         const song = await response.json();
         dispatch(addSong(song));
         return song
     }
-    return null
+    alert("getOneSong not found")
 }
 
 // THUNK - post a Song

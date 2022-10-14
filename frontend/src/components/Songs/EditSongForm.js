@@ -22,7 +22,7 @@ const EditSongForm = ({ user }) => {
     let id = songId
     // console.log("ID", id)
     const sessionUser = useSelector(state => state.session.user);
-    console.log("SESSION USER", sessionUser)
+    // console.log("SESSION USER", sessionUser)
 
     // const showEdit = useSelector(state => state.songs)
     // console.log("Show Edit Form", showEdit)
@@ -33,6 +33,7 @@ const EditSongForm = ({ user }) => {
     const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
+    const [errors, setErrors] = useState([])
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
@@ -46,6 +47,9 @@ const EditSongForm = ({ user }) => {
 
 
     useEffect(() => {
+        let validationErrors = [];
+
+
         dispatch(getSongs())
     }, [dispatch])
 

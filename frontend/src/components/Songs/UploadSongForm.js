@@ -20,7 +20,7 @@ const UploadSongForm = ({ hideForm }) => {
     const [albumId, setAlbumId] = useState(null || '')
 
     const [cancel, setCancel] = useState(false)
-    console.log("Cancel: ", cancel)
+    // console.log("Cancel: ", cancel)
 
     
 
