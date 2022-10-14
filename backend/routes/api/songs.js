@@ -84,6 +84,7 @@ router.put('/:songId', requireAuth, async (req, res, next) => {
   const { songId } = req.params;
   const { title, description, url, imageUrl, albumId } = req.body;
 
+  // if (!albumId) albumId = null;
   const editSong = await Song.findByPk(songId, {
     attributes: ['id', 'userId', 'albumId', 'title', 'description', 'url', 'createdAt', 'updatedAt', 'imageUrl']
   });
@@ -201,10 +202,11 @@ router.delete('/:songId', requireAuth, async (req, res, next) => {
 //Creates and returns a new song with or without an album.
 // authenticate: yes
 router.post('/', requireAuth, async (req, res, next) => {
-  const userId = req.user.id
+  const userId = req.user.id 
 
   let {title, description, url, imageUrl, albumId } = req.body
 
+  if (!albumId) albumId = null;
 // check albumID in req.body. If it's falsey, throw error
   if (albumId && albumId !== null) {
     let search = await Album.findByPk(albumId)

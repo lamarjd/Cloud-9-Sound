@@ -7,9 +7,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 2px dotted red; */
   }
   
   #modal-background {
+    /* border: 2px dotted red; */
     position: fixed;
     top: 0;
     right: 0;
@@ -19,6 +21,9 @@
   }
   
   #modal-content {
+    /* border: 2px dotted red; */
     position: absolute;
+    border-radius: 12px;
     background-color:white;
+    box-shadow: 12px 12px 2px 1px rgba(13, 13, 41, 0.2);
   }

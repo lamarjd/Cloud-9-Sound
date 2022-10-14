@@ -21,10 +21,23 @@ const addSong = (song) => {
     }
 }
 
+const edit = (song) => {
+    return {
+        type: EDIT_SONG,
+        song
+    }
+};
+
+const remove = (songId) => {
+    return {
+        type: DELETE_SONG,
+        songId
+    }
+}
 
 // THUNK - get Songs
 export const getSongs = () => async dispatch => {
-    const response = await fetch(`/api/songs`);
+    const response = await csrfFetch(`/api/songs`);
     
     if (response.ok) {
         const list = await response.json();
@@ -33,13 +46,13 @@ export const getSongs = () => async dispatch => {
 };
 
 export const getOneSong = (id) => async dispatch => {
-    const response = await fetch(`/api/songs/${id}`)
+    const response = await csrfFetch(`/api/songs/${id}`)
     if (response.ok) {
         const song = await response.json();
         dispatch(addSong(song));
         return song
     }
-    return null
+    alert("getOneSong not found")
 }
 
 // THUNK - post a Song
@@ -59,6 +72,36 @@ export const uploadSong = (data) => async dispatch => {
     }
     //error handling
     throw new Error ("cannot load")
+}
+
+// THUNK - Edit song
+export const editSong = (song) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${song.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(song)
+    });
+    if (response.ok) {
+        const song = await response.json();
+        dispatch(edit(song))
+        return song
+    }
+    // error handling
+    return null;
+}
+
+// THUNK - Delete a Song
+export const deleteSong = (songId) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${songId}`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"}
+        });
+    if (response.ok) {
+        const song = `${songId}`
+        dispatch(remove(song));       
+    }
 }
 
 
@@ -90,6 +133,15 @@ const songReducer = (state = initialState, action) => {
                 ...action.song
             }        
         };
+        case EDIT_SONG:
+            return {
+                ...state,
+                [action.song.id]: action.song
+            }
+        case DELETE_SONG:
+            newState = {...state}
+            delete newState[action.songId]
+            return newState;
         default:
             return state;
     }

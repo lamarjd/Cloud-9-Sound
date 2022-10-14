@@ -27,11 +27,13 @@ function App() {
           </Route>
           <Route path="/songs">
             <Song />
+          </Route>
+          {/* <Route path="/upload">
             <UploadSongForm />
-          </Route>
-          <Route path="/songs/:songId">
+          </Route> */}
+          {/* <Route path="/songs/:songId">
             <SongDetails />
-          </Route>
+          </Route> */}
         </Switch>
       )}
       <Player />

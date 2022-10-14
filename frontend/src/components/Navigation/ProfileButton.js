@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import "./Navigation.css"
 
@@ -31,20 +31,21 @@ function ProfileButton({ user }) {
 
   return (
     <>
-    {/* <div className="banner_right"> */}
+    
       <button className="user_button" onClick={openMenu} >
         <i id="menu" className="fas fa-user-circle" />
-      </button>
+      </button> 
+   
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
+        <div className="profile-dropdown">
+          <p>{user.username}</p>
+          <p>{user.email}</p>
+          <p>
             <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+          </p>
+        </div>
       )}
-      {/* </div> */}
+    
     </>
   );
 }
