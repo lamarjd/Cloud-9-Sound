@@ -7,7 +7,7 @@ import { getOneSong, deleteSong } from "../../store/songs.js"
 import EditSongForm from "./EditSongForm"
 import { usePlayer } from "../../context/PlayerContext"
 // comments
-import { createComment } from "../../store/comment.js"
+import { createComment } from "../../store/comments.js"
 import AddCommentForm from "../Comments/AddCommentForm"
 import Comment from "../Comments/Comment.js"
 import "./Song.css"
@@ -45,12 +45,12 @@ const SongDetails = ({songs, user}) => {
 
     let content = null;
 
-    if (showEditSongForm) {
+    if (showEditSongForm && sessionUser) {
         content = (
             <EditSongForm 
             songId={editSongId}
             song={song}
-            onClick={() => setShowEditSongForm(false)}
+            onClick={() => setShowEditSongForm(!showEditSongForm)}
             />
         );
     }

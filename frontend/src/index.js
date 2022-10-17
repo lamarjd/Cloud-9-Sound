@@ -31,7 +31,6 @@ function Root() {
           <App />
         </BrowserRouter>
       </ModalProvider>
-      {/* <Player /> */}
       </PlayerProvider>
     </Provider> 
   );

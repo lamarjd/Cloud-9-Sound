@@ -1,13 +1,16 @@
 // import the thunk action creator from the store / reducer
-import { createComment } from "../../store/comment.js"
+import { createComment } from "../../store/comments.js"
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useState } from 'react'
 
 
-function AddCommentForm({ songId }) {
+
+function AddCommentForm({ }) {
+  // console.log("songId", songId)
     const dispatch = useDispatch();
     const history = useHistory();
+    const { songId } = useParams();
 
     const [body, setBody] = useState('');
     // const [showForm, setShowForm] = useState(false)
@@ -25,7 +28,7 @@ function AddCommentForm({ songId }) {
             body
         }
 
-        let addedComment = dispatch(createComment(newComment));
+        let addedComment = await dispatch(createComment(songId, newComment));
 
         if (addedComment) {
             history.push(`/songs/${songId}`)
@@ -51,11 +54,11 @@ function AddCommentForm({ songId }) {
 
         <button 
         type="submit"
-        // onClick={handleSubmit}
+        onClick={handleSubmit}
         >Add Comment</button>
 
         
-        <button type="button" >Cancel</button>
+        <button onClick={reset} type="button" >Cancel</button>
         
     </form>
 </section>

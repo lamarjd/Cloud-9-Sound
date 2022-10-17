@@ -14,7 +14,7 @@ import { getSongs } from "../../store/songs.js"
 - positioning (Modal?)
 */
 
-const EditSongForm = ({ user }) => {
+const EditSongForm = ({ song }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { songId }  = useParams();
@@ -34,6 +34,8 @@ const EditSongForm = ({ user }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
     const [errors, setErrors] = useState([])
+
+    // const [showEditSongForm, setShowEditSongForm] = useState(false);
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
@@ -65,11 +67,11 @@ const EditSongForm = ({ user }) => {
             albumId
         }
         
-        let editedSong = dispatch(editSong(payload));
+        let editedSong = await dispatch(editSong(payload));
         
         if (editedSong) {
-            history.push(`/songs`)
-            // history.push(`/songs/${editedSong.id}`)
+            // history.push(`/songs`)
+            history.push(`/songs/${editedSong.id}`)
             // hideForm()
         } 
 
@@ -78,6 +80,7 @@ const EditSongForm = ({ user }) => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         // hideForm();
+        // setShowEditSongForm(!showEditSongForm);
         history.push(`/songs/${songId}`)
     }
 
