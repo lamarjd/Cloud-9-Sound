@@ -50,7 +50,7 @@ const SongDetails = ({songs, user}) => {
             <EditSongForm 
             songId={editSongId}
             song={song}
-            onClick={() => setShowEditSongForm(!showEditSongForm)}
+            onClick={() => setShowEditSongForm(false)}
             />
         );
     }
@@ -101,7 +101,9 @@ const SongDetails = ({songs, user}) => {
                     {showCommentForm &&
                         <AddCommentForm songs={songs}/>
                     }
-                    <Comment songId={songId}/>
+                    {sessionUser && 
+                    <Comment key={songId} songId={songId}/>
+                    }
 
 
                     </>

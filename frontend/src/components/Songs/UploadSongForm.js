@@ -112,7 +112,7 @@ const UploadSongForm = ({ hideForm }) => {
                 <button type="button" onClick={handleSubmit}>Upload</button>
 
                 
-                <button type="button" className={cancel} >Cancel</button>
+                <button type="button" >Cancel</button>
                 
             </form>
         </section>

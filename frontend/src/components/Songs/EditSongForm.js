@@ -68,10 +68,11 @@ const EditSongForm = ({ song }) => {
         }
         
         let editedSong = await dispatch(editSong(payload));
+        console.log("Edited Song", editedSong)
         
         if (editedSong) {
-            // history.push(`/songs`)
-            history.push(`/songs/${editedSong.id}`)
+            history.push(`/songs`)
+            // history.push(`/songs/${editedSong.id}`)
             // hideForm()
         } 
 
@@ -81,7 +82,8 @@ const EditSongForm = ({ song }) => {
         e.preventDefault();
         // hideForm();
         // setShowEditSongForm(!showEditSongForm);
-        history.push(`/songs/${songId}`)
+        // console.log("song Id", song.id)
+        history.push(`/songs/${song.id}`)
     }
 
     return (
@@ -89,14 +91,14 @@ const EditSongForm = ({ song }) => {
             <form className="edit_song" onSubmit={handleSubmit}>
                 <input 
                 type="text"
-                placeholder="title"
+                placeholder={song.title}
                 required
                 value={title}
                 onChange={updateTitle}             
                 />
                 <input 
                 type="text"
-                placeholder="description"
+                placeholder={song.description}
                 min="2"
                 max="250"
                 required
@@ -105,20 +107,20 @@ const EditSongForm = ({ song }) => {
                 />
                 <input 
                 type="text"
-                placeholder="url"
+                placeholder={song.url}
                 required
                 value={url}
                 onChange={updateUrl}
                 />
                 <input 
                 type="text"
-                placeholder="Image URL"
+                placeholder={song.imageUrl}
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
                 <input 
                 type="text"
-                placeholder="Album ID"
+                placeholder={song.albumId || "Album Id"}
                 value={albumId}
                 onChange={updateAlbumId}
                 />

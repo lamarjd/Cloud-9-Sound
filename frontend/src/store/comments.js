@@ -31,15 +31,19 @@ const remove = (commentId, songId) => {
 
 
 // THUNK - DELETE COMMENT
-export const deleteComment = (commentId, songId) => async dispatch => {
+export const deleteComment = (commentId, songId) => async dispatch =>
+{
+    // console.log("COMMENTID from the delete thunk", commentId)
     const response = await csrfFetch(`/api/comments/${commentId}`, {
         method: "DELETE"
     })
+    // console.log("DELETE COMMENT RESPONSE", response)
     if (response.ok) {
-        const {id: deletedCommentId } = await response.json();
-        dispatch(remove(deletedCommentId, songId));
+        const {commentId: deletedCommentId} = await response.json();
+        dispatch(remove(deletedCommentId));
         return deletedCommentId;
     }
+    alert("Wanting to delete but can't")
 }
 
 // THUNK - get comments
@@ -62,7 +66,7 @@ export const createComment = (songId, comment) => async (dispatch) => {
         },
         body: JSON.stringify(comment)
     });
-    console.log("RESPONSE", response)
+    // console.log("RESPONSE", response)
     if (response.ok) {
         const upload = await response.json();
         dispatch(add(comment))
@@ -104,9 +108,9 @@ const commentReducer = (state = initialState, action) => {
                 }
             };
         case REMOVE_COMMENT:
-            newState = {...state};
-            delete newState[action.comment.id]
-            return newState;
+            const removeState = {...state};
+            delete removeState[action.commentId]
+            return removeState;
         default:
             return state;
         }
