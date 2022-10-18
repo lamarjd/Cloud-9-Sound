@@ -61,14 +61,11 @@ const Song = ({songs}) => {
             </div>
 
          )}
+
+         { showUploadForm &&
+            
             <div>{content}</div>
-        
-
-
-            
-           
-                {/* <UploadSongForm onClick={() => setShowUploadForm(false)} /> */}
-            
+         }           
             
  
             <>

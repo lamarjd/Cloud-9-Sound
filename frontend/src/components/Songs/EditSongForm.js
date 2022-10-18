@@ -14,7 +14,7 @@ import { getSongs } from "../../store/songs.js"
 - positioning (Modal?)
 */
 
-const EditSongForm = ({ song }) => {
+const EditSongForm = ({ song, setShowEditSongForm }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { songId }  = useParams();
@@ -51,9 +51,26 @@ const EditSongForm = ({ song }) => {
     useEffect(() => {
         let validationErrors = [];
 
+        if (title.length < 3) {
+            validationErrors.push("Song title must be longer than 3 characters")
+        }
+
+        if (description.length < 4) {
+            validationErrors.push("Song Description must be longer than 4 characters")
+        }
+
+        if (!imageUrl.includes('.jpg')) {
+            validationErrors.push("Song Image must be in the proper format (.png)")
+        }
+
+        if (!url.includes('.mp3')) {
+            validationErrors.push("Please provide a valid song url (.mp3)") 
+        }
+
+        setErrors(validationErrors)
 
         dispatch(getSongs())
-    }, [dispatch])
+    }, [dispatch, title, description, imageUrl, url])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,11 +85,12 @@ const EditSongForm = ({ song }) => {
         }
         
         let editedSong = await dispatch(editSong(payload));
-        console.log("Edited Song", editedSong)
         
         if (editedSong) {
-            history.push(`/songs`)
-            // history.push(`/songs/${editedSong.id}`)
+            // history.push(`/songs/${songId}`)
+            // console.log("Edited Song", editedSong)
+            setShowEditSongForm(false)
+            history.push(`/songs/${editedSong.id}`)
             // hideForm()
         } 
 
@@ -80,15 +98,28 @@ const EditSongForm = ({ song }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
+        setShowEditSongForm(false)
         // hideForm();
         // setShowEditSongForm(!showEditSongForm);
         // console.log("song Id", song.id)
-        history.push(`/songs/${song.id}`)
+        history.push(`/songs/${songId}`)
     }
 
     return (
         <section>
+            <ul>
+
+            {errors && 
+                errors.map(error => {
+                   return <li className="errors" key={error}>{error}</li>
+                })
+            }
+
+            </ul>
+
+
             <form className="edit_song" onSubmit={handleSubmit}>
+                <div className="edit_field_name" >Title</div>
                 <input 
                 type="text"
                 placeholder={song.title}
@@ -96,6 +127,7 @@ const EditSongForm = ({ song }) => {
                 value={title}
                 onChange={updateTitle}             
                 />
+                <div className="edit_field_name" >Description</div>
                 <input 
                 type="text"
                 placeholder={song.description}
@@ -105,6 +137,7 @@ const EditSongForm = ({ song }) => {
                 value={description}
                 onChange={updateDescription}                
                 />
+                <div className="edit_field_name" >URL</div>
                 <input 
                 type="text"
                 placeholder={song.url}
@@ -112,20 +145,22 @@ const EditSongForm = ({ song }) => {
                 value={url}
                 onChange={updateUrl}
                 />
+                <div className="edit_field_name" >Image Url</div>
                 <input 
                 type="text"
                 placeholder={song.imageUrl}
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
+                <div className="edit_field_name" >Album ID</div>
                 <input 
                 type="text"
                 placeholder={song.albumId || "Album Id"}
                 value={albumId}
                 onChange={updateAlbumId}
-                />
+                /> <br/>
                 <button type="submit" onClick={handleSubmit}>Save Changes</button>
-                <button type="button" onClick={handleCancelClick}>Cancel</button>
+                <button type="reset" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
     )

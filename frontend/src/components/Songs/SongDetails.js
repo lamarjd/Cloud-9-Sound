@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Route } from 'react-router-dom';
 // import useDispatch for use
 import { useSelector, useDispatch } from 'react-redux';
 // import the thunk
@@ -43,17 +43,17 @@ const SongDetails = ({songs, user}) => {
         // history.push("/songs")
     }
 
-    let content = null;
+    // let content = null;
 
-    if (showEditSongForm && sessionUser) {
-        content = (
-            <EditSongForm 
-            songId={editSongId}
-            song={song}
-            onClick={() => setShowEditSongForm(false)}
-            />
-        );
-    }
+    // if (showEditSongForm && sessionUser) {
+    //     content = (
+    //         <EditSongForm 
+    //         songId={editSongId}
+    //         song={song}
+    //         onClick={() => setShowEditSongForm(false)}
+    //         />
+    //     );
+    // }
 
 
 
@@ -90,9 +90,9 @@ const SongDetails = ({songs, user}) => {
 
                     <>
                     {/* *  if the current user is valid, show the below options */ }
-                    {sessionUser &&
+                    
                     <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
-                    }
+                    
 
                     <button onClick={() => dispatch(deleteSong(song.id))} >Delete Song</button>
 
@@ -101,16 +101,27 @@ const SongDetails = ({songs, user}) => {
                     {showCommentForm &&
                         <AddCommentForm songs={songs}/>
                     }
-                    {sessionUser && 
+                     
                     <Comment key={song.id} songId={songId}/>
-                    }
+                    
 
 
                     </>
 
                 )}
-                {/* render the EditSongForm */}
-                {content}
+                { sessionUser && showEditSongForm &&
+                
+
+                    <EditSongForm 
+                    songId={editSongId}
+                    song={song}
+                    setShowEditSongForm={setShowEditSongForm}
+                    onClick={() => setShowEditSongForm(false)}
+                    />
+            
+
+                }
+                {/* {content} */}
             </div>
         </div>
     )
