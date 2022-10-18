@@ -11,9 +11,9 @@ function AddCommentForm({ }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { songId, commentId } = useParams();
-    const id = commentId
-    // console.log("COMMENT BABY", commentId)
-    // const comment = useSelector(state => state.comments)
+    // const id = commentId
+    // console.log("COMMENT BABY", id)
+    const comment = useSelector(state => state.comments)
     // console.log("COMMENT BABY", comment.songId)
 
     const [body, setBody] = useState('');
@@ -26,16 +26,17 @@ function AddCommentForm({ }) {
 
     useEffect(() => {
       // setBody('');
-    }, [dispatch, id, body])
+    }, [dispatch, body])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newComment = {
-            id,
+            // id,
             songId,
             body
         }
+        // console.log("NEWCOMMENT", newComment)
 
         let addedComment = await dispatch(createComment(songId, newComment));
 

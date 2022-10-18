@@ -1,0 +1,9 @@
+.splash-container {
+    align-items: center;
+    justify-content: center; 
+    display: grid;
+    grid-template-columns: repeat(4,20%);
+    height: 30em;
+    width: 100%;
+    border: 2px dotted grey;
+}

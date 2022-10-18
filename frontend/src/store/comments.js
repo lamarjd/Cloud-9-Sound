@@ -25,7 +25,7 @@ const remove = (commentId, songId) => {
     return {
         type: REMOVE_COMMENT,
         commentId,
-        songId
+        // songId
     }
 }
 
@@ -58,7 +58,7 @@ export const getComments = (songId) => async dispatch => {
 
 
 export const createComment = (songId, comment) => async (dispatch) => {
-    console.log("CREATING A COMMENT THUNK DISPATCHING", songId.songId)
+    // console.log("CREATING A COMMENT THUNK DISPATCHING", songId.songId)
     const response = await csrfFetch(`/api/songs/${songId}/comments`, {
         method: "POST",
         headers: {
@@ -83,6 +83,8 @@ export const createComment = (songId, comment) => async (dispatch) => {
 /* REDUCER */
 const initialState = {};
 
+
+
 const commentReducer = (state = initialState, action) => {
     let newState;
     switch(action.type) {
@@ -91,14 +93,16 @@ const commentReducer = (state = initialState, action) => {
             action.comments.Comments.forEach((comment) => (allComments[comment.id] = comment))
             return allComments;
         case CREATE_COMMENT:
-            // if (!state[action.comment.id]) {
-                // console.log("new State: BEFORE", newState)
-                const addState = {
-                    ...state,
-                    [action.comment.id]: action.comment
-                }
+            const addState = {...state}
+            addState[action.comment.id] = action.comment
+            return addState;
+                
+                // const addState = {
+                //     ...state,
+                //     [action.comment.id]: action.comment
+                // }
                 // console.log("new State: AFTER", newState)
-                return addState
+                // return addState
          
         case REMOVE_COMMENT:
             const removeState = {...state};

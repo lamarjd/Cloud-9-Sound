@@ -28,9 +28,8 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
-      <ProfileButton user={sessionUser} />
       <UploadSongFormModal />
-      {/* <UploadSongForm /> */}
+      <ProfileButton user={sessionUser} />
       </>
       );
     } else {
@@ -38,8 +37,6 @@ function Navigation({ isLoaded }){
         <>
         <LoginFormModal />
         <SignupFormModal />
-        {/* <NavLink id="navlink-left" to="/signup">Sign Up</NavLink> */}
-        {/* <EditSongForm /> */}
       </>
     );
   }
@@ -79,24 +76,6 @@ function Navigation({ isLoaded }){
 
             <div className="banner_right">
 
-            {sessionUser && 
-              <button className={style} onClick={handleClick}>
-
-                <NavLink id="navlink-right" to="/songs/upload">Upload</NavLink>
-                
-                </button>
-              }
-
-              {/* move this to render somehwere else in the body   */}
-              {/* {showUploadForm && (                
-                <div className="form">
-                <UploadSongForm  />                  
-                </div>
-                )} */}
-                  {/* user button */}
-                  {/* {sessionUser && showUploadForm &&
-                    <UploadSongFormModal />
-                  }                   */}
                   {isLoaded && sessionLinks}  
                   
                   </div>       

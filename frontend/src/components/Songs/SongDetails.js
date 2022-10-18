@@ -24,6 +24,7 @@ const SongDetails = ({songs, user}) => {
     // console.log("song Selector", song)
 
     const sessionUser = useSelector(state => state.session.user)
+    // console.log(sessionUser)
 
     const [showEditSongForm, setShowEditSongForm] = useState(false);
     const [editSongId, setEditSongId] = useState(null);

@@ -5,7 +5,8 @@ import {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { uploadSong } from "../../store/songs.js"
-// import './Song.css'
+import './UploadSongForm.css'
+import logo from "../assets/images/CLOUD9Logo.png"
 import {usePlayer} from "../../context/PlayerContext"
 
 const UploadSongForm = ({ hideForm }) => {
@@ -66,53 +67,75 @@ const UploadSongForm = ({ hideForm }) => {
 
     return (
         <section>
-            <form className="upload_song" 
+            <form className="upload_song_form" 
             onSubmit={handleSubmit}
-            >
+            >   
+                <h2>Let's get started!</h2>
+                <h4>Upload your song and share it with the community</h4>
+                <div className="logo-container">
+                    <img className="logo" src={logo} alt="logo"/>
+                </div> <br/>
+                <label>
+                Title
                 <input 
                 type="text"
-                placeholder="title"
+                placeholder="Title"
                 required
                 value={title}
                 onChange={updateTitle}             
                 />
-
+                </label>
+                <br/>
+                <label>
+                Description
                 <input 
                 type="text"
-                placeholder="description"
+                placeholder="Description"
                 min="2"
                 max="250"
                 required
                 value={description}
                 onChange={updateDescription}                
                 />
-
+                </label>
+                <br/>
+                <label>
+                Song URL
                 <input 
                 type="text"
-                placeholder="url"
+                placeholder="URL (.mp3 format)"
                 required
                 value={url}
                 onChange={updateUrl}
                 />
-
+                </label>                
+                <br/>
+                <label>
+                Image Url
                 <input 
                 type="text"
                 placeholder="Image URL"
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
-
+                </label>
+                <br/>
+                <label>
+                Album ID
                 <input 
                 type="text"
-                placeholder="Album ID"
+                placeholder="Album ID (optional)"
                 value={albumId}
                 onChange={updateAlbumId}
                 />
-
+                </label>
+                <br/>
+                <span className="buttons">
                 <button type="button" onClick={handleSubmit}>Upload</button>
 
                 
-                <button type="button" >Cancel</button>
+                <button type="reset" >Cancel</button>
+                </span>
                 
             </form>
         </section>

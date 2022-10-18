@@ -45,9 +45,8 @@ const Comment = ({ songId }) => {
                     {comments.map(comment => (
                         <div key={comment.id} className="single-comment">
                             {comment.body}
-                            {/* <CommentIndex comment={comment}/> */}
-
-                            <button key={comment.id} onClick={() => dispatch(deleteComment(comment.id))}>Delete</button>
+                            
+                            <button onClick={() => dispatch(deleteComment(comment.id))}>Delete</button>
                         </div>
 
                     ))}

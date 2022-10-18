@@ -55,7 +55,7 @@ function LoginForm() {
           required
           />
       </label>
-      <hr></hr>
+      {/* <hr></hr> */}
       <label>
         Password
         <input

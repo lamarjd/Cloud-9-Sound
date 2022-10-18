@@ -15,6 +15,8 @@ import { getSongs } from "../../store/songs.js"
 */
 
 const EditSongForm = ({ song, setShowEditSongForm }) => {
+
+    console.log("SONG FROM EDITSONG", song)
     const dispatch = useDispatch();
     const history = useHistory();
     const { songId }  = useParams();
@@ -47,8 +49,22 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
         alert("You're not authorized")
     }
 
+    useEffect(() => {
+        setTitle(song && song.title)
+        setDescription(song && song.description)
+        setUrl(song && song.url)
+        setImageUrl(song && song.imageUrl)
+        setAlbumId(song && song.albumId)
+    }, [song])
+
 
     useEffect(() => {
+        dispatch(getSongs())
+    }, [dispatch])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         let validationErrors = [];
 
         if (title.length < 3) {
@@ -69,12 +85,6 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
 
         setErrors(validationErrors)
 
-        dispatch(getSongs())
-    }, [dispatch, title, description, imageUrl, url])
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
         const payload = {
             id,
             title,
@@ -84,6 +94,8 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
             albumId
         }
         
+        if (validationErrors.length) return null;
+
         let editedSong = await dispatch(editSong(payload));
         
         if (editedSong) {
@@ -98,6 +110,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
+       
         setShowEditSongForm(false)
         // hideForm();
         // setShowEditSongForm(!showEditSongForm);
@@ -122,7 +135,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 <div className="edit_field_name" >Title</div>
                 <input 
                 type="text"
-                placeholder={song.title}
+                // placeholder={song.title}
                 required
                 value={title}
                 onChange={updateTitle}             
@@ -130,7 +143,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 <div className="edit_field_name" >Description</div>
                 <input 
                 type="text"
-                placeholder={song.description}
+                // placeholder={song.description}
                 min="2"
                 max="250"
                 required
@@ -140,7 +153,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 <div className="edit_field_name" >URL</div>
                 <input 
                 type="text"
-                placeholder={song.url}
+                // placeholder={song.url}
                 required
                 value={url}
                 onChange={updateUrl}
@@ -148,15 +161,15 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 <div className="edit_field_name" >Image Url</div>
                 <input 
                 type="text"
-                placeholder={song.imageUrl}
+                // placeholder={song.imageUrl}
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
                 <div className="edit_field_name" >Album ID</div>
                 <input 
                 type="text"
-                placeholder={song.albumId || "Album Id"}
-                value={albumId}
+                // placeholder={song.albumId || "Album Id"}
+                value={albumId || ''}
                 onChange={updateAlbumId}
                 /> <br/>
                 <button type="submit" onClick={handleSubmit}>Save Changes</button>

@@ -38,7 +38,7 @@ function SignupFormPage() {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-            <h2>Welcome to Cloud-9!!</h2> 
+            <h2>Welcome to Cloud 9!!</h2> 
             <h4>Signup Below to join the community</h4> <br/>
       <div className="form-inputs">
         <div className="logo-container">
