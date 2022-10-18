@@ -24,6 +24,7 @@ function AddCommentForm({ }) {
         e.preventDefault();
 
         const newComment = {
+            // id,
             songId,
             body
         }

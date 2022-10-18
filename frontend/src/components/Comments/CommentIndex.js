@@ -12,7 +12,7 @@ const CommentIndex = ({ comment, songId }) => {
     useEffect(() => {
         // dispatch(getComments(songId))
         history.push(`/songs/${songId}`)
-    }, [dispatch])
+    }, [dispatch, comment.id])
 
     return (
         <li key={comment.id}>

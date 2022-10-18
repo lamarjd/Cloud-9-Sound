@@ -91,22 +91,18 @@ const commentReducer = (state = initialState, action) => {
             action.comments.Comments.forEach((comment) => (allComments[comment.id] = comment))
             return allComments;
         case CREATE_COMMENT:
-            if (!state[action.comment.id]) {
-                console.log("new State: BEFORE", newState)
-                newState = {
+            // if (!state[action.comment.id]) {
+                // console.log("new State: BEFORE", newState)
+                const addState = {
                     ...state,
-                    [action.comment.id]: action.comment
+                    [action.comment.id]: {
+                        ...state[action.comment.id],
+                        ...action.comment
+                    }
                 }
-                console.log("new State: AFTER", newState)
-                return newState
-            }
-            return {
-                ...state, 
-                [action.comment.id]: {
-                    ...state[action.comment.id],
-                    ...action.comment
-                }
-            };
+                // console.log("new State: AFTER", newState)
+                return addState
+         
         case REMOVE_COMMENT:
             const removeState = {...state};
             delete removeState[action.commentId]

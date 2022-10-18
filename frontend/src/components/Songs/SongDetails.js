@@ -102,7 +102,7 @@ const SongDetails = ({songs, user}) => {
                         <AddCommentForm songs={songs}/>
                     }
                     {sessionUser && 
-                    <Comment key={songId} songId={songId}/>
+                    <Comment key={song.id} songId={songId}/>
                     }
 
 
