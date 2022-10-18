@@ -2,7 +2,7 @@ import { useState, useEffect  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Route, useParams, Switch } from 'react-router-dom';
 import "./Song.css"
-import UploadSongForm from "./UploadSongForm"
+// import UploadSongForm from "./UploadSongForm"
 import SongDetails from "./SongDetails"
 
 import { getSongs } from "../../store/songs.js"
@@ -34,10 +34,10 @@ const Song = ({songs}) => {
         return null
     }
 
-    let content =  <UploadSongForm 
-    songId={songId}
-    onClick={() => setShowUploadForm(false)}
-    />
+    // let content =  <UploadSongForm 
+    // songId={songId}
+    // onClick={() => setShowUploadForm(false)}
+    // />
 
     // if (showUploadForm) {
     //     content = (
@@ -62,12 +62,12 @@ const Song = ({songs}) => {
 
          )}
 
-         { showUploadForm &&
-            // <Route path="/songs/upload">
+         {/* { showUploadForm && */}
+            
 
-            <div>{content}</div>
-            // {/* </Route> */}
-         }           
+            {/* // <div>{content}</div> */}
+            
+        {/* //  }            */}
             
  
             <>

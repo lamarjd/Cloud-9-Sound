@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import SignupModal from "../SignupFormPage"
+import SignupFormModal from "../SignupFormModal"
+import UploadSongFormModal  from "../UploadSongFormModal"
 import './Navigation.css';
 import logo from "../assets/images/CLOUD9Logo.png"
-import UploadSongForm  from "../Songs/UploadSongForm"
 import EditSongForm from "../Songs/EditSongForm"
 
 
@@ -29,6 +29,7 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
       <ProfileButton user={sessionUser} />
+      <UploadSongFormModal />
       {/* <UploadSongForm /> */}
       </>
       );
@@ -36,8 +37,8 @@ function Navigation({ isLoaded }){
       sessionLinks = (
         <>
         <LoginFormModal />
-        {/* <SignupModal /> */}
-        <NavLink id="navlink-left" to="/signup">Sign Up</NavLink>
+        <SignupFormModal />
+        {/* <NavLink id="navlink-left" to="/signup">Sign Up</NavLink> */}
         {/* <EditSongForm /> */}
       </>
     );
@@ -46,7 +47,7 @@ function Navigation({ isLoaded }){
   const handleClick = async (e) => {
     e.preventDefault();
     setShowUploadForm(true)
-    setStyle('hidden')    
+    // setStyle('hidden')    
   }
 
   const handleCancelClick = async (e) => {
@@ -78,19 +79,24 @@ function Navigation({ isLoaded }){
 
             <div className="banner_right">
 
+            {sessionUser && 
               <button className={style} onClick={handleClick}>
 
                 <NavLink id="navlink-right" to="/songs/upload">Upload</NavLink>
                 
                 </button>
+              }
 
               {/* move this to render somehwere else in the body   */}
-              {showUploadForm && (                
+              {/* {showUploadForm && (                
                 <div className="form">
                 <UploadSongForm  />                  
                 </div>
-                )}
-                  {/* user button */}                  
+                )} */}
+                  {/* user button */}
+                  {/* {sessionUser && showUploadForm &&
+                    <UploadSongFormModal />
+                  }                   */}
                   {isLoaded && sessionLinks}  
                   
                   </div>       

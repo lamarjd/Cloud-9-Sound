@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
+import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Song from "./components/Songs/Song"
 import SongDetails from "./components/Songs/SongDetails"
-import UploadSongForm from "./components/Songs/UploadSongForm"
+// import UploadSongForm from "./components/Songs/UploadSongForm"
 import Player from './components/AudioPlayer/AudioPlayer.js';
 
 
@@ -19,7 +19,9 @@ function App() {
 
   return (
     <>
+    {/* <Route path="/welcome"> */}
       <Navigation isLoaded={isLoaded} />
+    {/* </Route> */}
       {isLoaded && (
         <Switch>
           <Route path="/signup">
