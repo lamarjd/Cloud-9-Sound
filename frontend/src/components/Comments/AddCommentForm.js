@@ -2,7 +2,7 @@
 import { createComment } from "../../store/comments.js"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
@@ -10,7 +10,11 @@ function AddCommentForm({ }) {
   // console.log("songId", songId)
     const dispatch = useDispatch();
     const history = useHistory();
-    const { songId } = useParams();
+    const { songId, commentId } = useParams();
+    const id = commentId
+    // console.log("COMMENT BABY", commentId)
+    // const comment = useSelector(state => state.comments)
+    // console.log("COMMENT BABY", comment.songId)
 
     const [body, setBody] = useState('');
     // const [showForm, setShowForm] = useState(false)
@@ -20,11 +24,15 @@ function AddCommentForm({ }) {
 
     const updateBody = (e) => setBody(e.target.value)
 
+    useEffect(() => {
+      // setBody('');
+    }, [dispatch, id, body])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newComment = {
-            // id,
+            id,
             songId,
             body
         }

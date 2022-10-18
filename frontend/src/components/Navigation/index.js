@@ -80,12 +80,14 @@ function Navigation({ isLoaded }){
 
               <button className={style} onClick={handleClick}>
 
-                <NavLink id="navlink-right" to="/songs/upload">Upload</NavLink></button>
+                <NavLink id="navlink-right" to="/songs/upload">Upload</NavLink>
+                
+                </button>
 
               {/* move this to render somehwere else in the body   */}
               {showUploadForm && (                
                 <div className="form">
-                {/* <UploadSongForm  />                   */}
+                <UploadSongForm  />                  
                 </div>
                 )}
                   {/* user button */}                  

@@ -95,10 +95,7 @@ const commentReducer = (state = initialState, action) => {
                 // console.log("new State: BEFORE", newState)
                 const addState = {
                     ...state,
-                    [action.comment.id]: {
-                        ...state[action.comment.id],
-                        ...action.comment
-                    }
+                    [action.comment.id]: action.comment
                 }
                 // console.log("new State: AFTER", newState)
                 return addState

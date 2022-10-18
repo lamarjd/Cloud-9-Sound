@@ -1,5 +1,5 @@
 .comment-box {
-    border: 2px solid red;
+    border: 1px solid grey;
     display: flex;
     flex-direction: column;
     width: 40em;
@@ -8,7 +8,7 @@
 
 .single-comment {
     display: flex;
-    border: 2px dotted green;
+    border: 1px dotted grey;
     height: 100%;
     justify-content: space-between;
 }

@@ -99,7 +99,9 @@ const SongDetails = ({songs, user}) => {
                     <button onClick={() => setShowCommentForm(true)}>Add Comment</button>
 
                     {showCommentForm &&
+                    // <Route exact path="/songs/:songId/comment">
                         <AddCommentForm songs={songs}/>
+                    // {/* </Route> */}
                     }
                      
                     <Comment key={song.id} songId={songId}/>
