@@ -41,14 +41,7 @@ const Comment = ({ songId }) => {
         <div>
             <h2>Song Comments</h2>
             <div className="comment-box">
-                
-                    {/* {comments.map((comment) => (
-                         <CommentIndex 
-                         key={comment.id}
-                         className="single-comment" 
-                         comment={comment}
-                         songId={songId} />
-                    ))} */}
+    
 
                     {comments.map(comment => (
                         <div key={comment.id} className="single-comment">

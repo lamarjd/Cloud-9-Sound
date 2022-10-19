@@ -34,20 +34,6 @@ const Song = ({songs}) => {
         return null
     }
 
-    // let content =  <UploadSongForm 
-    // songId={songId}
-    // onClick={() => setShowUploadForm(false)}
-    // />
-
-    // if (showUploadForm) {
-    //     content = (
-    //         <UploadSongForm 
-    //         songId={songId}
-    //         onClick={() => setShowUploadForm(false)}
-    //         />
-    //     )
-    // }
-
     return (
     <div className="container">
         {( !showUploadForm && 
@@ -61,19 +47,11 @@ const Song = ({songs}) => {
             </div>
 
          )}
-
-         {/* { showUploadForm && */}
-            
-
-            {/* // <div>{content}</div> */}
-            
-        {/* //  }            */}
-            
+        
  
             <>
             <Route exact path="/songs/:songId">
                 <SongDetails />
-            {/* {console.log("I'm the content: ", content)} */}
             </Route>
             </>
          

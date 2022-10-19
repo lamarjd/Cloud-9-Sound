@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     width: 40em;
-    height: 10em;
+    height: 50%;
 }
 
 .single-comment {
@@ -11,4 +11,5 @@
     border: 1px dotted grey;
     height: 100%;
     justify-content: space-between;
+    padding: 5px;
 }

@@ -69,7 +69,7 @@ function LoginForm() {
       </label><br />
       
     </div>
-      <input type="submit" value="Log In" /> <br />
+      <input type="submit" className="sign-in" value="Log In" /> <br />
       
 
 

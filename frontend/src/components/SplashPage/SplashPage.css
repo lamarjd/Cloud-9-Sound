@@ -1,9 +1,125 @@
 .splash-container {
-    align-items: center;
-    justify-content: center; 
-    display: grid;
-    grid-template-columns: repeat(4,20%);
-    height: 30em;
-    width: 100%;
-    border: 2px dotted grey;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    height: 100%;
+    margin-top: 0;
+    padding-top: 0px;
+    background-color:rgba(197, 211, 197, 0.637);
+    margin-top: 0;
+}
+
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 1180px;
+    padding-top: 0px;
+    background-color: white;
+}
+
+.splash-picture-container {
+    /* border: 2px solid red; */
+    border-top: 4px solid rgb(241, 74, 8);
+    display: flex;
+    height: 52vh;
+    width: 1180px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    color: white; 
+    /* padding: 145px; */    
+    /* background: 50%/cover no-repeat;
+        background-image: initial;
+        background-position-x: 50%;
+        background-position-y: center;
+        background-size: cover;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial; */
+}
+
+.song-display {
+    /* overflow: scroll; */
+    display: border-box;
+    min-height: 100%;
+    margin-bottom: 20%;
+}
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    height: 20%;
+    object-fit: contain;
+    /* border: 2px solid white; */
+    display: inline-flex;
+}
+
+/* Top right text */
+.top-right {
+    display: flex;
+    justify-content: space-between;
+    width: 17%;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    /* border: 2px solid white; */
+}
+
+
+  .sign-in {
+    background: transparent;
+    color: #fff;
+    border-color: #ccc;
+    height: 30px;
+    line-height: 24px;
+    margin: 0 0 0 6px;
+    padding: 2px 15px;
+    padding-top: 2px;
+    padding-right: 15px;
+    padding-bottom: 2px;
+    padding-left: 15px;    
+  }
+
+  .create-account {
+    height: 30px;
+    line-height: 24px;
+    margin: 0 0 0 6px;
+    background-color: #f50;
+    border-color: #f50;
+    color: #fff;
+    width: 50%;
+    line-height: 24px;
+    margin: 0 0 0 6px;
+    padding: 2px 15px;
+    padding-top: 2px;
+    padding-right: 15px;
+    padding-bottom: 2px;
+    padding-left: 15px; 
+  }
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#logo {
+    /* object-fit: contain; */
+
+  }
+
+#splashImg {
+    max-width:100%;
+    max-height:100%;
+    object-fit: cover;
+    width: 100%
+}
+
+.carousel {
+    transform: translateX(-33.3333%); transition: transform 0.6s ease-in-out 0s; width: 300%;
 }
