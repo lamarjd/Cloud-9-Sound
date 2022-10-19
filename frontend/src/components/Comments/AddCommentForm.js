@@ -6,18 +6,14 @@ import { useEffect, useState } from 'react'
 
 
 
-function AddCommentForm({ }) {
+function AddCommentForm({ setShowCommentForm }) {
   // console.log("songId", songId)
     const dispatch = useDispatch();
     const history = useHistory();
-    const { songId, commentId } = useParams();
-    // const id = commentId
-    // console.log("COMMENT BABY", id)
-    const comment = useSelector(state => state.comments)
-    // console.log("COMMENT BABY", comment.songId)
-
+    const { songId } = useParams();
+ 
     const [body, setBody] = useState('');
-    // const [showForm, setShowForm] = useState(false)
+    // const [showCommentForm, setShowCommentForm] = useState(false)
 
     // const song = useSelector(state => state.songs);
     // console.log("SONG SELECTOR", song);
@@ -32,7 +28,7 @@ function AddCommentForm({ }) {
         e.preventDefault();
 
         const newComment = {
-            // id,
+            // id: id,
             songId,
             body
         }
@@ -48,6 +44,12 @@ function AddCommentForm({ }) {
 
     const reset = () => {
         setBody('')
+        setShowCommentForm(false)
+    }
+
+    const handleCancelClick = (e) => {
+      e.preventDefault();
+      setShowCommentForm(false)
     }
 
 
@@ -68,7 +70,7 @@ function AddCommentForm({ }) {
         >Add Comment</button>
 
         
-        <button onClick={reset} type="button" >Cancel</button>
+        <button onClick={handleCancelClick} type="reset" >Cancel</button>
         
     </form>
 </section>

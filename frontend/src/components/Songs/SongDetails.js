@@ -35,6 +35,7 @@ const SongDetails = ({songs, user}) => {
     
     useEffect(() => {
         setShowEditSongForm(false)
+        setShowCommentForm(false)
         setEditSongId(null)
         dispatch(getOneSong(songId))
     }, [dispatch, songId])
@@ -101,7 +102,11 @@ const SongDetails = ({songs, user}) => {
 
                     {showCommentForm &&
                     // <Route exact path="/songs/:songId/comment">
-                        <AddCommentForm songs={songs}/>
+                        <AddCommentForm 
+                        songs={songs}
+                        setShowCommentForm={setShowCommentForm}
+                        onClick={() => setShowCommentForm(false)}
+                        />
                     // {/* </Route> */}
                     }
                      

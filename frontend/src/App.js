@@ -9,6 +9,7 @@ import Song from "./components/Songs/Song"
 import SongDetails from "./components/Songs/SongDetails"
 // import UploadSongForm from "./components/Songs/UploadSongForm"
 import Player from './components/AudioPlayer/AudioPlayer.js';
+// import SplashPage from "./components/SplashPage"
 
 
 function App() {

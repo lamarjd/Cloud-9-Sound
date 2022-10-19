@@ -21,17 +21,16 @@ const allComments = (comments) => {
     }
 }
 
-const remove = (commentId, songId) => {
+const remove = (commentId) => {
     return {
         type: REMOVE_COMMENT,
         commentId,
-        // songId
     }
 }
 
 
 // THUNK - DELETE COMMENT
-export const deleteComment = (commentId, songId) => async dispatch =>
+export const deleteComment = (commentId) => async dispatch =>
 {
     // console.log("COMMENTID from the delete thunk", commentId)
     const response = await csrfFetch(`/api/comments/${commentId}`, {
@@ -39,9 +38,9 @@ export const deleteComment = (commentId, songId) => async dispatch =>
     })
     // console.log("DELETE COMMENT RESPONSE", response)
     if (response.ok) {
-        const {commentId: deletedCommentId} = await response.json();
-        dispatch(remove(deletedCommentId));
-        return deletedCommentId;
+        const message = await response.json();
+        dispatch(remove(commentId));
+        return message;
     }
     alert("Wanting to delete but can't")
 }
@@ -52,6 +51,7 @@ export const getComments = (songId) => async dispatch => {
 
     if (response.ok) {
         const comments = await response.json();
+        console.log("Comment from the getComments thunk", comments)
         dispatch(allComments(comments))
     }
 };
@@ -69,7 +69,8 @@ export const createComment = (songId, comment) => async (dispatch) => {
     // console.log("RESPONSE", response)
     if (response.ok) {
         const upload = await response.json();
-        dispatch(add(comment))
+        // console.log("This is the new comment from Thunk", upload)
+        dispatch(add(upload))
         return upload;
     }
     // error handle
@@ -90,7 +91,9 @@ const commentReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_COMMENTS:
             const allComments = {}
+            console.log("Action.comments from reducer", action.comments)
             action.comments.Comments.forEach((comment) => (allComments[comment.id] = comment))
+            console.log("all comments from reducer", allComments)
             return allComments;
         case CREATE_COMMENT:
             const addState = {...state}
@@ -107,6 +110,7 @@ const commentReducer = (state = initialState, action) => {
         case REMOVE_COMMENT:
             const removeState = {...state};
             delete removeState[action.commentId]
+            console.log("Remove state from reducer", removeState)
             return removeState;
         default:
             return state;
