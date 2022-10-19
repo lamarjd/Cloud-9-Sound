@@ -57,7 +57,7 @@ div {
 
 
 .banner_container {
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
     display: inline-flex;
     background-color: rgb(51, 51, 51);
     /* align-content: center; */
@@ -82,14 +82,15 @@ div {
 
 .banner_right {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-around;
     align-items: center;
     border-radius: 3px;
+    width: 15%;
     /* padding: 80px; */
-    padding-left: 20%;
-    padding-right: 10px;
+    /* padding-left: 20%; */
+    /* padding-right: 10px; */
     margin-left: auto;
-    border: 2px dotted white;
+    /* border: 2px dotted white; */
 }
 
 #navlink-right {
@@ -108,15 +109,23 @@ div {
 .user_button {
     display: flex;
     /* position: relative; */
+    /* border: 2px solid red; */
     align-items: center;
     justify-content: center;
     /* border: 2px solid red; */
     /* margin-right: 500px;    */
 }
 
+.user_button > i {
+    /* object-fit: fill; */
+    /* border: 2px solid blue; */
+    font-size: 2em;
+}
+
 .profile-dropdown {
     position: fixed;
     display: flex;
+    right: 8%;
     justify-content: right;
     flex-direction: column;
     align-self: flex-start;

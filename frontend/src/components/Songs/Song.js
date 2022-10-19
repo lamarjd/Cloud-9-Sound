@@ -49,11 +49,11 @@ const Song = ({songs}) => {
          )}
         
  
-            <>
+            {/* <>
             <Route exact path="/songs/:songId">
                 <SongDetails />
             </Route>
-            </>
+            </> */}
          
     </div>                    
     )

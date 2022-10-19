@@ -1,33 +1,37 @@
 
 div > #root {
-    border: 2px dotted blue;
+    /* border: 2px dotted blue; */
 }
 
-/* .container {
+.container {
     display: grid;
     justify-content: center;
-    align-items: top;
+    /* align-items: top; */
     background-color: #fff;
     bottom: 10px;
-    margin-top: 5%;
+    /* margin-top: 5%; */
+    /* margin-left: 17%; */
     width: 100%;
     height: 100em;
-    border: 2px solid yellow;    
-} */
+    /* border: 2px solid yellow; */
+    background-color:rgba(197, 211, 197, 0.637);  
+}
 
 .song_list {
-    /* display: flex;
-    flex-direction: row;
-    */
-    align-items: center;
-    justify-content: center; 
+    /* display: flex; */
+    /* flex-direction: row; */
+    
     display: grid;
-    gap: 1%;
     grid-template-columns: repeat(4,20%);
-
-    height: 40%;
+    align-content: start;
+    justify-content: center; 
+    gap: 1%;
+    /* margin-top: 5%; */
+    height: 50%;
     width: 100%;
     border: 2px dotted grey;
+    padding-top: 5%;
+    background-color: white;
     
     /* padding: 0; */
     /* overflow: auto; */
@@ -117,27 +121,27 @@ div > #root {
  margin: 2em;
 }
 
-.single-song-detail > i {
-    object-fit: fill;
-    height: 20em;
+.play-button-div > i  {
+    font-size: 2em;
+    box-shadow: 2px;
+
 } 
 
 
-
-
-
-.pic {
-    /* border: 2px solid red; */
-    width: 20%;
-    height: 200px;
-    object-fit: cover;
-
-}
-
 .play-button-div {
-    border: 2px dotted green;
+    /* border: 2px dotted green; */
+    /* object-fit: contain; */
+    
     
 }
+
+.pic {
+    width: 20%;
+    height: 20%;
+    border: 2px solid red;
+
+}
+
 
 .errors {
     color: red;

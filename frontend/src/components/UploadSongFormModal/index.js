@@ -7,7 +7,7 @@ function UploadSongFormModal() {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Upload</button>
+      <button className="sign-in" onClick={() => setShowModal(true)}>Upload</button>
       {/* Render the `Modal` component with
 the `LoginForm` component as its child **only when** the `showModal` state
 variable is `true` */}
