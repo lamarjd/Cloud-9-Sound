@@ -16,7 +16,7 @@ import { getSongs } from "../../store/songs.js"
 
 const EditSongForm = ({ song, setShowEditSongForm }) => {
 
-    console.log("SONG FROM EDITSONG", song)
+    // console.log("SONG FROM EDITSONG", song)
     const dispatch = useDispatch();
     const history = useHistory();
     const { songId }  = useParams();

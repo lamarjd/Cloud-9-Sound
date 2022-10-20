@@ -12,10 +12,10 @@ const Comment = ({ songId }) => {
     const history = useHistory();
 
     const comments = useSelector(state => Object.values(state.comments));
-    console.log("COMMENT SELECTOR", comments);
+    // console.log("COMMENT SELECTOR", comments);
     
     const { commentId } = useParams();
-    console.log("comment Id", commentId)
+    // console.log("comment Id", commentId)
 
     
     useEffect(() => {
@@ -27,13 +27,13 @@ const Comment = ({ songId }) => {
     // const removeComment = (commentId, songId) => {
     //     dispatch(deleteComment(commentId, songId))
     // }
-    const handleDelete = (id) => {
-        console.log("ID from HANDLE DELETE", id)
+    // const handleDelete = (id) => {
+        // console.log("ID from HANDLE DELETE", id)
         // e.preventDefault();
-        dispatch(deleteComment(id))
+        // dispatch(deleteComment(id))
         // dispatch(getComments(songId))
   
-      }
+    //   }
     
     if (!comments.length) return null;
 
@@ -46,7 +46,7 @@ const Comment = ({ songId }) => {
                     {comments.map(comment => (
                         <div key={comment.id} className="single-comment">
                             {comment.body}
-                            {console.log("This is the comment", comment)}
+                            {/* {console.log("This is the comment", comment)} */}
                             
                             <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}>Delete</button>
                         </div>

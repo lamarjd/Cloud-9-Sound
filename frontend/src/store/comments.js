@@ -51,7 +51,7 @@ export const getComments = (songId) => async dispatch => {
 
     if (response.ok) {
         const comments = await response.json();
-        console.log("Comment from the getComments thunk", comments)
+        // console.log("Comment from the getComments thunk", comments)
         dispatch(allComments(comments))
     }
 };
@@ -91,9 +91,9 @@ const commentReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_COMMENTS:
             const allComments = {}
-            console.log("Action.comments from reducer", action.comments)
+            // console.log("Action.comments from reducer", action.comments)
             action.comments.Comments.forEach((comment) => (allComments[comment.id] = comment))
-            console.log("all comments from reducer", allComments)
+            // console.log("all comments from reducer", allComments)
             return allComments;
         case CREATE_COMMENT:
             const addState = {...state}
