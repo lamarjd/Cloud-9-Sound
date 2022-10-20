@@ -42,7 +42,7 @@ const Song = ({songs}) => {
                 {/* Library Song list page */}
                 {songArr.map(({id, title, imageUrl}) => {
                     return <div key={id} className="song">
-                    <NavLink className="song-link" key={song.id} to={`/songs/${id}`}><img src={imageUrl} />{title}</NavLink></div>             
+                    <NavLink className="song-link" key={song.id} to={`/songs/${id}`}><img src={imageUrl} />{title}<hr/></NavLink></div>             
                 })}            
             </div>
 
