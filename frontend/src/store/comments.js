@@ -98,19 +98,11 @@ const commentReducer = (state = initialState, action) => {
         case CREATE_COMMENT:
             const addState = {...state}
             addState[action.comment.id] = action.comment
-            return addState;
-                
-                // const addState = {
-                //     ...state,
-                //     [action.comment.id]: action.comment
-                // }
-                // console.log("new State: AFTER", newState)
-                // return addState
-         
+            return addState;         
         case REMOVE_COMMENT:
             const removeState = {...state};
             delete removeState[action.commentId]
-            console.log("Remove state from reducer", removeState)
+            // console.log("Remove state from reducer", removeState)
             return removeState;
         default:
             return state;

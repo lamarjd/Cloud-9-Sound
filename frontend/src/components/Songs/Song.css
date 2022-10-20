@@ -31,7 +31,7 @@ div > #root {
     justify-content: center; 
     gap: 2%;
     /* margin-top: 5%; */
-    height: 40%;
+    height: 100%;
     width: 1180px;
     padding-top: 2%;
     background-color: white;
