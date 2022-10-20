@@ -24,8 +24,8 @@ const SongDetails = ({ songs, user }) => {
   });
   // console.log("song Selector", song)
 
-  const sessionUser = useSelector((state) => state.session.user);
-  // console.log(sessionUser)
+  // const user = useSelector((state) => state.session.user);
+  // console.log(user)
 
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
@@ -44,78 +44,84 @@ const SongDetails = ({ songs, user }) => {
     return null;
   }
   
-  if (!sessionUser) {
+  if (!user) {
     alert("Please sign in")
     history.push("/")
   }
 
   return (
-    <div className="song_details">
+      <div className="song_details">
       <div className="single-song-container">
-        <h2>Song Details</h2>
-        <div className="single-song-detail">
-          <img className="pic" src={song.imageUrl} />
-          <div className="play-button-div">
-            <i
-              onClick={() => setUrl(song.url)}
-              className="fa-solid fa-circle-play"
-            ></i>
-          </div>
-            {/* <div className="wave-container">
-            <div className="wave-image">Hello</div>
-            </div> */}
-        </div>
-        <ul>
-          <li>
-            <b>Title: </b> {song.title}
-          </li>
-          <li>
-            <b>Description: </b> {song.description}
-          </li>
-          {/* <li> */}
-            {/* <b>Artist: </b> {sessionUser.username} */}
-          {/* </li> */}
-        </ul>
-        {!showEditSongForm && sessionUser && (
-          <>
-            {/* *  if the current user is valid, show the below options */}
-
-            <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
-
-            <button onClick={() => dispatch(deleteSong(song.id))}>
+      <h2>Song Details</h2>
+      <div className="single-song-detail">
+      <img className="pic" src={song.imageUrl} />
+      <div className="play-button-div">
+      <i
+      onClick={() => setUrl(song.url)}
+      className="fa-solid fa-circle-play"
+      ></i>
+      </div>
+      {/* <div className="wave-container">
+      <div className="wave-image">Hello</div>
+    </div> */}
+    </div>
+    <ul>
+    <li>
+    <b>Title: </b> {song.title}
+    </li>
+    <li>
+    <b>Description: </b> {song.description}
+    </li>
+    <li>
+    <b>Artist ID: </b> {song.userId}
+    </li>
+    </ul>
+    {!showEditSongForm && user && (
+      <>
+      {/* *  if the current user is valid, show the below options */}
+      
+      <button onClick={() => setShowEditSongForm(true)}
+      style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+      >Edit Song</button>
+      
+      
+      <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
+      Add Comment
+      </button>
+      
+      <button onClick={() => dispatch(deleteSong(song.id))}
+      style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+      >
               Delete Song
             </button>
-
-            <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
-              Add Comment
-            </button>
-
             {
               showCommentForm && (
-    
+                
                 <AddCommentForm
-                  songs={songs}
-                  setShowCommentForm={setShowCommentForm}
-                  onClick={() => setShowCommentForm(false)}
+                songs={songs}
+                setShowCommentForm={setShowCommentForm}
+                onClick={() => setShowCommentForm(false)}
                 />
-              )
-            }
+                )
+              }
+              
+              </>
+              )}
 
-          </>
-        )}
-        <Comment key={song.id} songId={songId} />
+        <Comment key={song.id} songId={songId} user={user}/>
         
-        {sessionUser && showEditSongForm && (
+        {showEditSongForm && (
           <EditSongForm
-            songId={editSongId}
-            song={song}
-            setShowEditSongForm={setShowEditSongForm}
-            onClick={() => setShowEditSongForm(false)}
+          songId={editSongId}
+          song={song}
+          setShowEditSongForm={setShowEditSongForm}
+          onClick={() => setShowEditSongForm(false)}
           />
-        )}
-      </div>
-    </div>
-  );
-};
+          )}
+          </div>
+          </div>
+      
+    );
+  };
 
 export default SongDetails;

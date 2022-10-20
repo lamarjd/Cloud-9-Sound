@@ -41,10 +41,10 @@ function App() {
       <Switch>
           <Route exact path="/">
             <Song />
-          </Route>
+          </Route> 
           <Route exact path="/songs/:songId">
-            <SongDetails />
-          </Route>
+            <SongDetails user={user}/>
+          </Route>            
       </Switch>
       {/* </Navigation> */}
       <Player />

@@ -47,13 +47,6 @@ const Song = ({songs}) => {
             </div>
 
          )}
-        
- 
-            {/* <>
-            <Route exact path="/songs/:songId">
-                <SongDetails />
-            </Route>
-            </> */}
          
     </div>                    
     )
