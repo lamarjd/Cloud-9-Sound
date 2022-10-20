@@ -35,15 +35,12 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/songs">
+          </Switch>
+        )}
+      <Switch>
+          <Route exact path="/songs">
             <Song />
           </Route>
-          {/* <Route path="/upload">
-            <UploadSongForm />
-          </Route> */}
-        </Switch>
-      )}
-      <Switch>
           <Route exact path="/songs/:songId">
             <SongDetails />
           </Route>
