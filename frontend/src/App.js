@@ -26,7 +26,9 @@ function App() {
   return (
     <div className="App">
     {!user && 
-    <SplashPage user={user}/>    
+    <Route exact path="/">
+      <SplashPage user={user}/>    
+    </Route>
     }
     {/* <Route path="/welcome"> */}
     <Navigation isLoaded={isLoaded} />
@@ -39,7 +41,7 @@ function App() {
         </Switch>
         )}
       <Switch>
-          <Route exact path="/">
+          <Route exact path="/songs">
             <Song />
           </Route>
           <Route exact path="/songs/:songId">

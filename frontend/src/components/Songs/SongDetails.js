@@ -44,10 +44,10 @@ const SongDetails = ({ songs, user }) => {
     return null;
   }
   
-  if (!sessionUser) {
-    alert("Please sign in")
-    history.push("/")
-  }
+  // if (!sessionUser) {
+  //   alert("Please sign in")
+  //   history.push("/")
+  // }
 
   return (
     <div className="song_details">
