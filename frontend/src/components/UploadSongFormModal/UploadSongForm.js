@@ -9,7 +9,7 @@ import './UploadSongForm.css'
 import logo from "../assets/images/CLOUD9Logo.png"
 import {usePlayer} from "../../context/PlayerContext"
 
-const UploadSongForm = ({ hideForm }) => {
+const UploadSongForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     // const  { url, setUrl }  = usePlayer();
@@ -20,7 +20,7 @@ const UploadSongForm = ({ hideForm }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState(null || '')
 
-    const [cancel, setCancel] = useState(false)
+   
     // console.log("Cancel: ", cancel)
 
     
@@ -55,13 +55,10 @@ const UploadSongForm = ({ hideForm }) => {
         }
     };
 
-    // const handleCancelClick = (e) => {
-    //     e.preventDefault();
-        // setShowUploadForm(false)
-        // setCancel(true)
-        // hideForm();
-        // history.push(`/`)
-    // }
+    const handleCancelClick = (e) => {
+        e.preventDefault();
+        setShowModal(false);     
+    }
 
     
 
@@ -134,7 +131,7 @@ const UploadSongForm = ({ hideForm }) => {
                 <button type="button" onClick={handleSubmit}>Upload</button>
 
                 
-                <button type="reset" >Cancel</button>
+                <button type="reset" onClick={handleCancelClick}>Cancel</button>
                 </span>
                 
             </form>

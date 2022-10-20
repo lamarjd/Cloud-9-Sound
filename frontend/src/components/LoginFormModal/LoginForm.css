@@ -60,6 +60,10 @@
 
   }
 
+  .sign-in {
+    font-family: 'Stardos Stencil', cursive;
+    border-radius: 4px;
+  }
   /* .sign-in {
     background: transparent;
     color: #fff;

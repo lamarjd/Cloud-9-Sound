@@ -69,8 +69,8 @@ function Navigation({ isLoaded }){
               </span>
             <div className="left_center">                         
         
-              <span>Feed</span>
-              <span><NavLink id="navlink-left" exact to="/songs">Library</NavLink></span>              
+              {/* <span>Feed</span> */}
+              {/* <span><NavLink id="navlink-left" exact to="/songs">Library</NavLink></span>               */}
             </div>
             </div>
 

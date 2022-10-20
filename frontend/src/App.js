@@ -10,6 +10,7 @@ import SongDetails from "./components/Songs/SongDetails"
 // import UploadSongForm from "./components/Songs/UploadSongForm"
 import Player from './components/AudioPlayer/AudioPlayer.js';
 // import SplashPage from "./components/SplashPage"
+import "./index.css"
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="App">
     {!user && 
     <SplashPage user={user}/>    
     }
@@ -35,10 +36,10 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          </Switch>
+        </Switch>
         )}
       <Switch>
-          <Route exact path="/songs">
+          <Route exact path="/">
             <Song />
           </Route>
           <Route exact path="/songs/:songId">
@@ -47,7 +48,7 @@ function App() {
       </Switch>
       {/* </Navigation> */}
       <Player />
-    </>
+    </div>
   );
 }
 

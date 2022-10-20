@@ -5,6 +5,7 @@ import UploadSongForm from './UploadSongForm';
 function UploadSongFormModal() {
   const [showModal, setShowModal] = useState(false);
 
+
   return (
     <>
       <button className="sign-in" onClick={() => setShowModal(true)}>Upload</button>
@@ -13,7 +14,7 @@ the `LoginForm` component as its child **only when** the `showModal` state
 variable is `true` */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <UploadSongForm />
+          <UploadSongForm setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

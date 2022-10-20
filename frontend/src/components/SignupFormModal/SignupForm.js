@@ -7,7 +7,7 @@ import * as sessionActions from "../../store/session";
 import logo from "../assets/images/CLOUD9Logo.png"
 import './SignupForm.css';
 
-function SignupFormPage() {
+function SignupFormPage({ setShowModal }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -32,6 +32,11 @@ function SignupFormPage() {
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    setShowModal(false);     
+}
 
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
@@ -105,7 +110,10 @@ function SignupFormPage() {
           required
           />
       </label>
+      <br/>
+      <div className="submit-container">        
       <button type="submit">Sign Up</button>
+      </div>
           </div>
     </form>
   );

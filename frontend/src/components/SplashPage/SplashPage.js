@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory, NavLink, Route } from 'react-router-dom';
 import Song from "../Songs/Song"
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from "../SignupFormModal"
@@ -23,13 +23,15 @@ function SplashPage({ user }) {
 
           <div class="top-right">
  
+        <Route exact path="/">
           <LoginFormModal />
           <SignupFormModal />
+        </Route>
   
 
 
  
-</div>
+          </div>
 
 
 

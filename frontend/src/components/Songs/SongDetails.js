@@ -42,7 +42,11 @@ const SongDetails = ({ songs, user }) => {
 
   if (!song) {
     return null;
-    // history.push("/songs")
+  }
+  
+  if (!sessionUser) {
+    alert("Please sign in")
+    history.push("/")
   }
 
   return (
@@ -57,6 +61,9 @@ const SongDetails = ({ songs, user }) => {
               className="fa-solid fa-circle-play"
             ></i>
           </div>
+            {/* <div className="wave-container">
+            <div className="wave-image">Hello</div>
+            </div> */}
         </div>
         <ul>
           <li>
@@ -65,9 +72,9 @@ const SongDetails = ({ songs, user }) => {
           <li>
             <b>Description: </b> {song.description}
           </li>
-          <li>
-            <b>Artist: </b> {sessionUser.username}
-          </li>
+          {/* <li> */}
+            {/* <b>Artist: </b> {sessionUser.username} */}
+          {/* </li> */}
         </ul>
         {!showEditSongForm && sessionUser && (
           <>
@@ -79,7 +86,7 @@ const SongDetails = ({ songs, user }) => {
               Delete Song
             </button>
 
-            <button onClick={() => setShowCommentForm(true)}>
+            <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
               Add Comment
             </button>
 
@@ -94,9 +101,9 @@ const SongDetails = ({ songs, user }) => {
               )
             }
 
-            <Comment key={song.id} songId={songId} />
           </>
         )}
+        <Comment key={song.id} songId={songId} />
         
         {sessionUser && showEditSongForm && (
           <EditSongForm

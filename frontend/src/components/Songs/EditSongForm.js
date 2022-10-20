@@ -109,13 +109,8 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
     };
 
     const handleCancelClick = (e) => {
-        e.preventDefault();
-       
+        e.preventDefault();       
         setShowEditSongForm(false)
-        // hideForm();
-        // setShowEditSongForm(!showEditSongForm);
-        // console.log("song Id", song.id)
-        history.push(`/songs/${songId}`)
     }
 
     return (
