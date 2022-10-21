@@ -1,8 +1,5 @@
 @media screen and (min-width:600px) {
 
-div > #root {
-    /* border: 2px dotted blue; */
-}
 
 .container {
     display: grid;
@@ -119,14 +116,15 @@ hr {
     margin-bottom: 50%;    
 }
 
+
+
 .single-song-container {
-    /* overflow-y: scroll !important; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 0;
-    margin-bottom: 500px;
-    width: 100%;
+    border: 2px solid black;
+    gap: 2%;
+    height: 100%;
+    width: 1180px;
+    background-color: white;
+    padding: 2%;    
 }
 
 .single-song-container > button {
@@ -140,37 +138,67 @@ hr {
     flex-direction: row;
     align-items: center;
     width: 100%;
+    height: 40%;
     /* border: 2px solid red; */
 }
 
 .single-song-detail > div {
 
- height: 3em;
+ /* height: 3em; */
  width: 3em;
- display: flex;
+ /* display: flex; */
  justify-content: center;
  align-items: center;
  margin: 2em;
+}
+
+.song-action-button-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid white;
+    width: 30%;
+
+}
+
+#single-song-button-actions {
+    background-color: rgba(51, 51, 51, 0.842);
+    border-radius: 2px;
+    color: white;
+    box-shadow: 2px 2px 1px black;
 }
 
 .play-button-div > i  {
     font-size: 2em;
     box-shadow: 2px;
 
-} 
-
+}
 
 .play-button-div {
     /* border: 2px dotted green; */
     /* object-fit: contain; */
-    
-    
+ }
+
+.player-image {
+    border: 2px solid grey;
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+}
+
+.pic-container {
+    display: flex;
+    height: 100%;
+    width: 10em;
+    object-fit: cover;
+    border: 2px dotted orange;
 }
 
 .pic {
-    width: 20%;
-    height: 20%;
-    border: 2px solid red;
+    width: 100%;
+    height: 100%;
+    /* border: 2px solid red; */
+
 
 }
 
@@ -240,6 +268,8 @@ hr {
     justify-content: space-between;
     width: 33%;
 }
+
+
 
 
 
