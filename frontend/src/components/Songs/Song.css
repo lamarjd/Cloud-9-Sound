@@ -108,9 +108,9 @@ hr {
 
 
 
-.song_details {
+/* .song_details {
     /* overflow-y: scroll; */
-}
+/* }  */
 
 
 
@@ -163,7 +163,7 @@ hr {
     /* margin-left: 2%; */
 }
 
-.single-song-detail > div {
+/* .single-song-detail > div { */
 
  /* height: 3em; */
  /* width: 3em; */
@@ -171,7 +171,7 @@ hr {
  /* justify-content: center;
  align-items: center;
  margin: 2em; */
-}
+/* } */
 
 .song-action-button-container {
     display: flex;
