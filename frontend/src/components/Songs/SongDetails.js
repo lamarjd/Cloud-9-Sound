@@ -46,6 +46,12 @@ const SongDetails = ({ songs, user }) => {
   //   history.push("/")
   // }
 
+  const handleDelete =(e) => {
+    e.preventDefault();
+    dispatch(deleteSong(song.id))
+    history.push("/");
+  }
+
   return (
     <div className="song_details">
       <div className="single-song-container">
@@ -88,7 +94,7 @@ const SongDetails = ({ songs, user }) => {
               Add Comment
             </button>
 
-            <button onClick={() => dispatch(deleteSong(song.id))}
+            <button onClick={handleDelete}
              style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
             >
               Delete Song
