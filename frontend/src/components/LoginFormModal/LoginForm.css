@@ -4,7 +4,7 @@
     /* flex-direction: column; */
     /* align-items: center; */
     /* gap: 12%;  */
-    border: 5px solid rgb(8, 167, 241);
+    border: 5px solid rgb(241, 74, 8);
     /* margin: 20px; */
     padding: 10%;
     background-color: black;
@@ -35,9 +35,12 @@
     font-family: 'Josefin Sans', sans-serif;
     border-radius: 4px;
     width: 60%;
-    /* justify-content: center; */
-   
+    /* justify-content: center; */ 
+}
 
+.demo-container {
+  display: flex;
+  justify-content: center;
 }
 
 .login-form input:focus-within {
@@ -47,6 +50,8 @@
   }
 
   .login-form input {
+    display: flex;
+    justify-content: center;
     background-color: inherit;
     color: white;
     border: 0;
@@ -76,6 +81,8 @@
   }
   
   .sign-in {
+    display: flex;
+    justify-content: center;
     font-family: 'Josefin Sans', sans-serif;
     border-radius: 4px;
     width: 60%;

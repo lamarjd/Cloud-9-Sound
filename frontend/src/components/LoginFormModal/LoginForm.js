@@ -77,8 +77,9 @@ function LoginForm() {
     
       
 
-
+    <div className="demo-container">
       <button className="demo" onClick={demoUser}>Demo User</button>
+    </div>
       </div>
   </form>
   );

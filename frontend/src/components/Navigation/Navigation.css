@@ -126,8 +126,9 @@ div {
     position: fixed;
     display: flex;
     right: 8%;
-    justify-content: right;
+    justify-items: center;
     flex-direction: column;
+    /* align-items: center; */
     align-self: flex-start;
     /* height: 200px; */
     background-color: white;
@@ -137,9 +138,10 @@ div {
     margin-bottom: 0px; 
     /* padding-top: 25%; */
     border-radius: 10px;
-    border: 1px dotted blue;
+    /* border: 1px dotted blue; */
     box-shadow: 3px 3px #eb9533ce, -.3em 0 .2em #fd8700ef;
 }
+
 
 
 .banner_right > #bell, #envelope, #menu {

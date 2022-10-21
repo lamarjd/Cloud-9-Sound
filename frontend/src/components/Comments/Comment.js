@@ -39,7 +39,7 @@ const Comment = ({ user }) => {
             console.log("is this workiong from Comment")
 
     return (
-        <div>
+        <div className="comment-container">
             <h2>Song Comments</h2>
             <div className="comment-box">
     

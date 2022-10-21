@@ -1,3 +1,5 @@
+
+
 .comment-box {
     border: 1px solid grey;
     display: flex;
@@ -8,8 +10,48 @@
 
 .single-comment {
     display: flex;
-    border: 1px dotted grey;
+    border-bottom: 1px solid grey;
     height: 100%;
     justify-content: space-between;
     padding: 5px;
+}
+
+.single-comment > button {
+    width: 5em;
+    /* border: 2px solid red; */
+}
+
+.add-comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid red; */
+    margin-bottom: 10%;
+}
+
+.button_box {
+    /* border: 2px solid red; */
+    width: 50%;
+    display: inline-flex;
+    /* justify-content: center; */
+    justify-content: space-around;
+}
+
+ button {
+    font-family: 'Josefin Sans', sans-serif;   
+    /* border: 2px solid red; */
+    width: 50%;
+    background-color: rgba(51, 51, 51, 0.842);
+    border-radius: 1px;
+    color: white;
+    box-shadow: 1px 1px 1px black;
+}
+
+textarea {
+    font-family: 'Josefin Sans', sans-serif;
+    width: 50em;
+    height: 5em;
+    resize: none; 
+    margin-top: 5%;  
+
 }

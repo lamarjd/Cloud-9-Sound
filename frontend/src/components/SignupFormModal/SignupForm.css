@@ -33,9 +33,9 @@ label {
 }
 
 .signup-form input:focus-within {
-  color:  rgb(155, 219, 155);
+  color:  black;
   border: 2px solid grey;
-  border-color: rgb(241, 74, 8);
+  border-color: 1px rgb(241, 74, 8);
 }
 
 .submit-container {

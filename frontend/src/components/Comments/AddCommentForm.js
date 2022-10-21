@@ -3,6 +3,7 @@ import { createComment } from "../../store/comments.js"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import "./Comment.css"
 
 
 
@@ -55,7 +56,7 @@ function AddCommentForm({ setShowCommentForm }) {
 
   return (
     <section>
-    <form className="upload_song" 
+    <form className="add-comment" 
     onSubmit={handleSubmit}
     >
       <textarea 
@@ -63,14 +64,20 @@ function AddCommentForm({ setShowCommentForm }) {
       placeholder="Add Comment..." 
       onChange={updateBody}
       ></textarea>
+      <br/>
+
+      <span className="button_box">
 
         <button 
         type="submit"
         onClick={handleSubmit}
         >Add Comment</button>
+        <br/>
 
         
         <button onClick={handleCancelClick} type="reset" >Cancel</button>
+        <br/>
+        </span>
         
     </form>
 </section>

@@ -129,8 +129,9 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
             <form className="edit_song_form" onSubmit={handleSubmit}>
             <div className="form_container">
 
-
+                <div className="form-title">                    
                 <h2>EDIT {song.title}</h2>
+                </div>
                 <div className="edit_field_name" >Title</div>
                 <input 
                 type="text"

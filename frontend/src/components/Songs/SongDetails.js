@@ -10,6 +10,7 @@ import { usePlayer } from "../../context/PlayerContext";
 import { createComment, getComments } from "../../store/comments.js";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
+import soundwave from "../assets/images/sound-wave.jpg"
 import "./Song.css";
 
 const SongDetails = ({ songs, user }) => {
@@ -50,7 +51,7 @@ const SongDetails = ({ songs, user }) => {
     dispatch(deleteSong(song.id));
     history.push("/");
   };
-  console.log("Is trhis working")
+  // console.log("Is trhis working")
 
   return (
     <div className="outer-lining">
@@ -70,7 +71,7 @@ const SongDetails = ({ songs, user }) => {
               ></i>
             </div>
             <span className="player-image">
-              <div>Song pic</div>
+              <img src={soundwave}/>
             </span>
             {/* <div className="wave-container">
             <div className="wave-image">Hello</div>
@@ -92,6 +93,7 @@ const SongDetails = ({ songs, user }) => {
           {!showEditSongForm && user && (
             <>
               {/* *  if the current user is valid, show the below options */}
+                <br/>
               <div className="song-action-button-container">
                 <button
                   id="single-song-button-actions"
@@ -121,10 +123,7 @@ const SongDetails = ({ songs, user }) => {
                 >
                   Delete Song
                 </button>
-              </div>
-                  
-              {/* <Comment songId={songId} user={user} /> */}
-              
+              </div>              
 
               {showCommentForm && (
                 <AddCommentForm
@@ -134,11 +133,7 @@ const SongDetails = ({ songs, user }) => {
                 />
                 )}
             </>
-          )}
-
-          {/* {user === null || user && (
-          )} */}
-          
+          )}          
 
           {user && showEditSongForm && (
             <EditSongForm
