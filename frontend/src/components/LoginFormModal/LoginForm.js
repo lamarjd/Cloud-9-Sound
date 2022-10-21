@@ -26,7 +26,7 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    // history.push("/songs")
+    history.push("/")
     return dispatch(sessionActions.login({ credential, password }))
     // handle and display errors from the login thunk action if there are any.
       .catch(async (res) => {

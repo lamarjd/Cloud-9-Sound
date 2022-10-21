@@ -21,7 +21,7 @@ function SplashPage({ user }) {
             <img id="logo" alt="logo" src={logo}/>
           </div>
 
-          <div class="top-right">
+          <div className="top-right">
  
         <Route exact path="/">
           <LoginFormModal />

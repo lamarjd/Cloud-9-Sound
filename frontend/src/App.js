@@ -26,9 +26,15 @@ function App() {
   return (
     <div className="App">
     {!user && 
-    <Route exact path="/">
-      <SplashPage user={user}/>    
-    </Route>
+    <Switch>
+      <Route exact path="/">
+        <SplashPage user={user}/>  
+      </Route>
+      <Route exact path="/songs/:songId">
+        <Navigation isLoaded={isLoaded} />
+        <SongDetails user={user}/>
+      </Route>
+    </Switch>
     }
     {/* <Route path="/welcome"> */}
     <Navigation isLoaded={isLoaded} />
@@ -40,14 +46,16 @@ function App() {
           </Route>
         </Switch>
         )}
+        {user &&
       <Switch>
-          <Route exact path="/songs">
+          <Route exact path="/">
             <Song user={user}/>
           </Route>
           <Route exact path="/songs/:songId">
             <SongDetails user={user}/>
           </Route>
       </Switch>
+      }
       {/* </Navigation> */}
       <Player />
     </div>

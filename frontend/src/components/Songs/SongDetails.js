@@ -106,9 +106,9 @@ const SongDetails = ({ songs, user }) => {
               )
             }
 
+              <Comment key={song.id} songId={songId} user={user} />
           </>
         )}
-        <Comment key={song.id} songId={songId} user={user} />
         
         {sessionUser && showEditSongForm && (
           <EditSongForm
