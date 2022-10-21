@@ -41,16 +41,6 @@ function Navigation({ isLoaded }){
     );
   }
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    setShowUploadForm(true)
-    // setStyle('hidden')    
-  }
-
-  const handleCancelClick = async (e) => {
-    e.preventDefault();
-    setShowUploadForm(false)
-  }
 
   return (
  

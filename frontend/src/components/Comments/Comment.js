@@ -48,9 +48,14 @@ const Comment = ({ songId, user }) => {
                             {comment.body}
                             {/* {console.log("This is the comment", comment)} */}
                             
+<<<<<<< HEAD
                             <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))
                             }
                             style={{visibility: user.id === comment.userId ? "visible" : "hidden"}}
+=======
+                            <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}
+                             style={{visibility: user.id === comment.userId ? "visible" : "hidden"}}
+>>>>>>> dev
                             >Delete</button>
                         </div>
 

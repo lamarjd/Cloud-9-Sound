@@ -24,9 +24,12 @@ const SongDetails = ({ songs, user }) => {
   });
   // console.log("song Selector", song)
 
+<<<<<<< HEAD
   // const user = useSelector((state) => state.session.user);
   // console.log(user)
 
+=======
+>>>>>>> dev
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
 
@@ -44,14 +47,22 @@ const SongDetails = ({ songs, user }) => {
     return null;
   }
   
+<<<<<<< HEAD
   if (!user) {
     alert("Please sign in")
     history.push("/")
   }
+=======
+  // if (!user) {
+  //   alert("Please sign in")
+  //   history.push("/")
+  // }
+>>>>>>> dev
 
   return (
       <div className="song_details">
       <div className="single-song-container">
+<<<<<<< HEAD
       <h2>Song Details</h2>
       <div className="single-song-detail">
       <img className="pic" src={song.imageUrl} />
@@ -94,6 +105,55 @@ const SongDetails = ({ songs, user }) => {
       >
               Delete Song
             </button>
+=======
+        <h2>Song Details</h2>
+        <div className="single-song-detail">
+          <img className="pic" src={song.imageUrl} />
+          <div className="play-button-div">
+            <i
+              onClick={() => setUrl(song.url)}
+              className="fa-solid fa-circle-play"
+            ></i>
+          </div>
+            {/* <div className="wave-container">
+            <div className="wave-image">Hello</div>
+            </div> */}
+        </div>
+        <ul>
+          <li>
+            <b>Title: </b> {song.title}
+          </li>
+          <li>
+            <b>Description: </b> {song.description}
+          </li>
+          {/* <li> */}
+            {/* <b>Artist: </b> {user.username} */}
+          {/* </li> */}
+        </ul>
+
+
+        {!showEditSongForm && user && (
+          <>
+            {/* *  if the current user is valid, show the below options */}
+
+            <button onClick={() => setShowEditSongForm(true)}
+            style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+            >Edit Song</button>
+
+
+            <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
+              Add Comment
+            </button>
+
+            <button onClick={() => dispatch(deleteSong(song.id))}
+             style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+            >
+              Delete Song
+            </button>
+
+            <Comment key={song.id} songId={songId} user={user} />
+
+>>>>>>> dev
             {
               showCommentForm && (
                 
@@ -108,9 +168,20 @@ const SongDetails = ({ songs, user }) => {
               </>
               )}
 
+<<<<<<< HEAD
         <Comment key={song.id} songId={songId} user={user}/>
         
         {showEditSongForm && (
+=======
+          </>
+        )}
+
+        {!user &&
+          <Comment />
+        }
+                
+        {user && showEditSongForm && (
+>>>>>>> dev
           <EditSongForm
           songId={editSongId}
           song={song}

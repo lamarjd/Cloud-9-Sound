@@ -9,7 +9,7 @@
     background-color: black;
     color: white;
     border-radius: 12px;
-    font-family: 'Stardos Stencil', cursive;
+    font-family: 'Trispace', sans-serif;
     width: 100vh;
     /* height: 100vh  */
 }
@@ -27,7 +27,7 @@ label {
 }
 
 .signup-form input {
-  font-family: 'Stardos Stencil', cursive;
+  font-family: 'Trispace', sans-serif;
   /* width: 80%; */
   /* justify-content: center; */
 }
@@ -38,7 +38,7 @@ label {
 }
 
 .signup-form button {
-  font-family: 'Stardos Stencil', cursive;
+  font-family: 'Trispace', sans-serif;
   width: 50%;
   margin-bottom: 2%;
   background-color: rgb(101, 194, 101);
@@ -60,7 +60,7 @@ label {
     color: rgb(110, 118, 125);
     box-sizing: border-box;
     border: 2px solid red;
-    font-family: 'Stardos Stencil', cursive;
+    font-family: 'Trispace', sans-serif;
   }
 
   #signup-form input:focus-within {
@@ -76,6 +76,6 @@ label {
 }
 
 .create-account {
-  font-family: 'Stardos Stencil', cursive;
+  font-family: 'Trispace', sans-serif;
   border-radius: 4px;
 }

@@ -36,6 +36,7 @@ const Song = ({songs}) => {
 
     return (
     <div className="container">
+    
         {( !showUploadForm && 
 
             <div className="song_list">
@@ -47,6 +48,10 @@ const Song = ({songs}) => {
             </div>
 
          )}
+<<<<<<< HEAD
+=======
+        
+>>>>>>> dev
          
     </div>                    
     )
