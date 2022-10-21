@@ -180,8 +180,8 @@ hr {
 }
 
 .edit_field_name {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: small;
+    
+    font-size: normal;
 }
 
 .wave-container {
@@ -196,6 +196,59 @@ hr {
     border: 2px dotted red;
     /* margin-left: 10%; */
 }
+
+.edit_song_form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    align-items: center; 
+    /* border: 5px solid #f14a08; */
+    /* margin: 20px; */
+    box-shadow:10px 10px 10px rgba(38, 65, 29, 0.5);
+    padding: 5%;
+    background-color: #072510;
+    color: white;
+    border-radius: 2px;
+    
+    /* border: 2px dotted red; */
+}
+
+.form_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form_container > input {
+    font-family: 'Josefin Sans', sans-serif;
+    height: 20px;
+}
+
+.edit_buttons > button {
+    border:1px solid rgb(241, 74, 8);
+    background-color: white;
+    color: black;
+    border-radius: 2px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 85%;
+    padding: 2%;
+}
+
+.edit_buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 33%;
+}
+
+
+
+
+section {
+    display: flex;
+    justify-content: center;
+}
+
 
 
 
