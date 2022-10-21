@@ -42,10 +42,10 @@ function App() {
         )}
       <Switch>
           <Route exact path="/songs">
-            <Song />
+            <Song user={user}/>
           </Route>
           <Route exact path="/songs/:songId">
-            <SongDetails />
+            <SongDetails user={user}/>
           </Route>
       </Switch>
       {/* </Navigation> */}

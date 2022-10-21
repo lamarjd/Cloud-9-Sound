@@ -80,14 +80,19 @@ const SongDetails = ({ songs, user }) => {
           <>
             {/* *  if the current user is valid, show the below options */}
 
-            <button onClick={() => setShowEditSongForm(true)}>Edit Song</button>
+            <button onClick={() => setShowEditSongForm(true)}
+            style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+            >Edit Song</button>
 
-            <button onClick={() => dispatch(deleteSong(song.id))}>
-              Delete Song
-            </button>
 
             <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
               Add Comment
+            </button>
+
+            <button onClick={() => dispatch(deleteSong(song.id))}
+             style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
+            >
+              Delete Song
             </button>
 
             {
@@ -103,7 +108,7 @@ const SongDetails = ({ songs, user }) => {
 
           </>
         )}
-        <Comment key={song.id} songId={songId} />
+        <Comment key={song.id} songId={songId} user={user} />
         
         {sessionUser && showEditSongForm && (
           <EditSongForm

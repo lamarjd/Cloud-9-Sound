@@ -42,7 +42,9 @@ function SplashPage({ user }) {
           </div>
         </div> <br />
         <div className="song-display">
-          <Song />
+          
+            <Song />
+          
         </div>
         </div>
       </div>

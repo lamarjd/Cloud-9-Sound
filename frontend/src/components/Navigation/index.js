@@ -55,7 +55,7 @@ function Navigation({ isLoaded }){
           
             <div className="banner_left">
               <span className="home">
-                <NavLink id="navlink-left" exact to="/songs">Home</NavLink>
+                <NavLink id="navlink-left" exact to="/">Home</NavLink>
               </span>
             <div className="left_center">                         
         

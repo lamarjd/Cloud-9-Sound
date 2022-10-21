@@ -6,7 +6,7 @@ import "./Comment.css"
 
 // import { allComments } from "../../store/comments.js"
 
-const Comment = ({ songId }) => {
+const Comment = ({ songId, user }) => {
     // console.log(songId)
     const dispatch = useDispatch();
     const history = useHistory();
@@ -48,7 +48,9 @@ const Comment = ({ songId }) => {
                             {comment.body}
                             {/* {console.log("This is the comment", comment)} */}
                             
-                            <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}>Delete</button>
+                            <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}
+                             style={{visibility: user.id === comment.userId ? "visible" : "hidden"}}
+                            >Delete</button>
                         </div>
 
                     ))}

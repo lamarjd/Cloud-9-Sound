@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import logo from "../assets/images/CLOUD9Logo.png"
 import './LoginForm.css';
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
 //   const sessionUser = useSelector(state => state.session.user);
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +26,7 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    // history.push("/songs")
     return dispatch(sessionActions.login({ credential, password }))
     // handle and display errors from the login thunk action if there are any.
       .catch(async (res) => {
