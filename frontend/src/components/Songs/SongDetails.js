@@ -7,7 +7,7 @@ import { getOneSong, deleteSong } from "../../store/songs.js";
 import EditSongForm from "./EditSongForm";
 import { usePlayer } from "../../context/PlayerContext";
 // comments
-import { createComment } from "../../store/comments.js";
+import { createComment, getComments } from "../../store/comments.js";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
 import "./Song.css";
@@ -17,40 +17,40 @@ const SongDetails = ({ songs, user }) => {
   const history = useHistory();
   const { songId } = useParams();
   const { setUrl } = usePlayer();
-
   const song = useSelector((state) => {
     // if (!song) return null;
     return state.songs[songId];
   });
   // console.log("song Selector", song)
-
+  
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
-
+  
   // comments
   const [showCommentForm, setShowCommentForm] = useState(false);
-
+  
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
     setEditSongId(null);
     dispatch(getOneSong(songId));
+    
   }, [dispatch, songId]);
-
+  
   if (!song) {
     return null;
   }
-
+  
   // if (!user) {
-  //   alert("Please sign in")
-  //   history.push("/")
+  //   return null
   // }
-
+  
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteSong(song.id));
     history.push("/");
   };
+  console.log("Is trhis working")
 
   return (
     <div className="outer-lining">
@@ -85,6 +85,10 @@ const SongDetails = ({ songs, user }) => {
             </li>
           </ul>
 
+
+          <Comment user={user} />
+          
+
           {!showEditSongForm && user && (
             <>
               {/* *  if the current user is valid, show the below options */}
@@ -97,6 +101,7 @@ const SongDetails = ({ songs, user }) => {
                   Add Comment
                 </button>
 
+                
                 <button
                   id="single-song-button-actions"
                   onClick={() => setShowEditSongForm(true)}
@@ -119,6 +124,7 @@ const SongDetails = ({ songs, user }) => {
               </div>
                   
               {/* <Comment songId={songId} user={user} /> */}
+              
 
               {showCommentForm && (
                 <AddCommentForm
@@ -132,7 +138,7 @@ const SongDetails = ({ songs, user }) => {
 
           {/* {user === null || user && (
           )} */}
-          <Comment songId={songId} song={song} user={user} />
+          
 
           {user && showEditSongForm && (
             <EditSongForm
@@ -141,7 +147,8 @@ const SongDetails = ({ songs, user }) => {
             setShowEditSongForm={setShowEditSongForm}
             onClick={() => setShowEditSongForm(false)}
             />
-          )}
+            )}
+            
         </div>
       </div>
     </div>

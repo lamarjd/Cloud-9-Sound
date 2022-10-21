@@ -28,37 +28,41 @@ function App() {
     <div className="App">
     {!user && 
     <Switch>
+      <Route exact path="/songs/:songId">
+        <Navigation isLoaded={isLoaded} />
+        {/* <Comment user={user}/> */}
+        <SongDetails user={user}/>
+      </Route>
       <Route exact path="/">
         <SplashPage user={user}/>  
       </Route>
-      <Route exact path="/songs/:songId">
-        <Navigation isLoaded={isLoaded} />
-        <SongDetails user={user}/>
-        {/* <Comment user={user}/> */}
-      </Route>
     </Switch>
-    }
-    {/* <Route path="/welcome"> */}
-    <Navigation isLoaded={isLoaded} />
-    {/* </Route> */}
+     }
       {isLoaded && (
         <Switch>
+          <Route exact path="/songs/:songId">
+            {/* <Navigation isLoaded={isLoaded} /> */}
+            {/* <SongDetails user={user}/> */}
+          </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
         </Switch>
         )}
-        {user &&
+        {user && 
       <Switch>
-          <Route exact path="/">
-            <Song user={user}/>
-          </Route>
           <Route exact path="/songs/:songId">
+            {/* <Comment /> */}
+            <Navigation isLoaded={isLoaded} />
             <SongDetails user={user}/>
+            {/* <Comment user={user}/> */}
+          </Route>
+          <Route exact path="/">
+            <Navigation isLoaded={isLoaded} />
+            <Song user={user}/>
           </Route>
       </Switch>
       }
-      {/* </Navigation> */}
       <Player />
     </div>
   );

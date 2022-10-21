@@ -47,14 +47,18 @@ export const deleteComment = (commentId) => async dispatch =>
 
 // THUNK - get comments
 export const getComments = (songId) => async dispatch => {
-    const response = await csrfFetch (`/api/songs/${songId}/comments`);
+    // console.log("SongId from getComments thunk", songId);
+    const response = await fetch(`/api/songs/${songId}/comments`);
+    // console.log("Response from getComments thunk", response)
 
     if (response.ok) {
         const comments = await response.json();
         // console.log("Comment from the getComments thunk", comments)
         dispatch(allComments(comments))
-    }
-    alert("can't get comments")
+    } 
+    // else {
+    //     alert("can't get comments")
+    // }
 };
 
 
