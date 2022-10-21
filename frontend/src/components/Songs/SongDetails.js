@@ -24,9 +24,6 @@ const SongDetails = ({ songs, user }) => {
   });
   // console.log("song Selector", song)
 
-  const sessionUser = useSelector((state) => state.session.user);
-  // console.log(sessionUser)
-
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
 
@@ -44,7 +41,7 @@ const SongDetails = ({ songs, user }) => {
     return null;
   }
   
-  // if (!sessionUser) {
+  // if (!user) {
   //   alert("Please sign in")
   //   history.push("/")
   // }
@@ -73,10 +70,12 @@ const SongDetails = ({ songs, user }) => {
             <b>Description: </b> {song.description}
           </li>
           {/* <li> */}
-            {/* <b>Artist: </b> {sessionUser.username} */}
+            {/* <b>Artist: </b> {user.username} */}
           {/* </li> */}
         </ul>
-        {!showEditSongForm && sessionUser && (
+
+
+        {!showEditSongForm && user && (
           <>
             {/* *  if the current user is valid, show the below options */}
 
@@ -95,6 +94,8 @@ const SongDetails = ({ songs, user }) => {
               Delete Song
             </button>
 
+            <Comment key={song.id} songId={songId} user={user} />
+
             {
               showCommentForm && (
     
@@ -106,11 +107,14 @@ const SongDetails = ({ songs, user }) => {
               )
             }
 
-              <Comment key={song.id} songId={songId} user={user} />
           </>
         )}
-        
-        {sessionUser && showEditSongForm && (
+
+        {!user &&
+          <Comment />
+        }
+                
+        {user && showEditSongForm && (
           <EditSongForm
             songId={editSongId}
             song={song}

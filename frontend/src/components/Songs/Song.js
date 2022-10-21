@@ -36,6 +36,7 @@ const Song = ({songs}) => {
 
     return (
     <div className="container">
+        <h2>Check out what music is trending today</h2>
         {( !showUploadForm && 
 
             <div className="song_list">
@@ -48,12 +49,6 @@ const Song = ({songs}) => {
 
          )}
         
- 
-            {/* <>
-            <Route exact path="/songs/:songId">
-                <SongDetails />
-            </Route>
-            </> */}
          
     </div>                    
     )

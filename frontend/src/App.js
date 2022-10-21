@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Song from "./components/Songs/Song"
 import SplashPage from "./components/SplashPage/SplashPage"
 import SongDetails from "./components/Songs/SongDetails"
+import Comment from "./components/Comments/Comment"
 // import UploadSongForm from "./components/Songs/UploadSongForm"
 import Player from './components/AudioPlayer/AudioPlayer.js';
 // import SplashPage from "./components/SplashPage"
@@ -33,6 +34,7 @@ function App() {
       <Route exact path="/songs/:songId">
         <Navigation isLoaded={isLoaded} />
         <SongDetails user={user}/>
+        {/* <Comment user={user}/> */}
       </Route>
     </Switch>
     }

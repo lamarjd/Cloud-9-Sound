@@ -7,7 +7,7 @@ div > #root {
 .container {
     display: grid;
     /* grid-template-rows: auto 1fr; */
-    justify-content: center;
+    justify-items: center;
     /* align-content: center; */
     /* background-color: #fff; */
     /* bottom: 10px; */
@@ -17,6 +17,12 @@ div > #root {
     height: 100vh;
     /* border: 2px solid yellow; */
     background-color:rgba(197, 211, 197, 0.637);  
+}
+
+.container h2 {
+    /* border-left: 2px solid rgb(101, 194, 101); */
+    /* border-right: 2px solid rgb(101, 194, 101); */
+    
 }
 
 .song_list {
@@ -48,7 +54,7 @@ div > #root {
     /* overflow: auto; */
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     /* align-items: center; */
     /* border: 2px dotted black; */
     height: 12em;
@@ -58,7 +64,7 @@ div > #root {
     /* margin-bottom: 40%; */
     margin-top: 20%;
     /* padding-bottom: 5%; */
-    /* transition: background-color 0.5s; */
+    transition: border-image 0.5s;
     /* display: inline-block; */
     /* object-fit: contain; */
 }
