@@ -48,10 +48,7 @@ const Song = ({songs}) => {
             </div>
 
          )}
-<<<<<<< HEAD
-=======
         
->>>>>>> dev
          
     </div>                    
     )
