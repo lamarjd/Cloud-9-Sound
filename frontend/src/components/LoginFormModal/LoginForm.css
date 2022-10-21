@@ -1,50 +1,60 @@
 .login-form {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center; 
-    border: 5px solid rgb(241, 74, 8);
+    /* display: flex; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* gap: 12%;  */
+    border: 5px solid rgb(8, 167, 241);
     /* margin: 20px; */
     padding: 10%;
     background-color: black;
     color: white;
     border-radius: 12px;
+    font-family: 'Josefin Sans', sans-serif;
+    width: 60vh;
  
 }
 
-#login-form label {
+.login-form label {
     width: 100%;
     height: 56px;
-    border: 1px solid rgb(32, 35, 39);
+    /* border: 1px solid rgb(32, 35, 39); */
     border-radius: 4px;
     margin: 12px 0;
     padding: 8px 8px;
     display: flex;
     flex-direction: column;
     font-size: 13px;
-    color: rgb(110, 118, 125);
+    /* color: rgb(110, 118, 125); */
     box-sizing: border-box;
-    border: 2px solid red
+    /* border: 2px solid red */
   }
 
 .demo {
     white-space: pre;
+    font-family: 'Josefin Sans', sans-serif;
+    border-radius: 4px;
+    width: 60%;
+    /* justify-content: center; */
    
 
 }
 
-#login-form input:focus-within {
-    color: rgb(29, 155, 240);
-    border-color: rgb(29, 155, 240);
+.login-form input:focus-within {
+    color:  rgb(155, 219, 155);
+    border: 2px solid grey;
+    border-color: rgb(241, 74, 8);
   }
 
-  #login-form label input {
+  .login-form input {
     background-color: inherit;
     color: white;
     border: 0;
     outline: 0;
     margin-top: 4px;
     font-size: 17px;
+    border: 1px solid grey;
+    width: 100%
   }
 
   .logo-container {
@@ -60,8 +70,22 @@
 
   }
 
+  .form-inputs {
+    display: flex;
+    justify-content: center;
+  }
+  
   .sign-in {
-    font-family: 'Trispace', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
+    border-radius: 4px;
+    width: 60%;
+  }
+
+  .login-form button {
+    font-family: 'Josefin Sans', sans-serif;
+    width: 50%;
+    margin-bottom: 2%;
+    background-color: rgb(101, 194, 101);
     border-radius: 4px;
   }
   /* .sign-in {
