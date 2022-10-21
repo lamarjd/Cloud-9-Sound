@@ -51,19 +51,11 @@ function App() {
         {user &&
       <Switch>
           <Route exact path="/">
-<<<<<<< HEAD
-            <Song />
-          </Route> 
-          <Route exact path="/songs/:songId">
-            <SongDetails user={user}/>
-          </Route>            
-=======
             <Song user={user}/>
           </Route>
           <Route exact path="/songs/:songId">
             <SongDetails user={user}/>
           </Route>
->>>>>>> dev
       </Switch>
       }
       {/* </Navigation> */}
