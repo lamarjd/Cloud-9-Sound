@@ -7,9 +7,10 @@ import { getOneSong, deleteSong } from "../../store/songs.js";
 import EditSongForm from "./EditSongForm";
 import { usePlayer } from "../../context/PlayerContext";
 // comments
-import { createComment } from "../../store/comments.js";
+import { createComment, getComments } from "../../store/comments.js";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
+import soundwave from "../assets/images/sound-wave.jpg"
 import "./Song.css";
 
 const SongDetails = ({ songs, user }) => {
@@ -17,117 +18,136 @@ const SongDetails = ({ songs, user }) => {
   const history = useHistory();
   const { songId } = useParams();
   const { setUrl } = usePlayer();
-
   const song = useSelector((state) => {
     // if (!song) return null;
     return state.songs[songId];
   });
   // console.log("song Selector", song)
-
+  
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
-
+  
   // comments
   const [showCommentForm, setShowCommentForm] = useState(false);
-
+  
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
     setEditSongId(null);
     dispatch(getOneSong(songId));
+    
   }, [dispatch, songId]);
-
+  
   if (!song) {
     return null;
   }
   
   // if (!user) {
-  //   alert("Please sign in")
-  //   history.push("/")
+  //   return null
   // }
+  
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(deleteSong(song.id));
+    history.push("/");
+  };
+  // console.log("Is trhis working")
 
   return (
-      <div className="song_details">
-      <div className="single-song-container">
-        <h2>Song Details</h2>
-        <div className="single-song-detail">
-          <img className="pic" src={song.imageUrl} />
-          <div className="play-button-div">
-            <i
-              onClick={() => setUrl(song.url)}
-              className="fa-solid fa-circle-play"
-            ></i>
-          </div>
+    <div className="outer-lining">
+      <div className="song-detail-container">
+        <div className="single-song-container">
+          <h2>Song Details</h2>
+
+          <div className="single-song-detail">
+            <div className="pic-container">
+              <img className="pic" src={song.imageUrl} />
+            </div>
+
+            <div className="play-button-div">
+              <i
+                onClick={() => setUrl(song.url)}
+                className="fa-solid fa-circle-play"
+              ></i>
+            </div>
+            <span className="player-image">
+              <img src={soundwave}/>
+            </span>
             {/* <div className="wave-container">
             <div className="wave-image">Hello</div>
-            </div> */}
-        </div>
-        <ul>
-          <li>
-            <b>Title: </b> {song.title}
-          </li>
-          <li>
-            <b>Description: </b> {song.description}
-          </li>
-          {/* <li> */}
-            {/* <b>Artist: </b> {user.username} */}
-          {/* </li> */}
-        </ul>
+          </div> */}
+          </div>
+          <ul>
+            <li>
+              <b>Title: </b> {song.title}
+            </li>
+            <li>
+              <b>Description: </b> {song.description}
+            </li>
+          </ul>
 
 
-        {!showEditSongForm && user && (
-          <>
-            {/* *  if the current user is valid, show the below options */}
+          <Comment user={user} />
+          
 
-            <button onClick={() => setShowEditSongForm(true)}
-            style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
-            >Edit Song</button>
+          {!showEditSongForm && user && (
+            <>
+              {/* *  if the current user is valid, show the below options */}
+                <br/>
+              <div className="song-action-button-container">
+                <button
+                  id="single-song-button-actions"
+                  onClick={() => setShowCommentForm(true)}
+                  style={{ visibility: showCommentForm ? "hidden" : "visible" }}
+                >
+                  Add Comment
+                </button>
 
-
-            <button onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
-              Add Comment
-            </button>
-
-            <button onClick={() => dispatch(deleteSong(song.id))}
-             style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
-            >
-              Delete Song
-            </button>
-
-            <Comment key={song.id} songId={songId} user={user} />
-
-            {
-              showCommentForm && (
                 
+                <button
+                  id="single-song-button-actions"
+                  onClick={() => setShowEditSongForm(true)}
+                  style={{
+                    visibility: user.id === song.userId ? "visible" : "hidden",
+                  }}
+                >
+                  Edit Song
+                </button>
+
+                <button
+                  id="single-song-button-actions"
+                  onClick={handleDelete}
+                  style={{
+                    visibility: user.id === song.userId ? "visible" : "hidden",
+                  }}
+                >
+                  Delete Song
+                </button>
+              </div>              
+
+              {showCommentForm && (
                 <AddCommentForm
                 songs={songs}
                 setShowCommentForm={setShowCommentForm}
                 onClick={() => setShowCommentForm(false)}
                 />
-                )
-              }
-              
-              </>
-              )}
+                )}
+            </>
+          )}          
 
-        
-
-        {!user &&
-          <Comment />
-        }
-                
-        {user && showEditSongForm && (
-          <EditSongForm
-          songId={editSongId}
-          song={song}
-          setShowEditSongForm={setShowEditSongForm}
-          onClick={() => setShowEditSongForm(false)}
-          />
-          )}
-          </div>
-          </div>
-      
-    );
-  };
+          {user && showEditSongForm && (
+            <EditSongForm
+            songId={editSongId}
+            song={song}
+            setShowEditSongForm={setShowEditSongForm}
+            onClick={() => setShowEditSongForm(false)}
+            />
+            )}
+            
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default SongDetails;

@@ -36,7 +36,7 @@ const UploadSongForm = ({ setShowModal }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setCancel(true)
+        setShowModal(false);
 
         const payload = {
             title,
@@ -49,8 +49,8 @@ const UploadSongForm = ({ setShowModal }) => {
         let uploadedSong = dispatch(uploadSong(payload));
         
         if (uploadedSong) {
-            // history.push(`/songs`)
-            history.push(`/songs/${uploadedSong.id}`)
+            history.push(`/`)
+            // history.push(`/songs/${uploadedSong.id}`)
             // hideForm()
         }
     };

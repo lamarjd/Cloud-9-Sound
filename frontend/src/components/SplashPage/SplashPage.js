@@ -4,7 +4,7 @@ import Song from "../Songs/Song"
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from "../SignupFormModal"
 import logo from "../assets/images/CLOUD9Logo.png"
-import splash1 from "../assets/images/splash1.jpg"
+import splash2 from "../assets/images/splash2.jpg"
 import "./SplashPage.css"
 
 function SplashPage({ user }) {
@@ -16,7 +16,7 @@ function SplashPage({ user }) {
         <div className="splash-content">
 
         <div className="splash-picture-container">
-          <img id="splashImg" src={splash1} />
+          <img id="splashImg" src={splash2} />
           <div className="top-left">
             <img id="logo" alt="logo" src={logo}/>
           </div>
@@ -44,6 +44,7 @@ function SplashPage({ user }) {
         <div className="song-display">
           
             <Song />
+          
           
         </div>
         </div>

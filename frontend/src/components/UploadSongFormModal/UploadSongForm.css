@@ -11,6 +11,10 @@
     border-radius: 12px;
 }
 
+.upload_song_form input {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 /* .upload_song_form label{
     width: 100%;
     height: 56px;

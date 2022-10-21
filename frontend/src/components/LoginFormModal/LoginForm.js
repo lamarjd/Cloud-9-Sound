@@ -38,6 +38,7 @@ function LoginForm() {
   return (
   <form className="login-form" onSubmit={handleSubmit}>
     <div className="form-inputs">
+
       <div className="logo-container">
         <img className="logo" src={logo} alt="logo"/>
       </div>
@@ -53,11 +54,11 @@ function LoginForm() {
           name="username"
           value={credential}
           placeholder="Enter Username or Email"
-        //   controlled input for the user login credential (username or email) 
+          //   controlled input for the user login credential (username or email) 
           onChange={(e) => setCredential(e.target.value)}
           required
           />
-      </label>
+      </label> <br />
       {/* <hr></hr> */}
       <label>
         Password
@@ -71,12 +72,15 @@ function LoginForm() {
           />
       </label><br />
       
-    </div>
+    
       <input type="submit" className="sign-in" value="Log In" /> <br />
+    
       
 
-
+    <div className="demo-container">
       <button className="demo" onClick={demoUser}>Demo User</button>
+    </div>
+      </div>
   </form>
   );
 }

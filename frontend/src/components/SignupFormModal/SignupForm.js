@@ -59,7 +59,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setEmail(e.target.value)}
           required
           />
-      </label>
+      </label> <br/>
       <label>
         Username
         <input
@@ -69,7 +69,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setUsername(e.target.value)}
           required
           />
-      </label>
+      </label> <br/>
       <label>
         Password
         <input
@@ -79,7 +79,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setPassword(e.target.value)}
           required
           />
-      </label>
+      </label> <br/>
       <label>
         Confirm Password
         <input
@@ -89,7 +89,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
           />
-      </label>
+      </label><br/>
       <label>
         First Name
         <input
@@ -99,7 +99,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setfirstName(e.target.value)}
           required
           />
-      </label>
+      </label><br/>
       <label>
         Last Name
         <input
@@ -109,7 +109,7 @@ function SignupFormPage({ setShowModal }) {
           onChange={(e) => setlastName(e.target.value)}
           required
           />
-      </label>
+      </label><br/>
       <br/>
       <div className="submit-container">        
       <button type="submit">Sign Up</button>

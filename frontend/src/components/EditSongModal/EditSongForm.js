@@ -2,7 +2,7 @@ import {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams  } from 'react-router-dom'
 import { editSong } from "../../store/songs.js"
-import './Song.css'
+import './EditSongForm.css'
 import { getSongs } from "../../store/songs.js"
 
 
@@ -14,7 +14,7 @@ import { getSongs } from "../../store/songs.js"
 - positioning (Modal?)
 */
 
-const EditSongForm = ({ song, setShowEditSongForm }) => {
+const EditSongForm = ({ song, setShowModal }) => {
 
     // console.log("SONG FROM EDITSONG", song)
     const dispatch = useDispatch();
@@ -22,13 +22,8 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
     const { songId }  = useParams();
 
     let id = songId
-    // console.log("ID", id)
+  
     const sessionUser = useSelector(state => state.session.user);
-    // console.log("SESSION USER", sessionUser)
-
-    // const showEdit = useSelector(state => state.songs)
-    // console.log("Show Edit Form", showEdit)
-
     
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -101,7 +96,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
         if (editedSong) {
             // history.push(`/songs/${songId}`)
             // console.log("Edited Song", editedSong)
-            setShowEditSongForm(false)
+            setShowModal(false)
             history.push(`/songs/${editedSong.id}`)
             // hideForm()
         } 
@@ -110,7 +105,7 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();       
-        setShowEditSongForm(false)
+        setShowModal(false)
     }
 
     return (
@@ -127,11 +122,14 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
 
 
             <form className="edit_song_form" onSubmit={handleSubmit}>
-            <div className="form_container">
+                <div className="form_container">
 
-                <div className="form-title">                    
-                <h2>EDIT {song.title}</h2>
-                </div>
+
+                <h2>Let's get started!</h2>
+                <h4>Upload your song and share it with the community</h4>
+
+
+
                 <div className="edit_field_name" >Title</div>
                 <input 
                 type="text"
@@ -140,7 +138,6 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 value={title}
                 onChange={updateTitle}             
                 />
-                <br/>
                 <div className="edit_field_name" >Description</div>
                 <input 
                 type="text"
@@ -151,7 +148,6 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 value={description}
                 onChange={updateDescription}                
                 />
-                <br/>
                 <div className="edit_field_name" >URL</div>
                 <input 
                 type="text"
@@ -160,7 +156,6 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 value={url}
                 onChange={updateUrl}
                 />
-                <br/>
                 <div className="edit_field_name" >Image Url</div>
                 <input 
                 type="text"
@@ -168,7 +163,6 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 value={imageUrl}
                 onChange={updateImageUrl}
                 />
-                <br/>
                 <div className="edit_field_name" >Album ID</div>
                 <input 
                 type="text"
@@ -176,14 +170,18 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
                 value={albumId || ''}
                 onChange={updateAlbumId}
                 /> <br/>
-            </div>
 
-            <div className="edit_buttons">
+                </div>
+                <div className="edit_buttons">
 
-                <button type="submit" onClick={handleSubmit}>Save Changes</button>
-                <button type="reset" onClick={handleCancelClick}>Cancel</button>
+
+                    <button type="submit" onClick={handleSubmit}>Save Changes</button>
                 
-            </div>
+
+                
+                    <button type="reset" onClick={handleCancelClick}>Cancel</button>
+                
+                </div>
             </form>
         </section>
     )

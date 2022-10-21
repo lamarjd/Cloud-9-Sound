@@ -6,39 +6,40 @@ import "./Comment.css"
 
 // import { allComments } from "../../store/comments.js"
 
-const Comment = ({ songId, user }) => {
+const Comment = ({ user }) => {
     // console.log(songId)
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const { songId } = useParams();
+    
+    // const songId = song.id
+    
     const comments = useSelector(state => Object.values(state.comments));
     // console.log("COMMENT SELECTOR", comments);
-    
-    const { commentId } = useParams();
-    // console.log("comment Id", commentId)
-
     
     useEffect(() => {
         dispatch(getComments(songId))
         // history.push(`/songs/${songId}`)
         // added songId to dispatch. Might want to remove        
-    }, [dispatch])
-
-    // const removeComment = (commentId, songId) => {
-    //     dispatch(deleteComment(commentId, songId))
-    // }
-    // const handleDelete = (id) => {
-        // console.log("ID from HANDLE DELETE", id)
-        // e.preventDefault();
-        // dispatch(deleteComment(id))
-        // dispatch(getComments(songId))
-  
-    //   }
+    }, [dispatch, songId])
     
-    if (!comments.length) return null;
+    // const removeComment = (commentId, songId) => {
+        //     dispatch(deleteComment(commentId, songId))
+        // }
+        // const handleDelete = (id) => {
+            // console.log("ID from HANDLE DELETE", id)
+            // e.preventDefault();
+            // dispatch(deleteComment(id))
+            // dispatch(getComments(songId))
+            
+            //   }
+            
+            if (!comments.length) return null;
+            // if(!user) return null;
+            console.log("is this workiong from Comment")
 
     return (
-        <div>
+        <div className="comment-container">
             <h2>Song Comments</h2>
             <div className="comment-box">
     
@@ -49,7 +50,7 @@ const Comment = ({ songId, user }) => {
                             {/* {console.log("This is the comment", comment)} */}
                             
                             <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}
-                             style={{visibility: user.id === comment.userId ? "visible" : "hidden"}}
+                             style={{visibility: user && user.id === comment.userId ? "visible" : "hidden"}}
                             >Delete</button>
                         </div>
 

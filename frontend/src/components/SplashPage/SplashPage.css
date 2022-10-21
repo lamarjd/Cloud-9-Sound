@@ -62,7 +62,7 @@
 .top-right {
     display: flex;
     justify-content: space-between;
-    width: 17%;
+    width: 20%;
     position: absolute;
     top: 20px;
     right: 30px;

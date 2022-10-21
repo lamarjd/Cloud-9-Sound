@@ -6,8 +6,8 @@
 
 @media screen and (min-width:600px) {
 
-    .App {
-        font-family: 'Trispace', sans-serif;
+    :root {
+        font-family: 'Josefin Sans', sans-serif;
 
     }
 
