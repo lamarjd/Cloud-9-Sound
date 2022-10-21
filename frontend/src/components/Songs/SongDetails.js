@@ -40,108 +40,111 @@ const SongDetails = ({ songs, user }) => {
   if (!song) {
     return null;
   }
-  
+
   // if (!user) {
   //   alert("Please sign in")
   //   history.push("/")
   // }
 
-  const handleDelete =(e) => {
+  const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteSong(song.id))
+    dispatch(deleteSong(song.id));
     history.push("/");
-  }
+  };
 
   return (
-  <div className="container">
-    
-      <div className="single-song-container">
-        <h2>Song Details</h2>
+    <div className="outer-lining">
+      <div className="song-detail-container">
+        <div className="single-song-container">
+          <h2>Song Details</h2>
 
-        <div className="single-song-detail">
+          <div className="single-song-detail">
+            <div className="pic-container">
+              <img className="pic" src={song.imageUrl} />
+            </div>
 
-          <div className="pic-container">
-          <img className="pic" src={song.imageUrl} />
-          </div>
-
-          <div className="play-button-div">
-            <i
-              onClick={() => setUrl(song.url)}
-              className="fa-solid fa-circle-play"
+            <div className="play-button-div">
+              <i
+                onClick={() => setUrl(song.url)}
+                className="fa-solid fa-circle-play"
               ></i>
-          </div>
-          <span className="player-image">
-            <div>Song pic</div>
+            </div>
+            <span className="player-image">
+              <div>Song pic</div>
             </span>
             {/* <div className="wave-container">
             <div className="wave-image">Hello</div>
           </div> */}
-        </div>
-        <ul>
-          <li>
-            <b>Title: </b> {song.title}
-          </li>
-          <li>
-            <b>Description: </b> {song.description}
-          </li>
-          {/* <li> */}
-            {/* <b>Artist: </b> {user.username} */}
-          {/* </li> */}
-        </ul>
-
-
-        {!showEditSongForm && user && (
-          <>
-            {/* *  if the current user is valid, show the below options */}
-          <div className="song-action-button-container">
-            <button id="single-song-button-actions"onClick={() => setShowCommentForm(true)} style={{visibility: showCommentForm ? "hidden" : "visible"}}>
-              Add Comment
-            </button>
-
-            <button id="single-song-button-actions"onClick={() => setShowEditSongForm(true)}
-            style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
-            >Edit Song</button>
-
-
-
-            <button id="single-song-button-actions"onClick={handleDelete}
-             style={{visibility: user.id === song.userId ? "visible" : "hidden"}}
-             >
-              Delete Song
-            </button>
           </div>
+          <ul>
+            <li>
+              <b>Title: </b> {song.title}
+            </li>
+            <li>
+              <b>Description: </b> {song.description}
+            </li>
+          </ul>
 
-            <Comment key={song.id} songId={songId} user={user} />
+          {!showEditSongForm && user && (
+            <>
+              {/* *  if the current user is valid, show the below options */}
+              <div className="song-action-button-container">
+                <button
+                  id="single-song-button-actions"
+                  onClick={() => setShowCommentForm(true)}
+                  style={{ visibility: showCommentForm ? "hidden" : "visible" }}
+                >
+                  Add Comment
+                </button>
 
-            {
-              showCommentForm && (
-                
+                <button
+                  id="single-song-button-actions"
+                  onClick={() => setShowEditSongForm(true)}
+                  style={{
+                    visibility: user.id === song.userId ? "visible" : "hidden",
+                  }}
+                >
+                  Edit Song
+                </button>
+
+                <button
+                  id="single-song-button-actions"
+                  onClick={handleDelete}
+                  style={{
+                    visibility: user.id === song.userId ? "visible" : "hidden",
+                  }}
+                >
+                  Delete Song
+                </button>
+              </div>
+                  
+              {/* <Comment songId={songId} user={user} /> */}
+
+              {showCommentForm && (
                 <AddCommentForm
                 songs={songs}
                 setShowCommentForm={setShowCommentForm}
                 onClick={() => setShowCommentForm(false)}
                 />
-                )
-              }
-
-          </>
-        )}
-
-        {!user &&
-          <Comment />
-        }
-                
-        {user && showEditSongForm && (
-          <EditSongForm
-          songId={editSongId}
-          song={song}
-          setShowEditSongForm={setShowEditSongForm}
-          onClick={() => setShowEditSongForm(false)}
-          />
+                )}
+            </>
           )}
+
+          {/* {user === null || user && (
+          )} */}
+          <Comment songId={songId} song={song} user={user} />
+
+          {user && showEditSongForm && (
+            <EditSongForm
+            songId={editSongId}
+            song={song}
+            setShowEditSongForm={setShowEditSongForm}
+            onClick={() => setShowEditSongForm(false)}
+            />
+          )}
+        </div>
       </div>
-    
-  </div>
+    </div>
   );
 };
 

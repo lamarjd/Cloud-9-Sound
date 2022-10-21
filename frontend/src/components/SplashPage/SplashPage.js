@@ -16,7 +16,7 @@ function SplashPage({ user }) {
         <div className="splash-content">
 
         <div className="splash-picture-container">
-          <img id="splashImg" blurRadius={10} src={splash2} />
+          <img id="splashImg" src={splash2} />
           <div className="top-left">
             <img id="logo" alt="logo" src={logo}/>
           </div>
@@ -44,6 +44,7 @@ function SplashPage({ user }) {
         <div className="song-display">
           
             <Song />
+          
           
         </div>
         </div>

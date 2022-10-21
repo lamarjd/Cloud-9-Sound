@@ -54,6 +54,7 @@ export const getComments = (songId) => async dispatch => {
         // console.log("Comment from the getComments thunk", comments)
         dispatch(allComments(comments))
     }
+    alert("can't get comments")
 };
 
 
