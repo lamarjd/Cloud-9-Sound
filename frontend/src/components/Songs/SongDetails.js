@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory, Route } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 // import useDispatch for use
 import { useSelector, useDispatch } from "react-redux";
 // import the thunk
@@ -7,7 +7,6 @@ import { getOneSong, deleteSong } from "../../store/songs.js";
 import EditSongForm from "./EditSongForm";
 import { usePlayer } from "../../context/PlayerContext";
 // comments
-import { createComment, getComments } from "../../store/comments.js";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
 import audio from "../assets/images/audio.png"
@@ -66,7 +65,7 @@ const SongDetails = ({ songs, user }) => {
 
           <div className="single-song-detail">
             <div className="pic-container">
-              <img className="pic" src={song.imageUrl} />
+              <img alt="song-pic" className="pic" src={song.imageUrl} />
             </div>
 
             <div className="play-button-div">
@@ -76,7 +75,7 @@ const SongDetails = ({ songs, user }) => {
               ></i>
             </div>
             <span className="player-image">
-              <img src={audio}/>
+              <img alt="audio-wave" src={audio}/>
             </span>
             {/* <div className="wave-container">
             <div className="wave-image">Hello</div>
