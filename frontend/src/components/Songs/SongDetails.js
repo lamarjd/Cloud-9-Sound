@@ -10,7 +10,7 @@ import { usePlayer } from "../../context/PlayerContext";
 import { createComment, getComments } from "../../store/comments.js";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
-import soundwave from "../assets/images/sound-wave.jpg"
+import audio from "../assets/images/audio.png"
 import "./Song.css";
 
 const SongDetails = ({ songs, user }) => {
@@ -53,6 +53,11 @@ const SongDetails = ({ songs, user }) => {
   };
   // console.log("Is trhis working")
 
+  // function fillColor() {
+  //   let transition = document.getElementsByClassName("player-image");
+  //   transition.classList.add("")
+  // }
+
   return (
     <div className="outer-lining">
       <div className="song-detail-container">
@@ -71,7 +76,7 @@ const SongDetails = ({ songs, user }) => {
               ></i>
             </div>
             <span className="player-image">
-              <img src={soundwave}/>
+              <img src={audio}/>
             </span>
             {/* <div className="wave-container">
             <div className="wave-image">Hello</div>
