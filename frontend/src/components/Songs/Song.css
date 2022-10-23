@@ -42,14 +42,7 @@
     width: 1180px;
     /* padding-top: 2%; */
     background-color: white;
-    /* margin-top: 0px; */
-    /* margin: 0 5px 5px; */
-
-    
-    /* padding: 0; */
-    /* overflow: auto; */
-    /* object-fit: scale-down; */
-    
+    margin-bottom: 25%;    
 }
 
 .song {
@@ -108,9 +101,7 @@ hr {
 
 
 
-.song_details {
-    /* overflow-y: scroll; */
-}
+
 
 
 
@@ -166,19 +157,6 @@ hr {
 
 }
 
-.single-song-detail {
-
-}
-
-.single-song-detail > div {
-
- /* height: 3em; */
- /* width: 3em; */
- /* display: flex; */
- /* justify-content: center;
- align-items: center;
- margin: 2em; */
-}
 
 .song-action-button-container {
     display: flex;

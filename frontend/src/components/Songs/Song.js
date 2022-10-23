@@ -8,7 +8,7 @@ import SongDetails from "./SongDetails"
 import { getSongs } from "../../store/songs.js"
 
 
-const Song = ({songs}) => {
+const Song = ({songs, user}) => {
     const dispatch = useDispatch();
     const { songId } = useParams();
     const song = useSelector(state => {
@@ -36,8 +36,13 @@ const Song = ({songs}) => {
 
     return (
     <div className="container">
-        
-        {/* <h3> Here's what's trending</h3>  */}
+        {!user ? (
+            <h3> Here's what's trending Today</h3> 
+            ) : (
+            <h3>Check out the songs that are making waves in the community</h3> 
+        )
+
+        }
         {( !showUploadForm && 
                 
             <div className="song_list">
