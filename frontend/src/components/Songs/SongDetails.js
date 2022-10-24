@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-// import useDispatch for use
 import { useSelector, useDispatch } from "react-redux";
-// import the thunk
 import { getOneSong, deleteSong } from "../../store/songs.js";
-import EditSongForm from "./EditSongForm";
 import { usePlayer } from "../../context/PlayerContext";
-// comments
+import EditSongForm from "./EditSongForm";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
-import audio from "../assets/images/audio.png"
+import audio from "../assets/images/audio.png";
 import "./Song.css";
 
 const SongDetails = ({ songs, user }) => {
@@ -18,44 +15,30 @@ const SongDetails = ({ songs, user }) => {
   const { songId } = useParams();
   const { setUrl } = usePlayer();
   const song = useSelector((state) => {
-    // if (!song) return null;
     return state.songs[songId];
   });
-  // console.log("song Selector", song)
-  
+
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
-  
-  // comments
+
   const [showCommentForm, setShowCommentForm] = useState(false);
-  
+
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
     setEditSongId(null);
     dispatch(getOneSong(songId));
-    
   }, [dispatch, songId]);
-  
+
   if (!song) {
     return null;
   }
-  
-  // if (!user) {
-  //   return null
-  // }
-  
+
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteSong(song.id));
     history.push("/");
   };
-  // console.log("Is trhis working")
-
-  // function fillColor() {
-  //   let transition = document.getElementsByClassName("player-image");
-  //   transition.classList.add("")
-  // }
 
   return (
     <div className="outer-lining">
@@ -75,11 +58,8 @@ const SongDetails = ({ songs, user }) => {
               ></i>
             </div>
             <span className="player-image">
-              <img alt="audio-wave" src={audio}/>
+              <img alt="audio-wave" src={audio} />
             </span>
-            {/* <div className="wave-container">
-            <div className="wave-image">Hello</div>
-          </div> */}
           </div>
           <ul>
             <li>
@@ -90,14 +70,11 @@ const SongDetails = ({ songs, user }) => {
             </li>
           </ul>
 
-
           <Comment user={user} />
-          
 
           {!showEditSongForm && user && (
             <>
-              {/* *  if the current user is valid, show the below options */}
-                <br/>
+              <br />
               <div className="song-action-button-container">
                 <button
                   id="single-song-button-actions"
@@ -106,8 +83,6 @@ const SongDetails = ({ songs, user }) => {
                 >
                   Add Comment
                 </button>
-
-                
                 <button
                   id="single-song-button-actions"
                   onClick={() => setShowEditSongForm(true)}
@@ -117,7 +92,6 @@ const SongDetails = ({ songs, user }) => {
                 >
                   Edit Song
                 </button>
-
                 <button
                   id="single-song-button-actions"
                   onClick={handleDelete}
@@ -127,27 +101,26 @@ const SongDetails = ({ songs, user }) => {
                 >
                   Delete Song
                 </button>
-              </div>              
+              </div>
 
               {showCommentForm && (
                 <AddCommentForm
-                songs={songs}
-                setShowCommentForm={setShowCommentForm}
-                onClick={() => setShowCommentForm(false)}
+                  songs={songs}
+                  setShowCommentForm={setShowCommentForm}
+                  onClick={() => setShowCommentForm(false)}
                 />
-                )}
+              )}
             </>
-          )}          
+          )}
 
           {user && showEditSongForm && (
             <EditSongForm
-            songId={editSongId}
-            song={song}
-            setShowEditSongForm={setShowEditSongForm}
-            onClick={() => setShowEditSongForm(false)}
+              songId={editSongId}
+              song={song}
+              setShowEditSongForm={setShowEditSongForm}
+              onClick={() => setShowEditSongForm(false)}
             />
-            )}
-            
+          )}
         </div>
       </div>
     </div>

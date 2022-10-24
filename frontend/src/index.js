@@ -1,16 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
 import { ModalProvider } from "./context/Modal";
-
-import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
+import { PlayerProvider } from "./context/PlayerContext";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import configureStore from "./store";
 import * as sessionActions from "./store/session";
-import { PlayerProvider } from "./context/PlayerContext"
-// import Player from './components/AudioPlayer/AudioPlayer.js';
 
 const store = configureStore();
 
@@ -26,13 +24,13 @@ function Root() {
   return (
     <Provider store={store}>
       <PlayerProvider>
-      <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ModalProvider>
+        <ModalProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ModalProvider>
       </PlayerProvider>
-    </Provider> 
+    </Provider>
   );
 }
 
@@ -40,5 +38,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Root />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

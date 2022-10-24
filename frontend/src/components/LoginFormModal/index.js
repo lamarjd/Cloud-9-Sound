@@ -9,9 +9,6 @@ function LoginFormModal() {
   return (
     <>
       <button className="sign-in" onClick={() => setShowModal(true)}>Log In</button>
-      {/* Render the `Modal` component with
-the `LoginForm` component as its child **only when** the `showModal` state
-variable is `true` */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <LoginForm />

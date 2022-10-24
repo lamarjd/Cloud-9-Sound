@@ -5,25 +5,14 @@ import { editSong } from "../../store/songs.js";
 import "./Song.css";
 import { getSongs } from "../../store/songs.js";
 
-/* TODO: 
--  validate user owns song
-- css
-- positioning (Modal?)
-*/
-
 const EditSongForm = ({ song, setShowEditSongForm }) => {
-  // console.log("SONG FROM EDITSONG", song)
   const dispatch = useDispatch();
   const history = useHistory();
   const { songId } = useParams();
 
   let id = songId;
-  // console.log("ID", id)
-  const sessionUser = useSelector((state) => state.session.user);
-  // console.log("SESSION USER", sessionUser)
 
-  // const showEdit = useSelector(state => state.songs)
-  // console.log("Show Edit Form", showEdit)
+  const sessionUser = useSelector((state) => state.session.user);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -70,7 +59,9 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
     }
 
     if (!imageUrl.includes(".jpg" || ".png")) {
-      validationErrors.push("Song Image must be in the proper format (.jpg or .png)");
+      validationErrors.push(
+        "Song Image must be in the proper format (.jpg or .png)"
+      );
     }
 
     if (!url.includes(".mp3")) {
@@ -115,25 +106,17 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
             );
           })}
       </ul>
-
       <form className="edit_song_form" onSubmit={handleSubmit}>
         <div className="form_container">
           <div className="form-title">
             <h2>EDIT {song.title}</h2>
           </div>
           <div className="edit_field_name">Title</div>
-          <input
-            type="text"
-            // placeholder={song.title}
-            required
-            value={title}
-            onChange={updateTitle}
-          />
+          <input type="text" required value={title} onChange={updateTitle} />
           <br />
           <div className="edit_field_name">Description</div>
           <input
             type="text"
-            // placeholder={song.description}
             min="2"
             max="250"
             required
@@ -142,32 +125,19 @@ const EditSongForm = ({ song, setShowEditSongForm }) => {
           />
           <br />
           <div className="edit_field_name">URL</div>
-          <input
-            type="text"
-            // placeholder={song.url}
-            required
-            value={url}
-            onChange={updateUrl}
-          />
+          <input type="text" required value={url} onChange={updateUrl} />
           <br />
           <div className="edit_field_name">Image Url</div>
-          <input
-            type="text"
-            // placeholder={song.imageUrl}
-            value={imageUrl}
-            onChange={updateImageUrl}
-          />
+          <input type="text" value={imageUrl} onChange={updateImageUrl} />
           <br />
           <div className="edit_field_name">Album ID</div>
           <input
             type="text"
-            // placeholder={song.albumId || "Album Id"}
             value={albumId || ""}
             onChange={updateAlbumId}
           />{" "}
           <br />
         </div>
-
         <div className="edit_buttons">
           <button type="submit" onClick={handleSubmit}>
             Save Changes

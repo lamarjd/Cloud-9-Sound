@@ -1,17 +1,13 @@
-// Add css
-
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { uploadSong } from "../../store/songs.js";
 import "./UploadSongForm.css";
 import logo from "../assets/images/CLOUD9Logo.png";
-import { usePlayer } from "../../context/PlayerContext";
 
 const UploadSongForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const  { url, setUrl }  = usePlayer();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -42,7 +38,9 @@ const UploadSongForm = ({ setShowModal }) => {
     }
 
     if (!imageUrl.includes(".jpg" || ".png")) {
-      validationErrors.push("Song Image must be in the proper format (.jpg or .png)");
+      validationErrors.push(
+        "Song Image must be in the proper format (.jpg or .png)"
+      );
     }
 
     if (!url.includes(".mp3")) {
@@ -50,7 +48,7 @@ const UploadSongForm = ({ setShowModal }) => {
     }
 
     if (!albumId) {
-        validationErrors.push("Please provide an Album ID")
+      validationErrors.push("Please provide an Album ID");
     }
 
     setErrors(validationErrors);
@@ -80,18 +78,17 @@ const UploadSongForm = ({ setShowModal }) => {
 
   return (
     <section>
-        <form className="upload_song_form" onSubmit={handleSubmit}>
-      <ul> 
-        {errors &&
-          errors.map((error) => {
-            return (
-              <li className="errors" key={error}>
-                {error}
-              </li>
-            );
-          })}
-      </ul>
-
+      <form className="upload_song_form" onSubmit={handleSubmit}>
+        <ul>
+          {errors &&
+            errors.map((error) => {
+              return (
+                <li className="errors" key={error}>
+                  {error}
+                </li>
+              );
+            })}
+        </ul>
         <h2>Let's get started!</h2>
         <h4>Upload your song and share it with the community</h4>
         <div className="logo-container">

@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { useHistory, NavLink, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Song from "../Songs/Song";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
@@ -14,7 +13,7 @@ function SplashPage({ user }) {
         <div className="splash-container">
           <div className="splash-content">
             <div className="splash-picture-container">
-              <img id="splashImg" src={splash2} />
+              <img alt="splash-pic" id="splashImg" src={splash2} />
               <div className="top-left">
                 <img id="logo" alt="logo" src={logo} />
               </div>
