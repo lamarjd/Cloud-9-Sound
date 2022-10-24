@@ -36,7 +36,7 @@ const Comment = ({ user }) => {
             
             if (!comments.length) return null;
             // if(!user) return null;
-            console.log("is this workiong from Comment")
+            // console.log("is this workiong from Comment")
 
     return (
         <div className="comment-container">
