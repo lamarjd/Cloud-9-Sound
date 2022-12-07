@@ -86,5 +86,5 @@ module.exports = {
 
     await queryInterface.bulkDelete('Songs', songs)
   },
-  // songs
+  songs
 };
