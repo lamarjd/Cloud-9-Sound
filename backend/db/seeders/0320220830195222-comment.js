@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 const {Comment} = require('../models')
 
 const comments = [
@@ -22,6 +27,7 @@ const comments = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'Comments'; 
     /**
      * Add seed commands here.
      *
@@ -31,17 +37,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('Comments', comments)
+   await queryInterface.bulkInsert(options)
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'Comments'; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Comments', comments)
+    await queryInterface.bulkDelete(options)
   },
   // comments
 };

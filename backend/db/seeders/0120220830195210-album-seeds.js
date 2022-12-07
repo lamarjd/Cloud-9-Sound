@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 const {Album} = require('../models')
 
 const albums = [
@@ -25,6 +30,7 @@ const albums = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'Albums'; 
     /**
      * Add seed commands here.
      *
@@ -34,17 +40,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await Album.bulkCreate(albums)
+   await Album.bulkCreate(options)
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'Albums'; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete(albums)
+    await queryInterface.bulkDelete(options)
   },
   // albums
 };

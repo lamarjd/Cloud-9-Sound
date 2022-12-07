@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 const {Playlist, Song, PlaylistSong} = require('../models')
 
 const playlistToSongs = [
@@ -22,6 +27,7 @@ const playlistToSongs = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'PlaylistSongs'; 
 
   //  for (let songInfo of playlistToSongs) {
   //   const {song, playlist} = songInfo
@@ -32,7 +38,7 @@ module.exports = {
   //     playlistId: findPlaylist.id
   //   });
   //  }
-  await queryInterface.bulkInsert('PlaylistSongs', [
+  await queryInterface.bulkInsert(options, [
     {
       songId: 1,
       playlistId: 1,
@@ -52,13 +58,14 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'PlaylistSongs'; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('PlaylistSongs', {}, {})
+    await queryInterface.bulkDelete(options, {}, {})
   },
   // playlistToSongs
 };
