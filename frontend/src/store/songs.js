@@ -6,7 +6,7 @@ const EDIT_SONG = 'songs/EDIT_SONG'
 const ADD_SONG = ' songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
 
-
+// ACTION CREATOR =====================
 const load = (songs) => {
     return {
         type: LOAD_SONGS,
@@ -35,7 +35,9 @@ const remove = (songId) => {
     }
 }
 
-// THUNK - get Songs
+// ================================
+
+// THUNK ACTIONS ==================
 export const getSongs = () => async dispatch => {
     const response = await csrfFetch(`/api/songs`);
     
@@ -104,7 +106,10 @@ export const deleteSong = (songId) => async dispatch => {
     }
 }
 
+// ================================
 
+
+// REDUCER
 const initialState = {}
 
 const songReducer = (state = initialState, action) => {
