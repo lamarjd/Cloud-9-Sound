@@ -27,20 +27,18 @@ const playlists = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = ''; 
 
-   await Playlist.bulkCreate(options)
+   await Playlist.bulkCreate(playlists)
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = ''; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete(options)
+    await queryInterface.bulkDelete('Playlists')
   },
   playlists
 };

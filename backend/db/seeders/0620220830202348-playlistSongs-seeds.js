@@ -27,7 +27,6 @@ const playlistToSongs = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = 'PlaylistSongs'; 
 
   //  for (let songInfo of playlistToSongs) {
   //   const {song, playlist} = songInfo
@@ -38,7 +37,7 @@ module.exports = {
   //     playlistId: findPlaylist.id
   //   });
   //  }
-  await queryInterface.bulkInsert(options, [
+  await queryInterface.bulkInsert('PlaylistSongs', [
     {
       songId: 1,
       playlistId: 1,
@@ -58,14 +57,13 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'PlaylistSongs'; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete(options, {}, {})
+    await queryInterface.bulkDelete('PlaylistSongs', {}, {})
   },
   // playlistToSongs
 };

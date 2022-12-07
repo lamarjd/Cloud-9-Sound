@@ -27,7 +27,7 @@ const comments = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = 'Comments'; 
+    
     /**
      * Add seed commands here.
      *
@@ -37,18 +37,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert(options)
+   await queryInterface.bulkInsert('Comments', comments)
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Comments'; 
+    
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete(options)
+    await queryInterface.bulkDelete('Comments', comments)
   },
   // comments
 };

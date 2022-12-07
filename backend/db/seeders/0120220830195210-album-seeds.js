@@ -30,7 +30,6 @@ const albums = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = 'Albums'; 
     /**
      * Add seed commands here.
      *
@@ -40,18 +39,17 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await Album.bulkCreate(options)
+   await Album.bulkCreate(albums)
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Albums'; 
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete(options)
+    await queryInterface.bulkDelete(albums)
   },
   // albums
 };
