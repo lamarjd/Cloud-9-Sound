@@ -79,12 +79,12 @@ const songs = [
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-   await queryInterface.bulkInsert('Songs', songs)
+   await queryInterface.bulkCreate('Songs', songs)
   },
 
   async down (queryInterface, Sequelize) {
 
     await queryInterface.bulkDelete('Songs', songs)
   },
-  songs
+  // songs
 };
