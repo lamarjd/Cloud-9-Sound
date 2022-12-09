@@ -1,10 +1,5 @@
 'use strict';
 
-let options = {};
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
-}
-
 const {Comment} = require('../models')
 
 const comments = [
@@ -27,7 +22,6 @@ const comments = [
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    
     /**
      * Add seed commands here.
      *
@@ -41,7 +35,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    
     /**
      * Add commands to revert seed here.
      *

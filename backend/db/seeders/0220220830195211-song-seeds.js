@@ -1,10 +1,5 @@
 'use strict';
 
-let options = {};
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
-}
-
 const {Song} = require('../models')
 
 
@@ -79,12 +74,12 @@ const songs = [
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-   await queryInterface.bulkInsert('Songs', songs, options)
+   await queryInterface.bulkInsert('Songs', songs)
   },
 
   async down (queryInterface, Sequelize) {
 
-    await queryInterface.bulkDelete('Songs', songs, options)
+    await queryInterface.bulkDelete('Songs', songs)
   },
   // songs
 };
