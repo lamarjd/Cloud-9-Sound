@@ -20,6 +20,8 @@ const Comment = ({ user }) => {
 
   if (!comments.length) return null;
 
+
+
   return (
     <div className="comment-container">
       <h2>Song Comments</h2>
@@ -51,10 +53,10 @@ const Comment = ({ user }) => {
             </button>
           </div>
         ))}
-          {showEditCommentForm && (
+          {showEditCommentForm && user && (
             <EditCommentForm 
             setShowEditCommentForm={setShowEditCommentForm}
-            onClick={() => setShowEditCommentForm(false)}
+            onClick={() => showEditCommentForm(false)}
             />
           )}
 
