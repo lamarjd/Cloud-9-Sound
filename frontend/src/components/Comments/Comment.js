@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getComments, deleteComment, editComment } from "../../store/comments";
-import EditCommentForm from "./EditCommentForm";
+import EditCommentFormModal from "./EditCommentFormModal";
 import "./Comment.css";
 
 const Comment = ({ user }) => {
@@ -30,7 +30,7 @@ const Comment = ({ user }) => {
           <div key={comment.id} className="single-comment">
             {comment.body}
 
-            <button
+            {/* <button
               id={comment.id}
               onClick={() => setShowEditCommentForm(true)}
               style={{
@@ -39,7 +39,12 @@ const Comment = ({ user }) => {
               }}
             >
               Edit
-            </button>
+            </button> */}
+      <div className="comment-btn">
+
+          {!showEditCommentForm && user.id === comment.userId && (
+            <EditCommentFormModal />
+          )}
 
             <button
               id={comment.id}
@@ -51,14 +56,10 @@ const Comment = ({ user }) => {
             >
               Delete
             </button>
+            </div>
           </div>
         ))}
-          {showEditCommentForm && user && (
-            <EditCommentForm 
-            setShowEditCommentForm={setShowEditCommentForm}
-            onClick={() => showEditCommentForm(false)}
-            />
-          )}
+
 
 
       </div>

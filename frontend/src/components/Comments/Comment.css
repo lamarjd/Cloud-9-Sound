@@ -6,6 +6,19 @@
     height: 50%;
 }
 
+.comment-btn {
+    /* border: 2px solid red; */
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.comment-btn > button {
+    width: 40%;
+    /* border: 1px solid blue; */
+}
+
 .single-comment {
     display: flex;
     border-bottom: 1px solid grey;
