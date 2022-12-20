@@ -30,18 +30,8 @@ const Comment = ({ user }) => {
           <div key={comment.id} className="single-comment">
             {comment.body}
 
-            {/* <button
-              id={comment.id}
-              onClick={() => setShowEditCommentForm(true)}
-              style={{
-                visibility:
-                  user && user.id === comment.userId ? "visible" : "hidden",
-              }}
-            >
-              Edit
-            </button> */}
+      {/* Comment Button Options */}
       <div className="comment-btn">
-
           {!showEditCommentForm && user.id === comment.userId && (
             <EditCommentFormModal />
           )}
