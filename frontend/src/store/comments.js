@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const CREATE_COMMENT = "comments/CREATE_COMMENT"
 const GET_COMMENTS = "comments/GET_COMMENTS"
 const REMOVE_COMMENT = "comments/REMOVE_COMMENT"
+const EDIT_COMMENT = "comments/EDIT_COMMENT"
 
 /* ACTIONS */
 const add = (comment) => {
@@ -26,6 +27,13 @@ const remove = (commentId) => {
     }
 }
 
+const edit = (comment) => {
+    return {
+        type: EDIT_COMMENT,
+        comment
+    }
+}
+
 
 // THUNK - DELETE COMMENT
 export const deleteComment = (commentId) => async dispatch =>
@@ -41,6 +49,24 @@ export const deleteComment = (commentId) => async dispatch =>
         return message;
     }
     alert("Wanting to delete but can't")
+}
+
+// THUNK - EDIT COMMENT
+export const editComment = (comment) => async dispatch => {
+    const response = await csrfFetch(`/api/comments/${comment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if (response.ok) {
+        const comment = await response.json();
+        dispatch(edit(comment))
+        return comment
+    }
+    return null
 }
 
 // THUNK - get comments
@@ -101,7 +127,13 @@ const commentReducer = (state = initialState, action) => {
         case CREATE_COMMENT:
             const addState = {...state}
             addState[action.comment.id] = action.comment
-            return addState;         
+            return addState;
+            
+        case EDIT_COMMENT:
+            return {
+                ...state,
+                [action.comment.id]: action.comment
+            }
         case REMOVE_COMMENT:
             const removeState = {...state};
             delete removeState[action.commentId]
