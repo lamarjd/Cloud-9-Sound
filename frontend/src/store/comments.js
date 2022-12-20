@@ -53,14 +53,15 @@ export const deleteComment = (commentId) => async dispatch =>
 
 // THUNK - EDIT COMMENT
 export const editComment = (comment) => async dispatch => {
-    const response = await csrfFetch(`/api/comments/${comment.id}`, {
+    console.log("CommentID from THunk", comment)
+    const response = await fetch(`/api/comments/${comment.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(comment)
     });
-
+    console.log("Response from thunk", response)
     if (response.ok) {
         const comment = await response.json();
         dispatch(edit(comment))

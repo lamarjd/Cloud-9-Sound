@@ -33,7 +33,7 @@ const Comment = ({ user }) => {
       {/* Comment Button Options */}
       <div className="comment-btn">
           {!showEditCommentForm && user.id === comment.userId && (
-            <EditCommentFormModal />
+            <EditCommentFormModal songId={songId} comment={comment}/>
           )}
 
             <button
