@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { getSongs } from "../../store/songs.js";
+import { NavLink, Route, useParams, Switch } from "react-router-dom";
 import "./Song.css";
+// import "./SongTest.css";
+// import UploadSongForm from "./UploadSongForm"
+import SongDetails from "./SongDetails";
 
 import { getSongs } from "../../store/songs.js";
 
@@ -17,11 +19,10 @@ const Song = ({ songs }) => {
   const [showUploadForm, setShowUploadForm] = useState(false);
 
   const songArr = Object.values(song);
+  // console.log("SONGARR", songArr)
 
-  useEffect(() => {
-    setShowUploadForm(false);
-    dispatch(getSongs());
-  }, [dispatch]);
+  // const [showForm, setShowForm] = useState(false)
+
   useEffect(() => {
     setShowUploadForm(false);
     dispatch(getSongs());
@@ -30,11 +31,7 @@ const Song = ({ songs }) => {
   if (!song) {
     return null;
   }
-  if (!song) {
-    return null;
-  }
 
-  return (
   return (
     <div className="container">
       {/* <h3> Here's what's trending</h3>  */}
@@ -61,34 +58,5 @@ const Song = ({ songs }) => {
     </div>
   );
 };
-      {!user ? (
-        <h3> Here's what's trending Today</h3>
-      ) : (
-        <h3>Check out the songs that are making waves in the community</h3>
-      )}
-      {!showUploadForm && (
-        <div className="song_list">
-          {songArr.map(({ id, title, imageUrl }) => {
-            return (
-              <div key={id} className="song">
-                <NavLink
-                  className="song-link"
-                  key={song.id}
-                  to={`/songs/${id}`}
-                >
-                  <img alt="song-pic" src={imageUrl} />
-                  <br />
-                  {title}
-                  <hr />
-                </NavLink>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-};
 
 export default Song;
-
