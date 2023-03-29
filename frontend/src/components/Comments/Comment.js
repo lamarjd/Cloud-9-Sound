@@ -38,29 +38,30 @@ const Comment = ({ user }) => {
             // if(!user) return null;
             console.log("is this workiong from Comment")
 
-    return (
-        <div className="comment-container">
-            <h2>Song Comments</h2>
-            <div className="comment-box">
-    
-
-                    {comments.map(comment => (
-                        <div key={comment.id} className="single-comment">
-                            {comment.body}
-                            {/* {console.log("This is the comment", comment)} */}
-                            
-                            <button id={comment.id} onClick={(e) => dispatch(deleteComment(e.target.id))}
-                             style={{visibility: user && user.id === comment.userId ? "visible" : "hidden"}}
-                            >Delete</button>
-                        </div>
-
-                    ))}
-              
-
-            </div>
-
-        </div>
-    )
-}
+  return (
+    <div className="comment-container">
+      <h2>Song Comments</h2>
+      <div className="comment-box">
+        {comments.map((comment) => (
+          <div key={comment.id} className="single-comment">
+            <p>
+            {comment.body}            
+            </p>
+            <button
+              id={comment.id}
+              onClick={(e) => dispatch(deleteComment(e.target.id))}
+              style={{
+                visibility:
+                  user && user.id === comment.userId ? "visible" : "hidden",
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Comment;
