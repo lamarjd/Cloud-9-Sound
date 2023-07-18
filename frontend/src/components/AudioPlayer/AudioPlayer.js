@@ -13,6 +13,7 @@ const Player = () => {
         footer
         src={url}
         onPlay={(e) => console.log("onPlay")}
+        onPause={(e) => console.log("onPause")}
         showJumpControls={false}
         volume="0.2"
       />

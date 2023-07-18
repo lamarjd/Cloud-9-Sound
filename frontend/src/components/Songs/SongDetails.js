@@ -23,6 +23,8 @@ const SongDetails = ({ songs, user }) => {
 
   const [showCommentForm, setShowCommentForm] = useState(false);
 
+  const [isPlayed, setIsPlayed] = useState(false)
+
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
@@ -52,10 +54,24 @@ const SongDetails = ({ songs, user }) => {
             </div>
 
             <div className="play-button-div">
-              <i
-                onClick={() => setUrl(song.url)}
-                className="fa-solid fa-circle-play"
-              ></i>
+              {isPlayed ? (
+
+                
+                <i class="fa-solid fa-circle-pause"
+                onClick={() => {
+                  // setUrl('')
+                  setIsPlayed(false)}}
+                ></i>
+                ) : (                    
+                    <i
+                    onClick={() => {
+                      setUrl(song.url);
+                      setIsPlayed(true)}}
+                      className="fa-solid fa-circle-play"
+                      ></i>
+                    )}
+              
+
             </div>
             <span className="player-image">
               <img alt="audio-wave" src={audio} />
