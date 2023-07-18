@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSong, deleteSong } from "../../store/songs.js";
@@ -8,12 +8,14 @@ import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
 import audio from "../assets/images/audio.png";
 import "./Song.css";
+// import ReactAudioPlayer from 'react-audio-player';
 
 const SongDetails = ({ songs, user }) => {
   const dispatch = useDispatch();
+  // const player = useRef(null)
   const history = useHistory();
   const { songId } = useParams();
-  const { setUrl } = usePlayer();
+  const { setUrl, playbackPosition, setPlaybackPosition } = usePlayer();
   const song = useSelector((state) => {
     return state.songs[songId];
   });
@@ -42,6 +44,19 @@ const SongDetails = ({ songs, user }) => {
     history.push("/");
   };
 
+  const handlePlayPause = () => {
+    if (isPlayed) {
+      setIsPlayed(false);
+      // Pause the audio player
+      setUrl("");
+  
+    } else {
+      setIsPlayed(true);
+      // Play the audio player
+      setUrl(song.url);
+    }
+  };
+
   return (
     <div className="outer-lining">
       <div className="song-detail-container">
@@ -54,19 +69,15 @@ const SongDetails = ({ songs, user }) => {
             </div>
 
             <div className="play-button-div">
+              
               {isPlayed ? (
 
-                
                 <i class="fa-solid fa-circle-pause"
-                onClick={() => {
-                  // setUrl('')
-                  setIsPlayed(false)}}
+                onClick={handlePlayPause}
                 ></i>
                 ) : (                    
                     <i
-                    onClick={() => {
-                      setUrl(song.url);
-                      setIsPlayed(true)}}
+                    onClick={handlePlayPause}
                       className="fa-solid fa-circle-play"
                       ></i>
                     )}
