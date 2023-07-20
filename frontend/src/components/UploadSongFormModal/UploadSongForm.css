@@ -13,3 +13,7 @@
 .upload_song_form input {
     font-family: 'Josefin Sans', sans-serif;
 }
+
+.upload-song {
+    padding-top: 3px;
+}

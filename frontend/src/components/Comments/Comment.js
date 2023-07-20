@@ -18,38 +18,26 @@ const Comment = ({ user }) => {
 
   return (
     <div className="comment-container">
-      
-
-    <div className="comment-insights">
-
-  <h4 id="insight-text">
-
-
-    <i className="fa-solid fa-comment"></i>&nbsp;{comments.length} Comments
-  
-  </h4>
-    </div>
-
+      <div className="comment-insights">
+        <h4 id="insight-text">
+          <i className="fa-solid fa-comment"></i>&nbsp;{comments.length}{" "}
+          Comments
+        </h4>
+      </div>
 
       <div className="comment-box">
         {comments.map((comment) => (
           <div key={comment.id} className="single-comment">
-            
-            {/* <div className="user-icon-box">me</div> */}
-
-            <p>
-            {comment.body}            
-            </p>
+            <p>{comment.body}</p>
             {/* Only the owner of the comment can delete a comment */}
-            { user && user.id === comment.userId &&
-
+            {user && user.id === comment.userId && (
               <button
-              id={comment.id}
-              onClick={(e) => dispatch(deleteComment(e.target.id))}
-                >
-              <i className="fa-solid fa-trash"></i>
-            </button>
-            }
+                id={comment.id}
+                onClick={(e) => dispatch(deleteComment(e.target.id))}
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -57,4 +45,4 @@ const Comment = ({ user }) => {
   );
 };
 
-export default Comment; 
+export default Comment;

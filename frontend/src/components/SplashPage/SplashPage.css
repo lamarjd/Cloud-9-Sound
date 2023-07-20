@@ -54,16 +54,18 @@
   .sign-in {
     background: transparent;
     color: #fff;
-    /* border-color: #f50; */
-    background-color: rgba(93, 61, 45, 0.528);
+    border: 1px solid white;
+    border-color: white;
+    background-color: black;
     height: 30px;
     line-height: 24px;
     margin: 0 0 0 6px;
     padding: 2px 15px;
-    padding-top: 2px;
+    padding-top: 3px;
     padding-right: 15px;
     padding-bottom: 2px;
     padding-left: 15px;    
+    font-size: small;
   }
 
   .create-account {
@@ -73,14 +75,15 @@
     background-color: #f50;
     /* border-color: #f50; */
     color: #fff;
-    width: 50%;
+    width: 100%;
     line-height: 24px;
     margin: 0 0 0 6px;
     padding: 2px 15px;
-    padding-top: 2px;
+    padding-top: 3px;
     padding-right: 15px;
     padding-bottom: 2px;
-    padding-left: 15px; 
+    padding-left: 15px;
+    font-size: small;
   }
 
 .center {

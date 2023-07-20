@@ -46,6 +46,7 @@ function App() {
           <Route exact path="/songs/:songId">
             <Navigation isLoaded={isLoaded} />
             <SongDetails user={user} />
+            {/* <Player /> */}
           </Route>
           <Route exact path="/">
             <Navigation isLoaded={isLoaded} />
@@ -53,7 +54,7 @@ function App() {
           </Route>
         </Switch>
       )}
-      <Player />
+        <Player /> 
     </div>
   );
 }
