@@ -71,13 +71,7 @@ Not implemented, but the below allows usage of arrow buttons to navigate through
               
               <img alt="splash-pic" id="splashImg" src={images[currentIndex]} />
 
-              {/* <div className="splash-radial">
-                {images.map(() => {
-
-                return "O"
-                })}
-              </div> */}
-
+         
 <div className="splash-radial">
         {images.map((_, index) => (
           <div
