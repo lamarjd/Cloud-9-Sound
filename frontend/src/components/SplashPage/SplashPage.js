@@ -18,24 +18,49 @@ const images = [
 function SplashPage({ user }) {
   // carousel state
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedCircleIndex, setSelectedCircleIndex] = useState(0);
 
-  // Carousel Previous image
-  const prevImage = () => {
-    setCurrentIndex(currentIndex === 0 ? images.length -1 : currentIndex -1)
-  }
 
-  // Carousel Next image
-  const nextImage = () => {
-    setCurrentIndex(currentIndex === images.length -1 ? 0 : currentIndex + 1)
-  }
+/*
+Not implemented, but the below allows usage of arrow buttons to navigate through the images
+*/
+  // // Carousel Previous image
+  // const prevImage = () => {
+  //   setCurrentIndex(currentIndex === 0 ? images.length -1 : currentIndex -1)
+  // }
 
+  // // Carousel Next image
+  // const nextImage = () => {
+  //   setCurrentIndex(currentIndex === images.length -1 ? 0 : currentIndex + 1)
+  // }
+
+  // Circle Clcik
+  const handleCircleClick = (index) => {
+    setCurrentIndex(index);
+    setSelectedCircleIndex(index);
+  };
+
+// sets up the carousel timer when the component mounts, and the second useEffect ensures that the selectedCircleIndex is updated when the currentIndex changes.
   useEffect(() => {
     let intervalId;
-    setInterval(() => {
-      intervalId = setCurrentIndex(currentIndex === images.length - 1 ? 0: currentIndex + 1)
-    }, 10000)
-    return () => clearInterval(intervalId)
-  }, [currentIndex, images])
+
+    const startCarousel = () => {
+      intervalId = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+      }, 10000);
+    };
+
+    startCarousel();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+
+  useEffect(() => {
+    setSelectedCircleIndex(currentIndex);
+  }, [currentIndex]);
 
   return (
     <>
@@ -46,12 +71,22 @@ function SplashPage({ user }) {
               
               <img alt="splash-pic" id="splashImg" src={images[currentIndex]} />
 
-              <div className="splash-radial">
+              {/* <div className="splash-radial">
                 {images.map(() => {
 
                 return "O"
                 })}
-              </div>
+              </div> */}
+
+<div className="splash-radial">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`radial-circle${selectedCircleIndex === index ? ' selected' : ''}`}
+            onClick={() => handleCircleClick(index)}
+          />
+        ))}
+      </div>
 
               <div className="top-left">
                 <img id="logo" alt="logo" src={logo} />
