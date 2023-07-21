@@ -43,7 +43,16 @@ function SplashPage({ user }) {
         <div className="splash-container">
           <div className="splash-content">
             <div className="splash-picture-container">
+              
               <img alt="splash-pic" id="splashImg" src={images[currentIndex]} />
+
+              <div className="splash-radial">
+                {images.map(() => {
+
+                return "O"
+                })}
+              </div>
+
               <div className="top-left">
                 <img id="logo" alt="logo" src={logo} />
               </div>

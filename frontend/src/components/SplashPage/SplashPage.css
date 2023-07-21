@@ -100,6 +100,37 @@
     width: 100%;
 }
 
+.splash-radial {
+    width: 1180px;
+    height: 10px;
+    background: transparent;
+    border-radius: 6px;
+    /* border: 3px solid red; */
+    cursor: pointer;
+    background: transparent;
+    position: absolute;
+    margin-top: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center */
+
+    background: transparent;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+    
+    
+
+}
+
 .carousel {
     transform: translateX(-33.3333%); transition: transform 0.6s ease-in-out 0s; width: 300%;
 }
