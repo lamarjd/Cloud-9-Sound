@@ -1,19 +1,49 @@
 import { Route } from "react-router-dom";
+import {useState, useEffect} from 'react';
 import Song from "../Songs/Song";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import logo from "../assets/images/CLOUD9Logo.png";
+import splash1 from "../assets/images/splash1.jpg";
 import splash2 from "../assets/images/splash2.jpg";
+import splash3 from "../assets/images/splash3.jpg";
 import "./SplashPage.css";
 
+const images = [
+  splash1,
+  splash2,
+  splash3
+]
+
 function SplashPage({ user }) {
+  // carousel state
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Carousel Previous image
+  const prevImage = () => {
+    setCurrentIndex(currentIndex === 0 ? images.length -1 : currentIndex -1)
+  }
+
+  // Carousel Next image
+  const nextImage = () => {
+    setCurrentIndex(currentIndex === images.length -1 ? 0 : currentIndex + 1)
+  }
+
+  useEffect(() => {
+    let intervalId;
+    setInterval(() => {
+      intervalId = setCurrentIndex(currentIndex === images.length - 1 ? 0: currentIndex + 1)
+    }, 10000)
+    return () => clearInterval(intervalId)
+  }, [currentIndex, images])
+
   return (
     <>
       {!user && (
         <div className="splash-container">
           <div className="splash-content">
             <div className="splash-picture-container">
-              <img alt="splash-pic" id="splashImg" src={splash2} />
+              <img alt="splash-pic" id="splashImg" src={images[currentIndex]} />
               <div className="top-left">
                 <img id="logo" alt="logo" src={logo} />
               </div>
