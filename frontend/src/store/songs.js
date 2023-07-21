@@ -5,8 +5,16 @@ const LOAD_SONGS = 'songs/LOAD_SONGS'
 const EDIT_SONG = 'songs/EDIT_SONG'
 const ADD_SONG = ' songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
+const SEARCH_SONG = 'songs/SEARCH_SONG'
 
 // ACTION CREATOR =====================
+const search = (songs) => {
+    return {
+        type: SEARCH_SONG,
+        songs
+    }
+}
+
 const load = (songs) => {
     return {
         type: LOAD_SONGS,
@@ -38,6 +46,17 @@ const remove = (songId) => {
 // ================================
 
 // THUNK ACTIONS ==================
+
+export const getFilteredSong = (searchQuery) => async dispatch => {
+    const response = await csrfFetch(`/api/songs?search=${encodeURIComponent(searchQuery)}`);
+
+    if (response.ok) {
+        const filtered = await response.json();
+        dispatch(search(filtered))
+
+    }
+}
+
 export const getSongs = () => async dispatch => {
     const response = await csrfFetch(`/api/songs`);
     
@@ -147,8 +166,16 @@ const songReducer = (state = initialState, action) => {
             newState = {...state}
             delete newState[action.songId]
             return newState;
+            case SEARCH_SONG:
+                console.log("Searching for song")
+                const filteredSongs = {}
+                // Here we are storing the song title based on its id
+                action.songs.Songs.forEach((song) => (filteredSongs[song.id] = song.title)) 
+                console.log("Is this the song?", filteredSongs)
+                return filteredSongs
         default:
             return state;
+
     }
 }
 

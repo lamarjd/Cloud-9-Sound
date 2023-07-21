@@ -6,7 +6,8 @@ import "./Song.css";
 // import UploadSongForm from "./UploadSongForm"
 import SongDetails from "./SongDetails";
 
-import { getSongs } from "../../store/songs.js";
+import { getSongs, getFilteredSong } from "../../store/songs.js";
+
 
 const Song = ({ songs }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,23 @@ const Song = ({ songs }) => {
   const songArr = Object.values(song);
   // console.log("SONGARR", songArr)
 
-  // const [showForm, setShowForm] = useState(false)
+  // SEARCH
+  const [filteredSongs, setFilteredSongs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      dispatch(getFilteredSong(searchQuery))
+      // setFilteredSongs(filteredSongs);
+    } catch (error) {
+      console.error('Error fetching filtered songs:', error);
+    }
+  };
 
   useEffect(() => {
     setShowUploadForm(false);
@@ -37,6 +54,25 @@ const Song = ({ songs }) => {
       {/* <h3> Here's what's trending</h3>  */}
       {!showUploadForm && (
         <div className="song_list">
+
+          {/* Add the search bar */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for songs..."
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
+        {/* Display the filtered songs */}
+        <div className="song-list">
+          {filteredSongs.map((song) => (
+            <div key={song.id}>{song.title}</div>
+          ))}
+        </div>
+
           {/* Library Song list page */}
           {songArr.map(({ id, title, imageUrl }) => {
             return (
@@ -58,5 +94,9 @@ const Song = ({ songs }) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  filteredSongs: state.filteredSongs,
+});
 
 export default Song;

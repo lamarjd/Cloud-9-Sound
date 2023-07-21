@@ -5,6 +5,26 @@ const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { Song, User, Album, Comment, PlaylistSong } = require('../../db/models');
 
 
+// SEARCH
+router.get('/songs', async (req, res) => {
+  const { search } = req.query;
+
+  try {
+    const filteredSongs = await Song.findAll({
+      where: {
+        title: {
+          [Sequelize.Op.iLike]: `%${search}%`, // Perform a case-insensitive search
+        },
+      },
+    });
+
+    res.json(filteredSongs);
+  } catch (error) {
+    console.error('Error fetching filtered songs:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Create a Comment for a Song based on the Song's id
 // authenticate: yes
 router.post('/:songId/comments', requireAuth, async (req,res) =>{
