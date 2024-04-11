@@ -15,7 +15,9 @@ const SongDetails = ({ songs, user }) => {
   // const player = useRef(null)
   const history = useHistory();
   const { songId } = useParams();
-  const { setUrl, playbackPosition, setPlaybackPosition } = usePlayer();
+  const { url, setUrl, isPlaying, setPlaybackState } = usePlayer(); // Use isPlaying from context
+  
+  
   const song = useSelector((state) => {
     return state.songs[songId];
   });
@@ -34,6 +36,8 @@ const SongDetails = ({ songs, user }) => {
     dispatch(getOneSong(songId));
   }, [dispatch, songId]);
 
+  
+
   if (!song) {
     return null;
   }
@@ -45,15 +49,9 @@ const SongDetails = ({ songs, user }) => {
   };
 
   const handlePlayPause = () => {
-    if (isPlayed) {
-      setIsPlayed(false);
-      // Pause the audio player
-      setUrl("");
-  
-    } else {
-      setIsPlayed(true);
-      // Play the audio player
-      setUrl(song.url);
+    setPlaybackState(!isPlaying); // Toggle playback state in context
+    if (!isPlaying) {
+      setUrl(song.url); // Only set URL if we're about to play
     }
   };
 
@@ -69,21 +67,12 @@ const SongDetails = ({ songs, user }) => {
             </div>
 
             <div className="play-button-div">
-              
-              {isPlayed ? (
-
-                <i class="fa-solid fa-circle-pause"
-                onClick={handlePlayPause}
-                ></i>
-                ) : (                    
-                    <i
-                    onClick={handlePlayPause}
-                      className="fa-solid fa-circle-play"
-                      ></i>
-                    )}
-              
-
-            </div>
+        {isPlaying && url === song.url ? ( // Check if this song is currently playing
+          <i className="fa-solid fa-circle-pause" onClick={handlePlayPause}></i>
+        ) : (
+          <i className="fa-solid fa-circle-play" onClick={handlePlayPause}></i>
+        )}
+      </div>
             <span className="player-image">
               <img alt="audio-wave" src={audio} />
             </span>

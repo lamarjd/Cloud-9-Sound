@@ -1,27 +1,35 @@
-import { useState, useContext, createContext, useEffect } from 'react';
-
+import { useState, useContext, createContext } from 'react';
 
 export const PlayerContext = createContext();
-export const usePlayer = () => useContext(PlayerContext)
 
-export function PlayerProvider(props) {
-    const [playSong, setPlaySong] = useState('off')
-    const [url, setUrl] = useState('')
+export const usePlayer = () => useContext(PlayerContext);
 
+export function PlayerProvider({ children }) {
+    const [url, setUrl] = useState('');
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+
+    const setPlaybackState = (playing) => {
+        setIsPlaying(playing);
+    };
+
+    const updateCurrentTime = (time) => {
+        setCurrentTime(time);
+    };
 
     return (
         <PlayerContext.Provider
             value={{
-                // possibly delete
-                playSong,
-                // possibly delete
-                setPlaySong,
                 url,
-                setUrl
+                setUrl,
+                isPlaying,
+                setIsPlaying, // You might want to expose setIsPlaying if needed
+                currentTime,
+                setPlaybackState,
+                updateCurrentTime,
             }}
         >
-            {props.children}
+            {children}
         </PlayerContext.Provider>
-    )
-
+    );
 }
