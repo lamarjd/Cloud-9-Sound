@@ -8,9 +8,6 @@ export function PlayerProvider(props) {
     const [playSong, setPlaySong] = useState('off')
     const [url, setUrl] = useState('')
 
-    // useEffect(() => {
-        
-    // })
 
     return (
         <PlayerContext.Provider
