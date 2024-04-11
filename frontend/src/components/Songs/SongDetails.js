@@ -90,7 +90,7 @@ const SongDetails = ({ songs, user }) => {
           </div>
           <ul>
             <li>
-              <b>Title: </b> {song.title}
+              <b className="song-title">Title: </b> {song.title}
             </li>
             <li>
               <b>Description: </b> {song.description}
