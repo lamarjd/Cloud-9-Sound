@@ -7,7 +7,7 @@ import "./AudioPlayer.css";
 const Player = ({ setProgress }) => {
   const { url, isPlaying, setIsPlaying } = usePlayer();
   const playerRef = useRef();
-  
+
 
   useEffect(() => {
     const audio = playerRef.current.audio.current;
@@ -34,6 +34,25 @@ const Player = ({ setProgress }) => {
     }
   }, [setProgress]);
 
+    const handleSeeked = (e) => {
+    const audio = playerRef.current.audio.current;
+    audio.currentTime = e.target.currentTime;
+    if (isPlaying) {
+      audio.play();
+    }
+  };
+  
+  useEffect((e) => {
+
+    const progressContainer = document.querySelector('.rhap_progress-container')
+    // console.log(progressContainer.getAttribute('aria-valuenow'))
+    const timer = progressContainer.getAttribute('aria-valuenow')
+    console.log("timer", timer)
+    // timer.setAttribute('aria-valuenow', timer)
+
+  })
+  
+
   return (
     <div>
       <AudioPlayer
@@ -46,6 +65,7 @@ const Player = ({ setProgress }) => {
         onPause={() => {
           if (isPlaying) setIsPlaying(false);
         }}
+        onSeeked={handleSeeked}
         showJumpControls={false}
         volume="0.5"
       />

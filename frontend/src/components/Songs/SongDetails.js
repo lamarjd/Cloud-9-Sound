@@ -13,7 +13,7 @@ const SongDetails = ({ songs, user, setProgress, progress }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { songId } = useParams();
-  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer();
+  const { url, setUrl, isPlaying, setIsPlaying, currentTime } = usePlayer();
   
   const song = useSelector((state) => {
     return state.songs[songId];
@@ -59,6 +59,8 @@ const SongDetails = ({ songs, user, setProgress, progress }) => {
     height: '100%',
     background: 'linear-gradient(to right, rgba(233, 59, 6, 0.473) 50%, transparent 0)'
   };
+
+
 
   return (
     <div className="outer-lining">

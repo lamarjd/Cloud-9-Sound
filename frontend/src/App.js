@@ -14,6 +14,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const user = useSelector((state) => state.session.user);
 
@@ -28,7 +29,7 @@ function App() {
         <Switch>
           <Route exact path="/songs/:songId">
             <Navigation isLoaded={isLoaded} />
-            <SongDetails user={user} setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
+            <SongDetails user={user} setProgress={setProgress} progress={progress} currentTime={currentTime} setCurrentTime={setCurrentTime}/> {/* Pass setProgress */}
           </Route>
           <Route exact path="/">
             <SplashPage user={user} />
@@ -47,7 +48,7 @@ function App() {
         <Switch>
           <Route exact path="/songs/:songId">
             <Navigation isLoaded={isLoaded} />
-            <SongDetails user={user} setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
+            <SongDetails user={user} setProgress={setProgress} progress={progress} currentTime={currentTime} setCurrentTime={setCurrentTime}/> {/* Pass setProgress */}
             {/* <Player /> */}
           </Route>
           <Route exact path="/">
@@ -56,7 +57,7 @@ function App() {
           </Route>
         </Switch>
       )}
-        <Player setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
+        <Player setProgress={setProgress} progress={progress} currentTime={currentTime} setCurrentTime={setCurrentTime}/> {/* Pass setProgress */}
     </div>
   );
 }
