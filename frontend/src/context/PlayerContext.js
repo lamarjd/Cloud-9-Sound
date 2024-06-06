@@ -10,8 +10,8 @@ export function PlayerProvider({ children }) {
     const [currentTime, setCurrentTime] = useState(0);
 
 
-    const setPlaybackState = (playing) => {
-        setIsPlaying(playing);
+    const setPlaybackState = (isPlaying) => {
+        setIsPlaying(!isPlaying);
     };
 
     const updateCurrentTime = (time) => {

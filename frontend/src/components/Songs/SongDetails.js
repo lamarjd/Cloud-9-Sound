@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSong, deleteSong } from "../../store/songs.js";
@@ -8,35 +8,13 @@ import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
 import audio from "../assets/images/audio.png";
 import "./Song.css";
-import { PlayerContext } from "../../context/PlayerContext";
-// import ReactAudioPlayer from 'react-audio-player';
 
 const SongDetails = ({ songs, user }) => {
-
-//   const playerContext = useContext(PlayerContext);
-//   console.log("Player Context", playerContext)
-//   // Direct Access to the current Timer Scrubber
-//   const {currentTime, duration} = playerContext;
-
-//   const percentagePlayed = (currentTime && duration) ? (currentTime / duration) * 100 : 0;
-//   console.log("Percent", percentagePlayed + "%");
-  
-//   const progressBarStyle = {
-//     background: `linear-gradient(to right, rgba(233, 59, 6, 0.473) 50%, transparent 0)`
-// };
-
-// useEffect(() => {
-// console.log("Hello from useeffect")
-//   console.log("Current Time", currentTime)
-// }, [currentTime, duration])
-
-
   const dispatch = useDispatch();
-  // const player = useRef(null)
   const history = useHistory();
   const { songId } = useParams();
-  const { url, setUrl, isPlaying, setPlaybackState } = usePlayer(); // Use isPlaying from context
-  
+
+  const { url, setUrl, isPlaying, setIsPlaying, setPlaybackState } = usePlayer(); // Use isPlaying from context
   
   const song = useSelector((state) => {
     return state.songs[songId];
@@ -44,10 +22,7 @@ const SongDetails = ({ songs, user }) => {
 
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
-
   const [showCommentForm, setShowCommentForm] = useState(false);
-
-  const [isPlayed, setIsPlayed] = useState(false)
 
   useEffect(() => {
     setShowEditSongForm(false);
@@ -55,8 +30,6 @@ const SongDetails = ({ songs, user }) => {
     setEditSongId(null);
     dispatch(getOneSong(songId));
   }, [dispatch, songId]);
-
-  
 
   if (!song) {
     return null;
@@ -69,7 +42,7 @@ const SongDetails = ({ songs, user }) => {
   };
 
   const handlePlayPause = () => {
-    setPlaybackState(!isPlaying); // Toggle playback state in context
+    setPlaybackState(isPlaying); // Update playback state in context
     if (!isPlaying) {
       setUrl(song.url); // Only set URL if we're about to play
     }
@@ -80,27 +53,20 @@ const SongDetails = ({ songs, user }) => {
       <div className="song-detail-container">
         <div className="single-song-container">
           <h2>Song Details</h2>
-
           <div className="single-song-detail">
             <div className="pic-container">
               <img alt="song-pic" className="pic" src={song.imageUrl} />
             </div>
-
             <div className="play-button-div">
-        {isPlaying && url === song.url ? ( // Check if this song is currently playing
-          <i className="fa-solid fa-circle-pause" onClick={handlePlayPause}></i>
-        ) : (
-          <i className="fa-solid fa-circle-play" onClick={handlePlayPause}></i>
-        )}
-      </div>
-            <span className="player-image" >
-
+              {isPlaying && url === song.url ? (
+                <i className="fa-solid fa-circle-pause" onClick={handlePlayPause}></i>
+              ) : (
+                <i className="fa-solid fa-circle-play" onClick={handlePlayPause}></i>
+              )}
+            </div>
+            <span className="player-image">
               {/* GO  !!!!!!!!!!!!!!!!!!!!!!!111 */}
-              
               {/* <img alt="audio-wave" src={audio} /> */}
-           
-      
- 
             </span>
           </div>
           <ul>

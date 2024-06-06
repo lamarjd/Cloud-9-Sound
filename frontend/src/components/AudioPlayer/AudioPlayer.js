@@ -6,19 +6,22 @@ import { usePlayer } from "../../context/PlayerContext.js";
 import "./AudioPlayer.css";
 
 const Player = () => {
-  const { url } = usePlayer();
+  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer();
   const playerRef = useRef();
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
+  // console.log("PLayer playing state", isPlaying);
+  
   useEffect(() => {
     const audio = playerRef.current.audio.current;
-    if (isPlaying) {
+    if (isPlaying && url) {
+      console.log("URL", url)
       audio.play();
     } else {
+      setIsPlaying(false);
       audio.pause();
-    }
-  }, [isPlaying]);
+    }    
+  }, [isPlaying, url]);
+
+
   
 
   return (
@@ -28,10 +31,10 @@ const Player = () => {
         footer
         src={url}
         ref={playerRef}
-        onPlay={(e) => console.log("onPlay")}
-        onPause={(e) => console.log("onPause")}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         showJumpControls={false}
-        volume="0.2"
+        volume="0.5"
       />
     </div>
   );
