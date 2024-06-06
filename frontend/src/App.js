@@ -13,6 +13,7 @@ import "./index.css";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const user = useSelector((state) => state.session.user);
 
@@ -20,13 +21,14 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+
   return (
     <div className="App">
       {!user && (
         <Switch>
           <Route exact path="/songs/:songId">
             <Navigation isLoaded={isLoaded} />
-            <SongDetails user={user} />
+            <SongDetails user={user} setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
           </Route>
           <Route exact path="/">
             <SplashPage user={user} />
@@ -45,7 +47,7 @@ function App() {
         <Switch>
           <Route exact path="/songs/:songId">
             <Navigation isLoaded={isLoaded} />
-            <SongDetails user={user} />
+            <SongDetails user={user} setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
             {/* <Player /> */}
           </Route>
           <Route exact path="/">
@@ -54,7 +56,7 @@ function App() {
           </Route>
         </Switch>
       )}
-        <Player /> 
+        <Player setProgress={setProgress} progress={progress}/> {/* Pass setProgress */}
     </div>
   );
 }

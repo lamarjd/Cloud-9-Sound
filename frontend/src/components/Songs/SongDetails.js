@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSong, deleteSong } from "../../store/songs.js";
@@ -6,15 +6,14 @@ import { usePlayer } from "../../context/PlayerContext";
 import EditSongForm from "./EditSongForm";
 import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
-import audio from "../assets/images/audio.png";
 import "./Song.css";
+import Player from "../AudioPlayer/AudioPlayer.js"; // Correct import
 
-const SongDetails = ({ songs, user }) => {
+const SongDetails = ({ songs, user, setProgress, progress }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { songId } = useParams();
-
-  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer(); // Use isPlaying from context
+  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer();
   
   const song = useSelector((state) => {
     return state.songs[songId];
@@ -23,8 +22,8 @@ const SongDetails = ({ songs, user }) => {
   const [showEditSongForm, setShowEditSongForm] = useState(false);
   const [editSongId, setEditSongId] = useState(null);
   const [showCommentForm, setShowCommentForm] = useState(false);
+  
 
-  // Reset edit form and comment form when song changes
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
@@ -32,12 +31,11 @@ const SongDetails = ({ songs, user }) => {
     dispatch(getOneSong(songId));
   }, [dispatch, songId]);
 
-  // Set URL when song changes
-  useEffect(() => {
-    if (song && song.url) {
-      setUrl(song.url)
-    }
-  }, [song, setUrl])
+  // useEffect(() => {
+  //   if (song && song.url) {
+  //     setUrl(song.url);
+  //   }
+  // }, [song, setUrl]);
 
   if (!song) {
     return null;
@@ -50,10 +48,16 @@ const SongDetails = ({ songs, user }) => {
   };
 
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying); // Update playback state in context
     if (!isPlaying) {
-      setUrl(song.url); // Only set URL if we're about to play
+      setUrl(song.url);
     }
+    setIsPlaying(!isPlaying);
+  };
+
+  const progressBarStyle = {
+    width: `${progress}%`,
+    height: '100%',
+    background: 'linear-gradient(to right, rgba(233, 59, 6, 0.473) 50%, transparent 0)'
   };
 
   return (
@@ -73,8 +77,7 @@ const SongDetails = ({ songs, user }) => {
               )}
             </div>
             <span className="player-image">
-              {/* GO  !!!!!!!!!!!!!!!!!!!!!!!111 */}
-              {/* <img alt="audio-wave" src={audio} /> */}
+              <div className="progress-bar" style={progressBarStyle}></div>
             </span>
           </div>
           <ul>
@@ -85,6 +88,7 @@ const SongDetails = ({ songs, user }) => {
               <b>Description: </b> {song.description}
             </li>
           </ul>
+
 
           <Comment user={user} />
 

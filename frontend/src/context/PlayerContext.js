@@ -4,7 +4,7 @@ export const PlayerContext = createContext();
 
 export const usePlayer = () => useContext(PlayerContext);
 
-export function PlayerProvider({ children }) {
+export function PlayerProvider({ children, setProgress }) {
     const [url, setUrl] = useState('');
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
