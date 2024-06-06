@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSong, deleteSong } from "../../store/songs.js";
@@ -8,9 +8,29 @@ import AddCommentForm from "../Comments/AddCommentForm";
 import Comment from "../Comments/Comment.js";
 import audio from "../assets/images/audio.png";
 import "./Song.css";
+import { PlayerContext } from "../../context/PlayerContext";
 // import ReactAudioPlayer from 'react-audio-player';
 
 const SongDetails = ({ songs, user }) => {
+
+//   const playerContext = useContext(PlayerContext);
+//   console.log("Player Context", playerContext)
+//   // Direct Access to the current Timer Scrubber
+//   const {currentTime, duration} = playerContext;
+
+//   const percentagePlayed = (currentTime && duration) ? (currentTime / duration) * 100 : 0;
+//   console.log("Percent", percentagePlayed + "%");
+  
+//   const progressBarStyle = {
+//     background: `linear-gradient(to right, rgba(233, 59, 6, 0.473) 50%, transparent 0)`
+// };
+
+// useEffect(() => {
+// console.log("Hello from useeffect")
+//   console.log("Current Time", currentTime)
+// }, [currentTime, duration])
+
+
   const dispatch = useDispatch();
   // const player = useRef(null)
   const history = useHistory();
@@ -73,8 +93,14 @@ const SongDetails = ({ songs, user }) => {
           <i className="fa-solid fa-circle-play" onClick={handlePlayPause}></i>
         )}
       </div>
-            <span className="player-image">
-              <img alt="audio-wave" src={audio} />
+            <span className="player-image" >
+
+              {/* GO  !!!!!!!!!!!!!!!!!!!!!!!111 */}
+              
+              {/* <img alt="audio-wave" src={audio} /> */}
+           
+      
+ 
             </span>
           </div>
           <ul>

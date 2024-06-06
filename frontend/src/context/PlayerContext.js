@@ -9,11 +9,13 @@ export function PlayerProvider({ children }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
 
+
     const setPlaybackState = (playing) => {
         setIsPlaying(playing);
     };
 
     const updateCurrentTime = (time) => {
+        
         setCurrentTime(time);
     };
 
@@ -28,8 +30,11 @@ export function PlayerProvider({ children }) {
                 setPlaybackState,
                 updateCurrentTime,
             }}
+
         >
+            <>
             {children}
+            </>
         </PlayerContext.Provider>
     );
 }
