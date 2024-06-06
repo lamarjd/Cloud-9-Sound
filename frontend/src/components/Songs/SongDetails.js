@@ -37,7 +37,7 @@ const SongDetails = ({ songs, user }) => {
     if (song && song.url) {
       setUrl(song.url)
     }
-  })
+  }, [song, setUrl])
 
   if (!song) {
     return null;
