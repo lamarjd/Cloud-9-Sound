@@ -14,7 +14,7 @@ const SongDetails = ({ songs, user }) => {
   const history = useHistory();
   const { songId } = useParams();
 
-  const { url, setUrl, isPlaying, setIsPlaying, setPlaybackState } = usePlayer(); // Use isPlaying from context
+  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer(); // Use isPlaying from context
   
   const song = useSelector((state) => {
     return state.songs[songId];
@@ -24,12 +24,20 @@ const SongDetails = ({ songs, user }) => {
   const [editSongId, setEditSongId] = useState(null);
   const [showCommentForm, setShowCommentForm] = useState(false);
 
+  // Reset edit form and comment form when song changes
   useEffect(() => {
     setShowEditSongForm(false);
     setShowCommentForm(false);
     setEditSongId(null);
     dispatch(getOneSong(songId));
   }, [dispatch, songId]);
+
+  // Set URL when song changes
+  useEffect(() => {
+    if (song && song.url) {
+      setUrl(song.url)
+    }
+  })
 
   if (!song) {
     return null;
@@ -42,7 +50,7 @@ const SongDetails = ({ songs, user }) => {
   };
 
   const handlePlayPause = () => {
-    setPlaybackState(isPlaying); // Update playback state in context
+    setIsPlaying(!isPlaying); // Update playback state in context
     if (!isPlaying) {
       setUrl(song.url); // Only set URL if we're about to play
     }

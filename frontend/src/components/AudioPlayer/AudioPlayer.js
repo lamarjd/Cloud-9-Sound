@@ -13,7 +13,6 @@ const Player = () => {
   useEffect(() => {
     const audio = playerRef.current.audio.current;
     if (isPlaying && url) {
-      console.log("URL", url)
       audio.play();
     } else {
       setIsPlaying(false);
