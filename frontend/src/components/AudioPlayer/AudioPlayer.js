@@ -4,11 +4,11 @@ import "react-h5-audio-player/lib/styles.css";
 import { usePlayer } from "../../context/PlayerContext.js";
 import "./AudioPlayer.css";
 
-const Player = ({ setProgress, currentTime, setCurrentTime }) => {
-  const { url, isPlaying, setIsPlaying } = usePlayer();
+const Player = ({ setProgress }) => {
+  const { url, isPlaying, setIsPlaying, currentTime, setCurrentTime } = usePlayer();
   const playerRef = useRef();
 
-
+  //  Play / Pause the audio player
   useEffect(() => {
     const audio = playerRef.current.audio.current;
     if (isPlaying && url) {
@@ -18,9 +18,10 @@ const Player = ({ setProgress, currentTime, setCurrentTime }) => {
     }
   }, [isPlaying, url]);
 
+  // Set the current time of the audio player
   useEffect(() => {
     const audio = playerRef.current.audio.current;
-    if (audio) {
+    if (audio && currentTime !== audio.currentTime) {
       audio.currentTime = currentTime;
     }
   }, [currentTime]);
@@ -41,23 +42,49 @@ const Player = ({ setProgress, currentTime, setCurrentTime }) => {
     }
   }, [setProgress]);
 
-    const handleSeeked = (e) => {
+  const handleSeeked = () => {
     const audio = playerRef.current.audio.current;
-    audio.currentTime = e.target.currentTime;
-    if (isPlaying) {
-      audio.play();
-    }
-  };
-  
-  // Get the current time of the audio player  
-  // useEffect((e) => {
+    const seekTime = audio.currentTime;
+    console.log("seekTime", seekTime )
 
+    setCurrentTime(seekTime);
+    if (!isPlaying) {
+      setIsPlaying(true);
+    }
+    audio.play();
+  };
+
+  // const handleSeeked = () => {
+  //    const progressContainer = document.querySelector('.rhap_progress-container')
+  //   const timer = progressContainer.getAttribute('aria-valuenow')
+  //   // console.log("timer", timer)
+  // };
+
+  useEffect(() => {
+    const audio = playerRef.current.audio.current;
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [setCurrentTime]); 
+
+
+  // Get the current time of the audio player  
+  // useEffect(() => {
+  //   const audio = playerRef.current.audio.current;
   //   const progressContainer = document.querySelector('.rhap_progress-container')
   //   // console.log(progressContainer.getAttribute('aria-valuenow'))
   //   const timer = progressContainer.getAttribute('aria-valuenow')
+
   //   console.log("timer", timer)
+  //   audio.currentTime = timer
   //   // timer.setAttribute('aria-valuenow', timer)
-  // })
+  // } )
   
 
   return (
@@ -73,6 +100,9 @@ const Player = ({ setProgress, currentTime, setCurrentTime }) => {
           if (isPlaying) setIsPlaying(false);
         }}
         onSeeked={handleSeeked}
+        onListen={(e) => {
+          setCurrentTime(e.target.currentTime);
+        }}
         showJumpControls={false}
         volume="0.5"
       />

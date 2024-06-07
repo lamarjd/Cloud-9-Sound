@@ -13,7 +13,7 @@ const SongDetails = ({ songs, user, progress }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { songId } = useParams();
-  const { url, setUrl, isPlaying, setIsPlaying, currentTime } = usePlayer();
+  const { url, setUrl, isPlaying, setIsPlaying } = usePlayer();
   
   const song = useSelector((state) => {
     return state.songs[songId];
