@@ -26,9 +26,7 @@ export function PlayerProvider({ children, setProgress, currentTime, setCurrentT
                 setUrl,
                 isPlaying,
                 setIsPlaying, // You might want to expose setIsPlaying if needed
-                currentTime,
-                setPlaybackState,
-                updateCurrentTime,
+                setPlaybackState
             }}
 
         >

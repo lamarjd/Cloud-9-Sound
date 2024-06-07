@@ -9,7 +9,7 @@ import Comment from "../Comments/Comment.js";
 import "./Song.css";
 import Player from "../AudioPlayer/AudioPlayer.js"; // Correct import
 
-const SongDetails = ({ songs, user, setProgress, progress }) => {
+const SongDetails = ({ songs, user, progress }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { songId } = useParams();
@@ -48,10 +48,12 @@ const SongDetails = ({ songs, user, setProgress, progress }) => {
   };
 
   const handlePlayPause = () => {
-    if (!isPlaying) {
+    if (url !== song.url) {
       setUrl(song.url);
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(!isPlaying);
     }
-    setIsPlaying(!isPlaying);
   };
 
   const progressBarStyle = {
@@ -78,9 +80,15 @@ const SongDetails = ({ songs, user, setProgress, progress }) => {
                 <i className="fa-solid fa-circle-play" onClick={handlePlayPause}></i>
               )}
             </div>
+
+            {/* Progress Bar */}
             <span className="player-image">
-              <div className="progress-bar" style={progressBarStyle}></div>
+              {url === song.url && (
+                <div className="progress-bar" style={progressBarStyle}></div>
+              )}
             </span>
+            {/*  */}
+
           </div>
           <ul>
             <li>

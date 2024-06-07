@@ -4,7 +4,7 @@ import "react-h5-audio-player/lib/styles.css";
 import { usePlayer } from "../../context/PlayerContext.js";
 import "./AudioPlayer.css";
 
-const Player = ({ setProgress }) => {
+const Player = ({ setProgress, currentTime, setCurrentTime }) => {
   const { url, isPlaying, setIsPlaying } = usePlayer();
   const playerRef = useRef();
 
@@ -17,6 +17,13 @@ const Player = ({ setProgress }) => {
       audio.pause();
     }
   }, [isPlaying, url]);
+
+  useEffect(() => {
+    const audio = playerRef.current.audio.current;
+    if (audio) {
+      audio.currentTime = currentTime;
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     const progressContainer = document.querySelector('.rhap_progress-container');
@@ -42,15 +49,15 @@ const Player = ({ setProgress }) => {
     }
   };
   
-  useEffect((e) => {
+  // Get the current time of the audio player  
+  // useEffect((e) => {
 
-    const progressContainer = document.querySelector('.rhap_progress-container')
-    // console.log(progressContainer.getAttribute('aria-valuenow'))
-    const timer = progressContainer.getAttribute('aria-valuenow')
-    console.log("timer", timer)
-    // timer.setAttribute('aria-valuenow', timer)
-
-  })
+  //   const progressContainer = document.querySelector('.rhap_progress-container')
+  //   // console.log(progressContainer.getAttribute('aria-valuenow'))
+  //   const timer = progressContainer.getAttribute('aria-valuenow')
+  //   console.log("timer", timer)
+  //   // timer.setAttribute('aria-valuenow', timer)
+  // })
   
 
   return (
